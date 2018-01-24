@@ -17,4 +17,13 @@ public class Mult extends BinaireArithmetique {
         return " * ";
     }
 
+    @Override
+    public void verifier() {
+
+    }
+
+    @Override
+    public String toMIPS() {
+        return null;
+    }
 }

@@ -12,4 +12,13 @@ public class ConstanteBool extends Constante {
         super(texte, n) ;
     }
 
+    @Override
+    public void verifier() {
+
+    }
+
+    @Override
+    public String toMIPS() {
+        return null;
+    }
 }

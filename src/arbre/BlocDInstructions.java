@@ -13,7 +13,17 @@ public class BlocDInstructions extends ArbreAbstrait {
     public BlocDInstructions(int n) {
         super(n) ;
     }
-    
+
+    @Override
+    public void verifier() {
+
+    }
+
+    @Override
+    public String toMIPS() {
+        return null;
+    }
+
     public void ajouter(ArbreAbstrait a) {
         expr = a ;
     }

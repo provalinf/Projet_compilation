@@ -1,6 +1,6 @@
 package arbre.expression;
 
-import yal.arbre.ArbreAbstrait;
+import arbre.ArbreAbstrait;
 
 /**
  * 3 déc. 2015
@@ -13,5 +13,4 @@ public abstract class Expression extends ArbreAbstrait {
     protected Expression(int n) {
         super(n) ;
     }
-
 }

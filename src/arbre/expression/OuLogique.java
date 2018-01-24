@@ -17,4 +17,13 @@ public class OuLogique extends BinaireLogique {
         return " ou " ;
     }
 
+    @Override
+    public void verifier() {
+
+    }
+
+    @Override
+    public String toMIPS() {
+        return null;
+    }
 }

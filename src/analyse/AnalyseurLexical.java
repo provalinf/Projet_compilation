@@ -2,8 +2,8 @@
 
 package analyse;
 
+import exceptions.AnalyseLexicaleException;
 import java_cup.runtime.*;
-import yal.exceptions.AnalyseLexicaleException;
       
 
 /**
@@ -11,7 +11,7 @@ import yal.exceptions.AnalyseLexicaleException;
  * <a href="http://www.jflex.de/">JFlex</a> 1.6.1
  * from the specification file <tt>src/yal/analyse/AnalyseurLexical.jflex</tt>
  */
-public class AnalyseurLexical implements java_cup.runtime.Scanner {
+public class AnalyseurLexical implements Scanner {
 
   /** This character denotes the end of file */
   public static final int YYEOF = -1;

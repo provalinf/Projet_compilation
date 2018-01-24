@@ -17,4 +17,13 @@ public class NonLogique extends Unaire {
         return " non " ;
     }
 
+    @Override
+    public void verifier() {
+
+    }
+
+    @Override
+    public String toMIPS() {
+        return null;
+    }
 }
