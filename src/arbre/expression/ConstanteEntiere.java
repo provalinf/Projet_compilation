@@ -17,6 +17,8 @@ public class ConstanteEntiere extends Constante {
     public void verifier() {
         if(!cste.matches("-?\\d+")){
             throw new AnalyseSemantiqueException("Ligne "+noLigne+" : "+cste+" doit être un entier");
+        }else{
+            type="entier";
         }
     }
 

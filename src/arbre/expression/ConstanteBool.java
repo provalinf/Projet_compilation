@@ -18,6 +18,8 @@ public class ConstanteBool extends Constante {
     public void verifier() {
         if(!cste.equals("vrai") && !cste.equals("faux")){
             throw new AnalyseSemantiqueException("Ligne "+noLigne+" : "+cste+" doit être vrai ou faux");
+        }else{
+            type="booleen";
         }
     }
 

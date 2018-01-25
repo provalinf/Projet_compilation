@@ -10,7 +10,6 @@ public abstract class Comparaison extends Binaire {
      
     protected Comparaison(Expression gauche, Expression droite) {
         super(gauche, droite);
-        type="booleen";
     }
 
 }

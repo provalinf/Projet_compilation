@@ -25,6 +25,8 @@ public class Egal extends Comparaison {
         droite.verifier();
         if(!gauche.getType().equals(droite.getType())){
             throw new AnalyseSemantiqueException("Ligne "+noLigne+" : les opérandes de '==' doivent être du meme type");
+        }else{
+            type="booleen";
         }
     }
 

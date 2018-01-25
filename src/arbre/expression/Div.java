@@ -25,6 +25,8 @@ public class Div extends BinaireArithmetique {
 		droite.verifier();
 		if(!gauche.getType().equals("entier") && !droite.getType().equals("entier")){
 			throw new AnalyseSemantiqueException("Ligne "+noLigne+" : les opérandes de division doivent être du type 'entier'");
+		}else{
+			type="entier";
 		}
 	}
 

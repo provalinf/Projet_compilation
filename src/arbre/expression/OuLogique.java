@@ -25,6 +25,8 @@ public class OuLogique extends BinaireLogique {
         droite.verifier();
         if(!gauche.getType().equals("booleen") && !droite.getType().equals("booleen")){
             throw new AnalyseSemantiqueException("Ligne "+noLigne+" : les opérandes de 'ou' doivent être des booleens");
+        }else{
+            type="booleen";
         }
     }
 
