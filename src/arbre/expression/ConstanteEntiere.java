@@ -8,9 +8,7 @@ package arbre.expression;
 
 public class ConstanteEntiere extends Constante {
     
-    public ConstanteEntiere(String texte, int n) {
-        super(texte, n) ;
-    }
+    public ConstanteEntiere(String texte, int n) { super(texte, n) ; }
 
     @Override
     public void verifier() {
@@ -19,6 +17,6 @@ public class ConstanteEntiere extends Constante {
 
     @Override
     public String toMIPS() {
-        return null;
+        return "li $t8, "+cste+"\n";
     }
 }
