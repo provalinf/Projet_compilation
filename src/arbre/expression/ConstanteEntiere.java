@@ -1,5 +1,8 @@
 package arbre.expression;
 
+import exceptions.AnalyseException;
+import exceptions.AnalyseSemantiqueException;
+
 /**
  * 3 déc. 2015
  *
@@ -12,7 +15,11 @@ public class ConstanteEntiere extends Constante {
 
     @Override
     public void verifier() {
-
+        if(!cste.matches("-?\\d+")){
+            throw new AnalyseSemantiqueException("Ligne "+noLigne+" : "+cste+" doit être un entier");
+        }else{
+            type="entier";
+        }
     }
 
     @Override

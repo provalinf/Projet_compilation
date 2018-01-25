@@ -1,5 +1,7 @@
 package arbre.expression;
 
+import exceptions.AnalyseSemantiqueException;
+
 /**
  * 3 déc. 2015
  *
@@ -19,7 +21,13 @@ public class EtLogique extends BinaireLogique {
 
     @Override
     public void verifier() {
-
+        gauche.verifier();
+        droite.verifier();
+        if(!gauche.getType().equals("booleen") && !droite.getType().equals("booleen")){
+            throw new AnalyseSemantiqueException("Ligne "+noLigne+" : les opérandes de 'et' doivent être des booleens");
+        }else{
+            type="booleen";
+        }
     }
 
     @Override

@@ -9,8 +9,14 @@ import arbre.ArbreAbstrait;
  */
 
 public abstract class Expression extends ArbreAbstrait {
-    
+
+    protected String type;
+
     protected Expression(int n) {
         super(n) ;
+    }
+
+    public String getType(){
+        return type;
     }
 }

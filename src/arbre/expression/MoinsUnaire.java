@@ -1,5 +1,7 @@
 package arbre.expression;
 
+import exceptions.AnalyseSemantiqueException;
+
 /**
  * 3 déc. 2015
  *
@@ -19,7 +21,12 @@ public class MoinsUnaire extends Unaire {
 
     @Override
     public void verifier() {
-
+        expression.verifier();
+        if(!expression.getType().equals("entier")){
+            throw new AnalyseSemantiqueException("Ligne "+noLigne+" : l'opérande de 'moins unaire' doit être du type 'entier'");
+        }else{
+            type="entier";
+        }
     }
 
     @Override
