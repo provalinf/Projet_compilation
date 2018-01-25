@@ -1,6 +1,6 @@
 package arbre.expression;
 
-import yal.arbre.ArbreAbstrait;
+import arbre.ArbreAbstrait;
 
 /**
  * 3 déc. 2015

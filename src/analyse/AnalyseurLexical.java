@@ -3,7 +3,7 @@
 package analyse;
 
 import java_cup.runtime.*;
-import yal.exceptions.AnalyseLexicaleException;
+import exceptions.AnalyseLexicaleException;
       
 
 /**

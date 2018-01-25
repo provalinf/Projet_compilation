@@ -7,9 +7,9 @@
 package analyse;
 
 import java.util.*;
-import yal.arbre.*;
-import yal.arbre.expression.*;
-import yal.exceptions.AnalyseSyntaxiqueException;
+import arbre.*;
+import arbre.expression.*;
+import exceptions.AnalyseSyntaxiqueException;
 import java_cup.runtime.*;
 
 /** CUP v0.11a beta 20060608 generated parser.

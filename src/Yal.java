@@ -2,10 +2,10 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import yal.analyse.AnalyseurLexical;
-import yal.analyse.AnalyseurSyntaxique;
-import yal.arbre.ArbreAbstrait;
-import yal.exceptions.AnalyseException;
+import analyse.AnalyseurLexical;
+import analyse.AnalyseurSyntaxique;
+import arbre.ArbreAbstrait;
+import exceptions.AnalyseException;
 
 /**
  * 24 mars 2015 
@@ -22,7 +22,7 @@ public class Yal {
             System.err.println("expression stockée dans l'arbre : " + arbre);
             
             // à écrire pour yal0
-            // arbre.verifier() ; 
+            arbre.verifier() ;
             // System.out.println(arbre.toMIPS());
         } 
         catch (FileNotFoundException ex) {
