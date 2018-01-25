@@ -17,4 +17,13 @@ public class MoinsUnaire extends Unaire {
         return "- " ;
     }
 
+    @Override
+    public void verifier() {
+
+    }
+
+    @Override
+    public String toMIPS() {
+        return null;
+    }
 }

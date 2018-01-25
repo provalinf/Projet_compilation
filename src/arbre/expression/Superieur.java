@@ -16,5 +16,14 @@ public class Superieur extends Comparaison {
     public String operateur() {
         return " > ";
     }
-    
+
+    @Override
+    public void verifier() {
+
+    }
+
+    @Override
+    public String toMIPS() {
+        return null;
+    }
 }

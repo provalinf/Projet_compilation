@@ -17,13 +17,15 @@ public class Plus extends BinaireArithmetique {
         return " + " ;
     }
 
-	@Override
-	public void verifier() {
+    @Override
+    public void verifier() {
 
-	}
+    }
 
-	@Override
-	public String toMIPS() {
-		return null;
-	}
+    @Override
+    public String toMIPS() {
+        StringBuilder res = new StringBuilder();
+        res.append("add $vo, $"+gauche+", $"+droite);
+        return res.toString();
+    }
 }
