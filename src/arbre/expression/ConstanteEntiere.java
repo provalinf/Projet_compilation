@@ -17,6 +17,9 @@ public class ConstanteEntiere extends Constante {
 
     @Override
     public String toMIPS() {
-        return "li $t8, "+cste+"\n";
+        StringBuilder res = new StringBuilder();
+        res.append("#Ranger "+cste+" dans $t8\n");
+        res.append("li $t8, "+cste+"\n");
+        return res.toString();
     }
 }

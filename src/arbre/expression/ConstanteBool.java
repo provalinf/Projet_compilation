@@ -19,12 +19,14 @@ public class ConstanteBool extends Constante {
 
     @Override
     public String toMIPS() {
-        String res;
+        StringBuilder res = new StringBuilder();
         if(cste.equals("vrai")){
-            res = "li $t8, 1";
+            res.append("#Ranger 1 dans $t8\n");
+            res.append("li $t8, 1\n");
         }else{
-            res = "li $t8, 0";
+            res.append("#Ranger 0 dans $t8\n");
+            res.append("li $t8, 0\n");
         }
-        return res;
+        return res.toString();
     }
 }
