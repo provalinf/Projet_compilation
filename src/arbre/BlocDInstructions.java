@@ -21,7 +21,7 @@ public class BlocDInstructions extends ArbreAbstrait {
 
     @Override
     public String toMIPS() {
-        return null;
+        return expr.toMIPS();
     }
 
     public void ajouter(ArbreAbstrait a) {
