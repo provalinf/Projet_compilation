@@ -1,5 +1,7 @@
 package arbre.expression;
 
+import exceptions.AnalyseSemantiqueException;
+
 /**
  * 3 déc. 2015
  *
@@ -19,7 +21,11 @@ public class Superieur extends Comparaison {
 
     @Override
     public void verifier() {
-
+        gauche.verifier();
+        droite.verifier();
+        if(!gauche.getType().equals(droite.getType())){
+            throw new AnalyseSemantiqueException("Ligne "+noLigne+" : les opérandes de '==' doivent être du meme type");
+        }
     }
 
     @Override

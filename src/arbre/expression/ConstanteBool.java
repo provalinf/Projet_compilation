@@ -1,5 +1,7 @@
 package arbre.expression;
 
+import exceptions.AnalyseSemantiqueException;
+
 /**
  * 3 déc. 2015
  *
@@ -14,7 +16,9 @@ public class ConstanteBool extends Constante {
 
     @Override
     public void verifier() {
-
+        if(!cste.equals("vrai") && !cste.equals("faux")){
+            throw new AnalyseSemantiqueException("Ligne "+noLigne+" : "+cste+" doit être vrai ou faux");
+        }
     }
 
     @Override

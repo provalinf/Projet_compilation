@@ -1,5 +1,7 @@
 package arbre.expression;
 
+import exceptions.AnalyseSemantiqueException;
+
 /**
  * 3 déc. 2015
  *
@@ -19,7 +21,10 @@ public class NonLogique extends Unaire {
 
     @Override
     public void verifier() {
-
+        expression.verifier();
+        if(!expression.getType().equals("booleen")){
+            throw new AnalyseSemantiqueException("Ligne "+noLigne+" : l'opérande de 'non' doit etre un booleen");
+        }
     }
 
     @Override

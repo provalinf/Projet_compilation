@@ -1,5 +1,7 @@
 package arbre.expression;
 
+import exceptions.AnalyseSemantiqueException;
+
 /**
  * 3 déc. 2015
  *
@@ -19,7 +21,11 @@ public class Div extends BinaireArithmetique {
 
 	@Override
 	public void verifier() {
-
+		gauche.verifier();
+		droite.verifier();
+		if(!gauche.getType().equals("entier") && !droite.getType().equals("entier")){
+			throw new AnalyseSemantiqueException("Ligne "+noLigne+" : les opérandes de division doivent être du type 'entier'");
+		}
 	}
 
 	@Override
