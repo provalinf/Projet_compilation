@@ -23,7 +23,7 @@ public class Plus extends BinaireArithmetique {
     public void verifier() {
         gauche.verifier();
         droite.verifier();
-        if(!gauche.getType().equals("entier") && !droite.getType().equals("entier")){
+        if(!gauche.getType().equals("entier") || !droite.getType().equals("entier")){
             throw new AnalyseSemantiqueException("Ligne "+getNoLigne()+" : les opérandes d'addition doivent être du type 'entier'");
         }else{
             type="entier";
