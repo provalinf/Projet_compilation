@@ -24,7 +24,7 @@ public class Plus extends BinaireArithmetique {
         gauche.verifier();
         droite.verifier();
         if(!gauche.getType().equals("entier") && !droite.getType().equals("entier")){
-            throw new AnalyseSemantiqueException("Ligne "+noLigne+" : les opérandes d'addition doivent être du type 'entier'");
+            throw new AnalyseSemantiqueException("Ligne "+getNoLigne()+" : les opérandes d'addition doivent être du type 'entier'");
         }else{
             type="entier";
         }

@@ -23,7 +23,7 @@ public class MoinsUnaire extends Unaire {
     public void verifier() {
         expression.verifier();
         if(!expression.getType().equals("entier")){
-            throw new AnalyseSemantiqueException("Ligne "+noLigne+" : l'opérande de 'moins unaire' doit être du type 'entier'");
+            throw new AnalyseSemantiqueException("Ligne "+getNoLigne()+" : l'opérande de 'moins unaire' doit être du type 'entier'");
         }else{
             type="entier";
         }

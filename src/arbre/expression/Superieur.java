@@ -23,8 +23,8 @@ public class Superieur extends Comparaison {
     public void verifier() {
         gauche.verifier();
         droite.verifier();
-        if(!gauche.getType().equals(droite.getType())){
-            throw new AnalyseSemantiqueException("Ligne "+noLigne+" : les opérandes de '==' doivent être du meme type");
+        if(!gauche.getType().equals(droite.getType()) || !gauche.getType().equals("entier")){
+            throw new AnalyseSemantiqueException("Ligne "+getNoLigne()+" : les opérandes de '>' doivent être de même type et entier");
         }else{
             type="booleen";
         }

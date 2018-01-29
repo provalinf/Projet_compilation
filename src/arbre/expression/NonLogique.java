@@ -23,7 +23,7 @@ public class NonLogique extends Unaire {
     public void verifier() {
         expression.verifier();
         if(!expression.getType().equals("booleen")){
-            throw new AnalyseSemantiqueException("Ligne "+noLigne+" : l'opérande de 'non' doit etre un booleen");
+            throw new AnalyseSemantiqueException("Ligne "+getNoLigne()+" : l'opérande de 'non' doit etre un booleen");
         }else{
             type="booleen";
         }

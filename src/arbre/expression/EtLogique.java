@@ -24,7 +24,7 @@ public class EtLogique extends BinaireLogique {
         gauche.verifier();
         droite.verifier();
         if(!gauche.getType().equals("booleen") && !droite.getType().equals("booleen")){
-            throw new AnalyseSemantiqueException("Ligne "+noLigne+" : les opérandes de 'et' doivent être des booleens");
+            throw new AnalyseSemantiqueException("Ligne "+getNoLigne()+" : les opérandes de 'et' doivent être des booleens");
         }else{
             type="booleen";
         }
