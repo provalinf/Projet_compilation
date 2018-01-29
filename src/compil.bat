@@ -1,8 +1,8 @@
 cd analyse
 del *.class AnalyseurLexical.java AnalyseurSyntaxique.java CodesLexicaux.java
-java -jar "C:\Documents\java-cup-11a.jar" -parser AnalyseurSyntaxique -symbols CodesLexicaux Grammaire.cup
-java -jar "C:\Documents\jflex-1.6.1.jar" AnalyseurLexical.jflex
+java -jar "C:\Projet_compilation\lib\java-cup-11b.jar" -parser AnalyseurSyntaxique -symbols CodesLexicaux Grammaire.cup
+java -jar "C:\Projet_compilation\lib\jflex-1.6.1.jar" AnalyseurLexical.jflex
 cd ..
 ls
-javac -cp "C:\Documents\compiltempo";"C:\Documents\java-cup-11a.jar" .\analyse\*.java
+ne pas faire javac -cp "C:\Projet_compilation\src";"C:\Projet_compilation\lib\java-cup-11b.jar" .\analyse\*.java
 pause
