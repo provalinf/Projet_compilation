@@ -31,7 +31,7 @@ public class Yal {
 			Path path = Paths.get("output.mips");
 			try (BufferedWriter writer = Files.newBufferedWriter(path)) {
 				writer.write(arbre.toMIPS());
-				writer.write("end:\nmove $v1, $t8\nli$v0,10\nsyscall");
+				writer.write("end:\nmove $v1, $t8\nli $v0,10\nsyscall");
 				writer.flush();
 				writer.close();
 			}
