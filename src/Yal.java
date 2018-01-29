@@ -24,17 +24,18 @@ public class Yal {
 		try {
 			AnalyseurSyntaxique analyseur = new AnalyseurSyntaxique(new AnalyseurLexical(new FileReader(fichier)));
 			ArbreAbstrait arbre = (ArbreAbstrait) analyseur.parse().value;
-			System.err.println("expression stockée dans l'arbre : " + arbre);
+			//System.err.println("expression stockée dans l'arbre : " + arbre);
 			arbre.verifier();
-			System.out.println(arbre.toMIPS());
+			//System.out.println(arbre.toMIPS());
 
 			Path path = Paths.get("output.mips");
-			try (BufferedWriter writer = Files.newBufferedWriter(path)) {
-				writer.write(arbre.toMIPS());
-				writer.write("end:\nmove $v1, $t8\nli $v0,10\nsyscall");
-				writer.flush();
-				writer.close();
-			}
+			BufferedWriter writer = Files.newBufferedWriter(path);
+			writer.write(arbre.toMIPS());
+			writer.write("end:\nmove $v1, $t8\nli $v0,10\nsyscall");
+			writer.flush();
+			writer.close();
+			System.out.println("COMPILATION OK");
+
 
 		} catch (FileNotFoundException ex) {
 			System.err.println("Fichier " + fichier + " inexistant");
