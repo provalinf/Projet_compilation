@@ -23,7 +23,7 @@ public class Div extends BinaireArithmetique {
 	public void verifier() {
 		gauche.verifier();
 		droite.verifier();
-		if(!gauche.getType().equals("entier") || !droite.getType().equals("entier")){
+		if(!gauche.getType().equals("entier") || !droite.getType().equals("entier")) {
 			throw new AnalyseSemantiqueException("Ligne "+getNoLigne()+" : les opérandes de division doivent être du type 'entier'");
 		}else{
 			type="entier";
@@ -37,6 +37,8 @@ public class Div extends BinaireArithmetique {
 		sb.append(gauche.toMIPS());
 		sb.append("move $v0, $t8\n");
 		sb.append(droite.toMIPS());
+		sb.append("beqz $t8, alors\n");
+		sb.append("alors:j end\n");
 		sb.append("# Divise t8 à v0\n");
 		sb.append("div $v0, $v0, $t8\n");
 		sb.append("move $v0, $t8\n");
