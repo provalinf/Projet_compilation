@@ -34,11 +34,13 @@ public class NonLogique extends Unaire {
         StringBuilder res = new StringBuilder();
         res.append("##NonLogique\n");
         res.append(expression.toMIPS());
-        res.append("move $v0, $t8\n");
+        res.append("addi $sp, $sp, 4\n");
+        res.append("lw $v0, ($sp)\n");
         res.append("li $t8, 0\n");
         res.append("#Compare $t8 a $v0\n");
         res.append("seq $v0, $v0, $t8\n");
-        res.append("move $t8, v0\n");
+        res.append("\tsw $v0, ($sp)\n");
+        res.append("\taddi $sp, $sp, -4\n");
         return res.toString();
     }
 }

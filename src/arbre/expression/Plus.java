@@ -35,11 +35,15 @@ public class Plus extends BinaireArithmetique {
         StringBuilder res = new StringBuilder();
         res.append("##Addition \n");
         res.append(gauche.toMIPS());
-        res.append("move $v0, $t8\n");
         res.append(droite.toMIPS());
+        res.append("addi $sp, $sp 4\t# Plus\n");
+        res.append("lw $v0, ($sp)\n");
+        res.append("addi $sp, $sp 4\n");
+        res.append("lw $t8, ($sp)\n");
         res.append("#Ajouter $t8 à $v0\n");
         res.append("add $v0, $v0, $t8\n");
-        res.append("move $t8, $v0\n");
+        res.append("sw $v0, ($sp)\n");
+        res.append("addi $sp, $sp, -4\n");
         return res.toString();
     }
 }

@@ -27,12 +27,14 @@ public class ConstanteBool extends Constante {
     public String toMIPS() {
         StringBuilder res = new StringBuilder();
         if(cste.equals("vrai")){
-            res.append("#Ranger 1 dans $t8\n");
-            res.append("li $t8, 1\n");
+            res.append("#Ranger 1 dans $v0\n");
+            res.append("li $v0, 1\n");
         }else{
-            res.append("#Ranger 0 dans $t8\n");
-            res.append("li $t8, 0\n");
+            res.append("#Ranger 0 dans $v0\n");
+            res.append("li $v0, 0\n");
         }
+        res.append("sw $v0, ($sp)\n");
+        res.append("addi $sp, $sp, -4\n");
         return res.toString();
     }
 }
