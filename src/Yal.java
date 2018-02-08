@@ -28,7 +28,7 @@ public class Yal {
 			arbre.verifier();
 			//System.out.println(arbre.toMIPS());
 
-			Path path = Paths.get("output.mips");
+			Path path = Paths.get(fichier.replaceAll(".yal","")+".mips");
 			BufferedWriter writer = Files.newBufferedWriter(path);
 			writer.write(arbre.toMIPS());
 			writer.write("end:\nmove $v1, $v0\nli $v0,10\nsyscall");
