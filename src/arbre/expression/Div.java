@@ -23,6 +23,9 @@ public class Div extends BinaireArithmetique {
 	public void verifier() {
 		gauche.verifier();
 		droite.verifier();
+		if(droite.toString().equals("0")) {
+			throw new AnalyseSemantiqueException("Ligne "+getNoLigne()+" : Divison par 0 impossible");
+		}
 		if(!gauche.getType().equals("entier") || !droite.getType().equals("entier")) {
 			throw new AnalyseSemantiqueException("Ligne "+getNoLigne()+" : les opérandes de division doivent être du type 'entier'");
 		}else{
