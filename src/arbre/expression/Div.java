@@ -1,6 +1,11 @@
 package arbre.expression;
 
+import exceptions.AnalyseDivisionParZeroException;
 import exceptions.AnalyseSemantiqueException;
+
+import javax.script.ScriptEngine;
+import javax.script.ScriptEngineManager;
+import javax.script.ScriptException;
 
 /**
  * 3 déc. 2015
@@ -23,10 +28,20 @@ public class Div extends BinaireArithmetique {
 	public void verifier() {
 		gauche.verifier();
 		droite.verifier();
-		if(!gauche.getType().equals("entier") || !droite.getType().equals("entier")) {
-			throw new AnalyseSemantiqueException("Ligne "+getNoLigne()+" : les opérandes de division doivent être du type 'entier'");
-		}else{
-			type="entier";
+		if (!gauche.getType().equals("entier") || !droite.getType().equals("entier")) {
+			throw new AnalyseSemantiqueException("Ligne " + getNoLigne() + " : les opérandes de division doivent être du type 'entier'");
+		}
+
+		ScriptEngineManager mgr = new ScriptEngineManager();
+		ScriptEngine engine = mgr.getEngineByName("JavaScript");
+		try {
+			if (Double.parseDouble(engine.eval(droite.toString()).toString()) == 0.) {
+				throw new AnalyseDivisionParZeroException("Ligne " + getNoLigne());
+			} else {
+				type = "entier";
+			}
+		} catch (ScriptException e) {
+			e.printStackTrace();
 		}
 	}
 
