@@ -41,7 +41,7 @@ public class Div extends BinaireArithmetique {
 		sb.append("alors:j end\n");
 		sb.append("# Divise t8 à v0\n");
 		sb.append("div $v0, $v0, $t8\n");
-		sb.append("move $v0, $t8\n");
+		sb.append("move $t8, $v0\n");
 		return sb.toString();
 	}
 }

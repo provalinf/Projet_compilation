@@ -39,7 +39,7 @@ public class Moins extends BinaireArithmetique {
 		sb.append(droite.toMIPS());
 		sb.append("# Soustrait t8 à v0\n");
 		sb.append("sub $v0, $v0, $t8\n");
-		sb.append("move $v0, $t8\n");
+		sb.append("move $t8, $v0\n");
 		return sb.toString();
 	}
 }
