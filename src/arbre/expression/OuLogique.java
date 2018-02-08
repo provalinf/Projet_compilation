@@ -36,10 +36,10 @@ public class OuLogique extends BinaireLogique {
         res.append("##OuLogique \n");
         res.append(gauche.toMIPS());
         res.append(droite.toMIPS());
-        res.append("addi $sp, $sp 4\t# Ou logique\n");
-        res.append("lw $v0, ($sp)\n");
         res.append("addi $sp, $sp 4\n");
         res.append("lw $t8, ($sp)\n");
+        res.append("addi $sp, $sp 4\n");
+        res.append("lw $v0, ($sp)\n");
         res.append("#Compare $t8 à $v0\n");
         res.append("or $v0, $v0, $t8\n");
         res.append("sw $v0, ($sp)\n");

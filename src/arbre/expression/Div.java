@@ -37,9 +37,9 @@ public class Div extends BinaireArithmetique {
 		sb.append(gauche.toMIPS());
 		sb.append(droite.toMIPS());
 		sb.append("addi $sp, $sp 4\n");
-		sb.append("lw $v0, ($sp)\n");
-		sb.append("addi $sp, $sp 4\n");
 		sb.append("lw $t8, ($sp)\n");
+		sb.append("addi $sp, $sp 4\n");
+		sb.append("lw $v0, ($sp)\n");
 		sb.append("beqz $t8, alors\n");
 		sb.append("alors:j end\n");
 		sb.append("# Divise t8 à v0\n");

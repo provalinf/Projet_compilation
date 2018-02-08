@@ -37,9 +37,9 @@ public class Superieur extends Comparaison {
         res.append(droite.toMIPS());
         res.append(gauche.toMIPS());
         res.append("addi $sp, $sp 4\n");
-        res.append("lw $v0, ($sp)\n");
-        res.append("addi $sp, $sp 4\n");
         res.append("lw $t8, ($sp)\n");
+        res.append("addi $sp, $sp 4\n");
+        res.append("lw $v0, ($sp)\n");
         res.append("#Compare $v0 à $t8\n");
         res.append("slt $v0, $v0, $vt8\n");
         res.append("sw $v0, ($sp)\n");
