@@ -42,8 +42,8 @@ public class Div extends BinaireArithmetique {
 		sb.append("lw $t8, ($sp)\n");
 		sb.append("beqz $t8, alors\n");
 		sb.append("alors:j end\n");
-		sb.append("# Divise t8 à v0\n");
-		sb.append("div $v0, $v0, $t8\n");
+		sb.append("# Divise v0 à t8\n");
+		sb.append("div $v0, $t8, $v0\n");
 		sb.append("mflo $v0\n");
 		sb.append("sw $v0, ($sp)\n");
 		sb.append("addi $sp, $sp, -4\n");

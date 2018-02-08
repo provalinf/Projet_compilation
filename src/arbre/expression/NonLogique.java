@@ -39,8 +39,8 @@ public class NonLogique extends Unaire {
         res.append("li $t8, 0\n");
         res.append("#Compare $t8 a $v0\n");
         res.append("seq $v0, $v0, $t8\n");
-        res.append("\tsw $v0, ($sp)\n");
-        res.append("\taddi $sp, $sp, -4\n");
+        res.append("sw $v0, ($sp)\n");
+        res.append("addi $sp, $sp, -4\n");
         return res.toString();
     }
 }
