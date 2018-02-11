@@ -68,7 +68,7 @@ parser code {:
 
 terminal Symbol    PLUS, MOINS, MULT, DIV, PAROUV, PARFER, PROGRAMME ;
 terminal Symbol    SUP, INF, EGALEGAL, DIFF, ET, OU, NON ;
-terminal String    CONSTANTEINT, CONSTANTEBOOL, DEBUT, FIN, IDF ;
+terminal String    CONSTANTEINT, CONSTANTEBOOL, DEBUT, FIN, IDF, ECR ;
    
 /* Non terminals used in the grammar section.  */
 
@@ -101,7 +101,64 @@ PROG	::=		PROGRAMME IDF DEBUT LDECL:listD LINST:listI FIN
         PROGRAMME IDF DEBUT LINST:listI FIN
         {: RESULT=new BlocDInstructions(eleft+1); :}
 ;
-    
+
+LDECL   ::=     LDECL:ldecl DECLARATION:decl1
+                {:
+                    arbre.ajouter(decl1);
+                    RESULT = ldecl;
+                 :}
+        |
+                DECLARATION:decl2
+                {:
+                    arbre.ajouter(decl2);
+                    RESULT = arbre;
+                 :}
+        ;
+
+DECLARATION ::= DECL_VAR:decVar
+                {: RESULT = decVar; :}
+        |
+                DECL_FONCTION:decFonc
+                {:  :}
+        ;
+
+/*DECL_VAR  ::= TYPE IDF:idf POINTVIRGULE*/
+
+LINST	   ::= LINST:lInst INSTRUCTION:inst
+				{:  arbre.ajouter(inst);
+                    RESULT=lInst ;
+				:}
+			| INSTRUCTION:inst
+				{: arbre.ajouter(inst);
+					RESULT=arbre; :}
+				;
+
+INSTRUCTION::= AFFECT:aff
+				{: RESULT=aff; :}
+
+            | BOUCLE:bou
+                 {:
+                   RESULT=bou;
+                 :}
+            | CONDITION:con
+                 {:
+                   RESULT=con;
+                 :}
+            | LIRE:lire
+                 {:
+                   RESULT=lire;
+                 :}
+            | ECRIRE:ecr
+                 {:
+                    RESULT=ecr;
+                 :}
+            | RETOURNE:ret
+                 {:
+                   RESULT=ret;
+                 :}
+;
+
+
 EXPR    ::=     EXPR:g  PLUS  EXPR:d
                 {: RESULT = new Plus(g, d) ; :}
         | 
@@ -143,6 +200,23 @@ EXPR    ::=     EXPR:g  PLUS  EXPR:d
         |
                 PAROUV  EXPR:e  PARFER
                 {: RESULT = e ; :}
+                ;
+
+
+AFFECT   ::=   IDF:idf EGAL EXPR:e POINTVIRGULE
+				{:
+                    RESULT = new Affectation(eleft+1, idf, e);
+                :}
+                ;
+
+ECRIRE::= ECR EXPR:e POINTVIRGULE
+        {:
+          RESULT=new Ecrire(e,eleft+1);
+        :}
+        |
+        ECRIRE CSTECHAINE:cste POINTVIRGULE
+        {:
+        :}
                 ;
 
 CSTE    ::=     CONSTANTEINT:e 
