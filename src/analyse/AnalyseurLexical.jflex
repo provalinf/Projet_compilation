@@ -57,12 +57,12 @@ commentaire = [/][/].* | [#].*
 
 ";"					{ return symbol(CodesLexicaux.POINTVIRGULE); }
 
-"programme"			{ return symbol(CodeLexicaux.PROGRAMME); }
-"debut"				{ return symbol(CodeLexicaux.DEBUT); }
-"fin"				{ return symbol(CodeLexicaux.FIN); }
+"programme"			{ return symbol(CodesLexicaux.PROGRAMME); }
+"debut"				{ return symbol(CodesLexicaux.DEBUT); }
+"fin"				{ return symbol(CodesLexicaux.FIN); }
 
-"lire"				{ return symbol(CodeLexicaux.LIRE); }
-"ecrire"			{ return symbol(CodeLexicaux.ECR); }
+"lire"				{ return symbol(CodesLexicaux.LIRE); }
+"ecrire"			{ return symbol(CodesLexicaux.ECR); }
 
 
 {csteE}      	        { return symbol(CodesLexicaux.CONSTANTEINT, yytext()); }

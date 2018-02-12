@@ -717,7 +717,7 @@ public class AnalyseurLexical implements java_cup.runtime.Scanner {
             }
           case 41: break;
           case 18: 
-            { return symbol(CodeLexicaux.FIN);
+            { return symbol(CodesLexicaux.FIN);
             }
           case 42: break;
           case 19: 
@@ -729,19 +729,19 @@ public class AnalyseurLexical implements java_cup.runtime.Scanner {
             }
           case 44: break;
           case 21: 
-            { return symbol(CodeLexicaux.LIRE);
+            { return symbol(CodesLexicaux.LIRE);
             }
           case 45: break;
           case 22: 
-            { return symbol(CodeLexicaux.DEBUT);
+            { return symbol(CodesLexicaux.DEBUT);
             }
           case 46: break;
           case 23: 
-            { return symbol(CodeLexicaux.ECR);
+            { return symbol(CodesLexicaux.ECR);
             }
           case 47: break;
           case 24: 
-            { return symbol(CodeLexicaux.PROGRAMME);
+            { return symbol(CodesLexicaux.PROGRAMME);
             }
           case 48: break;
           default:
