@@ -94,36 +94,32 @@ start with PROG ;
                    RESULT = arbre ; :}
                 ;*/
 
-PROG	::=		PROGRAMME IDF DEBUT LINSTR:l FIN
-                {: BlocDInstructions arbre = new BlocDInstructions(lleft+1);
-                   arbre.ajouter(l);
-                   RESULT = arbre; :}
+PROG	::=		PROGRAMME IDF DEBUT LDECL LINSTR:l FIN
+                {: RESULT = l; :}
         |
 
         PROGRAMME IDF DEBUT LINST:listI FIN
-        {: BlocDInstructions arbre =new BlocDInstructions(listIleft+1);
-           arbre.ajouter(listI);
-           RESULT = arbre; :}
+        {: RESULT = listI; :}
 ;
 
 LINSTR  ::=     LINSTR:listD INSTR:listI
-				{:  arbre.ajouter(listI);
+				{:  listD.ajouter(listI);
 					RESULT = listD;   :}
 		|		INSTR:listI
-				{:  arbre.ajouter(listI);
-				    RESULT = arbre; :}
+				{:  BlocDInstructions list = new BlocDInstructions(listIleft+1);
+				    RESULT = list; :}
 		;
 
 LDECL   ::=     LDECL:ldecl DECLARATION:decl1
                 {:
-                    arbre.ajouter(decl1);
+                    ldecl.ajouter(decl1);
                     RESULT = ldecl;
                  :}
         |
                 DECLARATION:decl2
                 {:
-                    arbre.ajouter(decl2);
-                    RESULT = arbre;
+                    BlocDInstructions dec = new BlocDInstructions(decl2Ileft+1);
+                    RESULT = dec;
                  :}
         ;
 
@@ -133,12 +129,12 @@ DECLARATION ::=
 /*DECL_VAR  ::= TYPE IDF:idf POINTVIRGULE*/
 
 LINST	   ::= LINST:lInst INSTRUCTION:inst
-				{:  arbre.ajouter(inst);
+				{:  lInst.ajouter(inst);
                     RESULT=lInst ;
 				:}
 			| INSTRUCTION:inst
-				{: arbre.ajouter(inst);
-					RESULT=arbre; :}
+				{:  BlocDInstructions ins = new BlocDInstructions(instleft+1);
+					RESULT=ins; :}
 				;
 
 INSTRUCTION::= AFFECT:aff
