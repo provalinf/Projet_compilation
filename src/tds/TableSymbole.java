@@ -1,5 +1,7 @@
 package tds;
 
+import exceptions.AnalyseSemantiqueException;
+
 import java.util.HashMap;
 
 public class TableSymbole {
@@ -10,11 +12,10 @@ public class TableSymbole {
         table = new HashMap<>();
     }
 
-    private static TableSymbole INSTANCE = new TableSymbole();
 
     public static TableSymbole getInstance()
     {
-        return INSTANCE;
+        return new TableSymbole();
     }
 
     private void ajouter(Entree e, Symbole s) throws Exception {
@@ -22,7 +23,8 @@ public class TableSymbole {
     }
 
     public Symbole identifier(Entree e) throws Exception {
-    	return null;
-	}
+    	if(table.get(e) != null) return table.get(e);
+    	else throw new AnalyseSemantiqueException("identifier");
+    }
 
 }
