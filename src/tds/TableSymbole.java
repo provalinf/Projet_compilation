@@ -27,4 +27,12 @@ public class TableSymbole {
     	else throw new AnalyseSemantiqueException("identifier");
     }
 
+    public void entreeBloc(){
+
+    }
+
+    public void sortieBloc(){
+
+    }
+
 }
