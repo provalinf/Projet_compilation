@@ -73,8 +73,7 @@ terminal String    CONSTANTEINT, CONSTANTEBOOL, DEBUT, FIN, IDF, ECR, CSTECHAINE
    
 /* Non terminals used in the grammar section.  */
 
-non terminal ArbreAbstrait PROG, BOUCLE, CONDITION, LIRE, ECRIRE, RETOURNE;
-non terminal BlocDInstructions LDECL, INSTR, LINSTR,  LINST, DECLARATION, DECL_VAR, DECL_FONCTION, INSTRUCTION, AFFECT;
+non terminal BlocDInstructions LDECL, INSTR, LINSTR,  LINST, DECLARATION, DECL_VAR, DECL_FONCTION, INSTRUCTION, AFFECT, PROG, BOUCLE, CONDITION, LIRE, ECRIRE, RETOURNE;
 non terminal Expression EXPR, CSTE ;
 
 precedence left OU ;
