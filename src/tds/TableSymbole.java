@@ -17,8 +17,12 @@ public class TableSymbole {
         return INSTANCE;
     }
 
-    private void ajouter(Entree e, Symbole s){
+    private void ajouter(Entree e, Symbole s) throws Exception {
         table.put(e, s);
     }
+
+    public Symbole identifier(Entree e) throws Exception {
+    	return null;
+	}
 
 }
