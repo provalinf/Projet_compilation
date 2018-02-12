@@ -13,6 +13,15 @@ public class Variable {
 	}
 
 	private String getSymbole(Entree e) {
-		return TableSymbole.getInstance()...
+		return TableSymbole.getInstance();
+	}
+
+	public void verifier() throws Exception {
+		if(getSymbole(e) != null){
+			nom = getSymbole(e);
+		}
+		else{
+			throw new Exception();
+		}
 	}
 }
