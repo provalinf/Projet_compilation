@@ -58,4 +58,5 @@ espace = {finDeLigne}  | [ \t\f]
 
 {espace}                { }
 
+
 .                       { throw new AnalyseLexicaleException(yyline, yycolumn, yytext()) ; }
