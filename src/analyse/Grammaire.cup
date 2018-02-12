@@ -211,11 +211,12 @@ AFFECT   ::=   IDF:idf EGAL EXPR:e POINTVIRGULE
 
 ECRIRE::= ECR EXPR:e POINTVIRGULE
         {:
-          RESULT=new Ecrire(e,eleft+1);
+          RESULT=new EcrireExpression(e,eleft+1);
         :}
         |
         ECRIRE CSTECHAINE:cste POINTVIRGULE
         {:
+          RESULT=new EcrireString(cste,eleft+1);
         :}
                 ;
 
