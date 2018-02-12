@@ -1,5 +1,7 @@
 package arbre;
 
+import java.util.ArrayList;
+
 /**
  * 3 déc. 2015
  *
@@ -7,30 +9,37 @@ package arbre;
  */
 
 public class BlocDInstructions extends ArbreAbstrait {
-    
-    protected ArbreAbstrait expr ;
-    
+
+    protected ArrayList<ArbreAbstrait> expr;
+
     public BlocDInstructions(int n) {
-        super(n) ;
+        super(n);
+        expr = new ArrayList<>();
     }
 
     @Override
     public void verifier() {
-        expr.verifier();
+        for (ArbreAbstrait arbre:expr) {
+            arbre.verifier();
+        }
     }
 
     @Override
     public String toMIPS() {
-        return expr.toMIPS();
+        StringBuilder sb = new StringBuilder();
+        for (ArbreAbstrait arbre:expr) {
+            sb.append(arbre.toMIPS());
+        }
+        return sb.toString();
     }
 
     public void ajouter(ArbreAbstrait a) {
-        expr = a ;
+        expr.add(a);
     }
-    
+
     @Override
     public String toString() {
-        return expr.toString() ;
+        return expr.toString();
     }
 
 }
