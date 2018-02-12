@@ -12,8 +12,8 @@ public class Variable {
 		e = new Entree(nom);
 	}
 
-	private String getSymbole(Entree e) {
-		return String.valueOf(TableSymbole.getInstance());
+	private String getSymbole(Entree e) throws Exception {
+		return TableSymbole.getInstance().identifier(e).toString();
 	}
 
 	public void verifier() throws Exception {
