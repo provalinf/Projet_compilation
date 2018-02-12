@@ -123,7 +123,7 @@ LDECL   ::=     LDECL:ldecl DECLARATION:decl1
         |
                 DECLARATION:decl2
                 {:
-                    BlocDInstructions dec = new BlocDInstructions(decl2Ileft+1);
+                    BlocDInstructions dec = new BlocDInstructions(decl2left+1);
                     RESULT = dec;
                  :}
         ;

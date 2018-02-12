@@ -4,7 +4,7 @@ public class EcrireString extends Ecrire{
 
     protected String str;
 
-    protected EcrireString(String s, int no) {
+    public EcrireString(String s, int no) {
         super(no);
         str = s;
     }
