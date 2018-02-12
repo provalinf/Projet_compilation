@@ -3,19 +3,9 @@ package arbre.instruction;
 import arbre.ArbreAbstrait;
 
 public abstract class Instruction extends ArbreAbstrait{
-    protected int numBloc;
 
-    protected Instruction(int no, int numB) {
+    protected Instruction(int no) {
         super(no);
-        numBloc = numB;
-    }
-
-    public int getNumBlock(){
-        return numBloc;
-    }
-
-    public void setNumBloc(int n){
-        numBloc = n;
     }
 
     @Override

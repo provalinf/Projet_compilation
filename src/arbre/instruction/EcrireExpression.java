@@ -6,8 +6,8 @@ public class EcrireExpression extends Ecrire{
     protected Expression exp;
     protected boolean b;
 
-    protected EcrireExpression(Expression e ,int no, int numB) {
-        super(no, numB);
+    protected EcrireExpression(Expression e ,int no) {
+        super(no);
         exp = e;
     }
 

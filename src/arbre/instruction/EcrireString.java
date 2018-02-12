@@ -4,8 +4,8 @@ public class EcrireString extends Ecrire{
 
     protected String str;
 
-    protected EcrireString(String s, int no, int numB) {
-        super(no, numB);
+    protected EcrireString(String s, int no) {
+        super(no);
         str = s;
     }
 
