@@ -33,6 +33,7 @@ csteB = "vrai" | "faux"
 
 finDeLigne = \r|\n
 espace = {finDeLigne}  | [ \t\f]
+commentaire = [/][/].* | [#].*
 
 %%
 
@@ -57,6 +58,8 @@ espace = {finDeLigne}  | [ \t\f]
 {csteB}      	        { return symbol(CodesLexicaux.CONSTANTEBOOL, yytext()); }
 
 {espace}                { }
+
+{commentaire}			{ }
 
 
 .                       { throw new AnalyseLexicaleException(yyline, yycolumn, yytext()) ; }
