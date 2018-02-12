@@ -54,6 +54,16 @@ commentaire = [/][/].* | [#].*
 "("                	{ return symbol(CodesLexicaux.PAROUV); }
 ")"                	{ return symbol(CodesLexicaux.PARFER); }
 
+";"					{ return symbol(CodesLexicaux.POINTVIRGULE); }
+
+"programme"			{ return symbol(CodeLexicaux.PROGRAMME); }
+"debut"				{ return symbol(CodeLexicaux.DEBUT); }
+"fin"				{ return symbol(CodeLexicaux.FIN); }
+
+"lire"				{ return symbol(CodeLexicaux.LIRE); }
+"ecrire"			{ return symbol(CodeLexicaux.ECRIRE); }
+
+
 {csteE}      	        { return symbol(CodesLexicaux.CONSTANTEINT, yytext()); }
 {csteB}      	        { return symbol(CodesLexicaux.CONSTANTEBOOL, yytext()); }
 
