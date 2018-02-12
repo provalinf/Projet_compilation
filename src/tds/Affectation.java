@@ -6,7 +6,7 @@ package tds;
 public class Affectation {
 
 	public void verifier() {
-		if (get) {	// Pas sûr
-		}
+		/*if (get) {	// Pas sûr
+		}*/
 	}
 }
