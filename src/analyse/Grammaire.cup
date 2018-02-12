@@ -127,9 +127,7 @@ LDECL   ::=     LDECL:ldecl DECLARATION:decl1
                  :}
         ;
 
-DECLARATION ::=     DECL  DECL_VAR
-               		|		DECL_VAR
-               				;
+DECLARATION ::= ;
 
 /*DECL_VAR  ::= TYPE IDF:idf POINTVIRGULE*/
 
