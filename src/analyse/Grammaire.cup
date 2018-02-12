@@ -94,13 +94,22 @@ start with PROG ;
                    RESULT = arbre ; :}
                 ;*/
 
-PROG	::=		PROGRAMME IDF DEBUT LDECL:listD LINST:listI FIN
-                {: RESULT=new BlocDInstructions(eleft+1); :}
+PROG	::=		PROGRAMME IDF DEBUT LINSTR:l FIN
+                {: RESULT=new BlocDInstructions(lleft+1); :}
         |
 
         PROGRAMME IDF DEBUT LINST:listI FIN
-        {: RESULT=new BlocDInstructions(eleft+1); :}
+        {: RESULT=new BlocDInstructions(listIleft+1); :}
 ;
+
+LINSTR  ::=     LINSTR:listD INSTR:listI
+				{:  listD.ajouter(listI);
+					RESULT = listD;   :}
+		|		INSTR:listI
+				{:  BlocDInstructions listD = new BlocDInstructions(listIleft+1);
+					listD.ajouter(listI);
+					RESULT = listD; :}
+		;
 
 LDECL   ::=     LDECL:ldecl DECLARATION:decl1
                 {:
