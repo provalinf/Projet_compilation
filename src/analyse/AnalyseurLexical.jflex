@@ -42,6 +42,7 @@ commentaire = [/][/].* | [#].*
 "*"                	{ return symbol(CodesLexicaux.MULT); }
 "/"                	{ return symbol(CodesLexicaux.DIV); }
 
+"="                    { return symbol(CodesLexicaux.EGAL); }
 "=="                    { return symbol(CodesLexicaux.EGALEGAL); }
 "!="                    { return symbol(CodesLexicaux.DIFF); }
 "<"                	{ return symbol(CodesLexicaux.INF); }
@@ -61,7 +62,7 @@ commentaire = [/][/].* | [#].*
 "fin"				{ return symbol(CodeLexicaux.FIN); }
 
 "lire"				{ return symbol(CodeLexicaux.LIRE); }
-"ecrire"			{ return symbol(CodeLexicaux.ECRIRE); }
+"ecrire"			{ return symbol(CodeLexicaux.ECR); }
 
 
 {csteE}      	        { return symbol(CodesLexicaux.CONSTANTEINT, yytext()); }
