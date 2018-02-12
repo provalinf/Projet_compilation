@@ -28,8 +28,10 @@ import exceptions.AnalyseLexicaleException;
   }
 %}
 
+idf = [A-Za-z_][A-Za-z_0-9]*
 csteE = [0-9]+
 csteB = "vrai" | "faux"
+csteC = [A-Za-z_][A-Za-z_0-9]*
 
 finDeLigne = \r|\n
 espace = {finDeLigne}  | [ \t\f]
@@ -63,9 +65,10 @@ commentaire = [/][/].* | [#].*
 
 "ecrire"			{ return symbol(CodesLexicaux.ECR); }
 
-
+{idf}					{ return symbol(CodesLexicaux.IDF, yytext()) ; }
 {csteE}      	        { return symbol(CodesLexicaux.CONSTANTEINT, yytext()); }
 {csteB}      	        { return symbol(CodesLexicaux.CONSTANTEBOOL, yytext()); }
+{csteC}      	        { return symbol(CodesLexicaux.CSTECHAINE, yytext()); }
 
 {espace}                { }
 
