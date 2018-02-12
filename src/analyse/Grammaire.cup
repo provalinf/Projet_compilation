@@ -67,12 +67,12 @@ parser code {:
 /* Terminals (tokens returned by the scanner).  */
 
 terminal Symbol    PLUS, MOINS, MULT, DIV, PAROUV, PARFER, PROGRAMME ;
-terminal Symbol    SUP, INF, EGALEGAL, DIFF, ET, OU, NON ;
-terminal String    CONSTANTEINT, CONSTANTEBOOL, DEBUT, FIN, IDF, ECR ;
+terminal Symbol    SUP, INF, EGALEGAL, DIFF, ET, OU, NON, EGAL, POINTVIRGULE;
+terminal String    CONSTANTEINT, CONSTANTEBOOL, DEBUT, FIN, IDF, ECR, CSTECHAINE;
    
 /* Non terminals used in the grammar section.  */
 
-non terminal ArbreAbstrait PROG, LDECL, LINST ;
+non terminal ArbreAbstrait PROG, LDECL, LINST, DECLARATION, DECL_VAR, DECL_FONCTION, INSTRUCTION, AFFECT, BOUCLE, CONDITION, LIRE, ECRIRE, RETOURNE;
 non terminal Expression EXPR, CSTE ;
 
 precedence left OU ;
