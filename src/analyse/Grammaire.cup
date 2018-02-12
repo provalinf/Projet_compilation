@@ -95,11 +95,15 @@ start with PROG ;
                 ;*/
 
 PROG	::=		PROGRAMME IDF DEBUT LINSTR:l FIN
-                {: RESULT=new BlocDInstructions(lleft+1); :}
+                {: BlocDInstructions arbre = new BlocDInstructions(lleft+1);
+                   arbre.ajouter(l);
+                   RESULT = arbre; :}
         |
 
         PROGRAMME IDF DEBUT LINST:listI FIN
-        {: RESULT=new BlocDInstructions(listIleft+1); :}
+        {: BlocDInstructions arbre =new BlocDInstructions(listIleft+1);
+           arbre.ajouter(listI);
+           RESULT = arbre; :}
 ;
 
 LINSTR  ::=     LINSTR:listD INSTR:listI
