@@ -13,7 +13,7 @@ public class Variable {
 	}
 
 	private String getSymbole(Entree e) {
-		return TableSymbole.getInstance();
+		return String.valueOf(TableSymbole.getInstance());
 	}
 
 	public void verifier() throws Exception {
