@@ -107,12 +107,11 @@ PROG	::=		PROGRAMME IDF DEBUT LINSTR:l FIN
 ;
 
 LINSTR  ::=     LINSTR:listD INSTR:listI
-				{:  listD.ajouter(listI);
+				{:  arbre.ajouter(listI);
 					RESULT = listD;   :}
 		|		INSTR:listI
-				{:  BlocDInstructions listD = new BlocDInstructions(listIleft+1);
-					listD.ajouter(listI);
-					RESULT = listD; :}
+				{:  arbre.ajouter(listI);
+				    RESULT = arbre; :}
 		;
 
 LDECL   ::=     LDECL:ldecl DECLARATION:decl1
