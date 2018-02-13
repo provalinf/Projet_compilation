@@ -319,7 +319,7 @@ class CUP$AnalyseurSyntaxique$actions {
 		BlocDInstructions lI = (BlocDInstructions)((java_cup.runtime.Symbol) CUP$AnalyseurSyntaxique$stack.elementAt(CUP$AnalyseurSyntaxique$top-1)).value;
 		int Ileft = ((java_cup.runtime.Symbol)CUP$AnalyseurSyntaxique$stack.peek()).left;
 		int Iright = ((java_cup.runtime.Symbol)CUP$AnalyseurSyntaxique$stack.peek()).right;
-		BlocDInstructions I = (BlocDInstructions)((java_cup.runtime.Symbol) CUP$AnalyseurSyntaxique$stack.peek()).value;
+		Instruction I = (Instruction)((java_cup.runtime.Symbol) CUP$AnalyseurSyntaxique$stack.peek()).value;
 		  lI.ajouter(I);
 					RESULT = lI;   
               CUP$AnalyseurSyntaxique$result = parser.getSymbolFactory().newSymbol("LINSTR",1, ((java_cup.runtime.Symbol)CUP$AnalyseurSyntaxique$stack.elementAt(CUP$AnalyseurSyntaxique$top-1)), ((java_cup.runtime.Symbol)CUP$AnalyseurSyntaxique$stack.peek()), RESULT);
@@ -332,7 +332,7 @@ class CUP$AnalyseurSyntaxique$actions {
               BlocDInstructions RESULT =null;
 		int Ileft = ((java_cup.runtime.Symbol)CUP$AnalyseurSyntaxique$stack.peek()).left;
 		int Iright = ((java_cup.runtime.Symbol)CUP$AnalyseurSyntaxique$stack.peek()).right;
-		BlocDInstructions I = (BlocDInstructions)((java_cup.runtime.Symbol) CUP$AnalyseurSyntaxique$stack.peek()).value;
+		Instruction I = (Instruction)((java_cup.runtime.Symbol) CUP$AnalyseurSyntaxique$stack.peek()).value;
 		  //System.out.println(I+" "+Ileft+" "+Iright);
 					BlocDInstructions lI = new BlocDInstructions(Ileft+1);
 				    RESULT = lI; 
@@ -376,10 +376,10 @@ class CUP$AnalyseurSyntaxique$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 7: // INSTRUCTION ::= AFFECT 
             {
-              BlocDInstructions RESULT =null;
+              Instruction RESULT =null;
 		int affleft = ((java_cup.runtime.Symbol)CUP$AnalyseurSyntaxique$stack.peek()).left;
 		int affright = ((java_cup.runtime.Symbol)CUP$AnalyseurSyntaxique$stack.peek()).right;
-		BlocDInstructions aff = (BlocDInstructions)((java_cup.runtime.Symbol) CUP$AnalyseurSyntaxique$stack.peek()).value;
+		Instruction aff = (Instruction)((java_cup.runtime.Symbol) CUP$AnalyseurSyntaxique$stack.peek()).value;
 		 RESULT=aff; 
               CUP$AnalyseurSyntaxique$result = parser.getSymbolFactory().newSymbol("INSTRUCTION",4, ((java_cup.runtime.Symbol)CUP$AnalyseurSyntaxique$stack.peek()), ((java_cup.runtime.Symbol)CUP$AnalyseurSyntaxique$stack.peek()), RESULT);
             }
@@ -388,10 +388,10 @@ class CUP$AnalyseurSyntaxique$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 8: // INSTRUCTION ::= ECRIRE 
             {
-              BlocDInstructions RESULT =null;
+              Instruction RESULT =null;
 		int ecrleft = ((java_cup.runtime.Symbol)CUP$AnalyseurSyntaxique$stack.peek()).left;
 		int ecrright = ((java_cup.runtime.Symbol)CUP$AnalyseurSyntaxique$stack.peek()).right;
-		BlocDInstructions ecr = (BlocDInstructions)((java_cup.runtime.Symbol) CUP$AnalyseurSyntaxique$stack.peek()).value;
+		Instruction ecr = (Instruction)((java_cup.runtime.Symbol) CUP$AnalyseurSyntaxique$stack.peek()).value;
 		
                     RESULT=ecr;
                  
@@ -600,7 +600,7 @@ class CUP$AnalyseurSyntaxique$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 23: // AFFECT ::= IDF EGAL EXPR POINTVIRGULE 
             {
-              BlocDInstructions RESULT =null;
+              Instruction RESULT =null;
 		int idfleft = ((java_cup.runtime.Symbol)CUP$AnalyseurSyntaxique$stack.elementAt(CUP$AnalyseurSyntaxique$top-3)).left;
 		int idfright = ((java_cup.runtime.Symbol)CUP$AnalyseurSyntaxique$stack.elementAt(CUP$AnalyseurSyntaxique$top-3)).right;
 		String idf = (String)((java_cup.runtime.Symbol) CUP$AnalyseurSyntaxique$stack.elementAt(CUP$AnalyseurSyntaxique$top-3)).value;
@@ -617,7 +617,7 @@ class CUP$AnalyseurSyntaxique$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 24: // ECRIRE ::= ECR EXPR POINTVIRGULE 
             {
-              BlocDInstructions RESULT =null;
+              Instruction RESULT =null;
 		int eleft = ((java_cup.runtime.Symbol)CUP$AnalyseurSyntaxique$stack.elementAt(CUP$AnalyseurSyntaxique$top-1)).left;
 		int eright = ((java_cup.runtime.Symbol)CUP$AnalyseurSyntaxique$stack.elementAt(CUP$AnalyseurSyntaxique$top-1)).right;
 		Expression e = (Expression)((java_cup.runtime.Symbol) CUP$AnalyseurSyntaxique$stack.elementAt(CUP$AnalyseurSyntaxique$top-1)).value;
@@ -631,7 +631,7 @@ class CUP$AnalyseurSyntaxique$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 25: // ECRIRE ::= ECR CSTECHAINE POINTVIRGULE 
             {
-              BlocDInstructions RESULT =null;
+              Instruction RESULT =null;
 		int csteleft = ((java_cup.runtime.Symbol)CUP$AnalyseurSyntaxique$stack.elementAt(CUP$AnalyseurSyntaxique$top-1)).left;
 		int csteright = ((java_cup.runtime.Symbol)CUP$AnalyseurSyntaxique$stack.elementAt(CUP$AnalyseurSyntaxique$top-1)).right;
 		String cste = (String)((java_cup.runtime.Symbol) CUP$AnalyseurSyntaxique$stack.elementAt(CUP$AnalyseurSyntaxique$top-1)).value;
