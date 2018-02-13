@@ -30,7 +30,6 @@ public class BlocDInstructions extends ArbreAbstrait {
 	@Override
 	public String toMIPS() {
 		StringBuilder sb = new StringBuilder();
-
 		sb.append("move $s7, $sp\n");
 		//Allocation
 		sb.append("addi $sp, $sp, "+ TableSymbole.getInstance().getDep()+"\n");
