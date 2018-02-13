@@ -8,7 +8,7 @@ package analyse;
 /** CUP generated class containing symbol constants. */
 public class CodesLexicaux {
   /* terminals */
-  public static final int IDF = 24;
+  public static final int IDF = 22;
   public static final int EGAL = 15;
   public static final int OU = 19;
   public static final int PLUS = 7;
@@ -19,19 +19,20 @@ public class CodesLexicaux {
   public static final int INF = 14;
   public static final int POINTVIRGULE = 5;
   public static final int PARFER = 12;
+  public static final int TYPE = 21;
   public static final int EOF = 0;
   public static final int MULT = 9;
   public static final int EGALEGAL = 16;
   public static final int DIV = 10;
-  public static final int CONSTANTEBOOL = 22;
+  public static final int CONSTANTEBOOL = 24;
   public static final int ET = 18;
   public static final int error = 1;
   public static final int PAROUV = 11;
   public static final int DIFF = 17;
-  public static final int CONSTANTEINT = 21;
+  public static final int CONSTANTEINT = 23;
   public static final int DEBUT = 3;
   public static final int FIN = 4;
-  public static final int CSTECHAINE = 23;
+  public static final int CSTECHAINE = 25;
   public static final int PROGRAMME = 2;
   public static final String[] terminalNames = new String[] {
   "EOF",
@@ -55,10 +56,11 @@ public class CodesLexicaux {
   "ET",
   "OU",
   "NON",
+  "TYPE",
+  "IDF",
   "CONSTANTEINT",
   "CONSTANTEBOOL",
-  "CSTECHAINE",
-  "IDF"
+  "CSTECHAINE"
   };
 }
 

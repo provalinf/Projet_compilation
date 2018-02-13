@@ -1,27 +1,35 @@
 package tds;
 
 public class Symbole {
-    private String type;
-    private int dep;
-    private int NRegion;
-    private int NImbric;
-    private String[] typeParamFonctions;
-    private String retour;
+	private String type;
+	private int dep;
+	private int NRegion;
+	private int NImbric;
 
-    public Symbole(String type, int dep, int NRegion, int NImbric) {
-        this.type = type;
-        this.dep = dep;
-        this.NRegion = NRegion;
-        this.NImbric = NImbric;
-        this.typeParamFonctions = typeParamFonctions;
-        this.retour = retour;
-    }
+	public Symbole(String type) {
+		this(type, TableSymbole.getInstance().getDep(), TableSymbole.getInstance().getNoRegion(), TableSymbole.getInstance().getNoImbric());
+	}
 
-    public String getType() {
-        return type;
-    }
+	public Symbole(String type, int dep, int NRegion, int NImbric) {
+		this.type = type;
+		this.dep = dep;
+		this.NRegion = NRegion;
+		this.NImbric = NImbric;
+	}
 
-    public int getDep() {
-        return dep;
-    }
+	public String getType() {
+		return type;
+	}
+
+	public int getDep() {
+		return dep;
+	}
+
+	public int getNRegion() {
+		return NRegion;
+	}
+
+	public int getNImbric() {
+		return NImbric;
+	}
 }

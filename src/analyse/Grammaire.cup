@@ -72,7 +72,7 @@ terminal Symbol PROGRAMME, DEBUT, FIN, POINTVIRGULE, ECR/*, LIRE*/;
 
 terminal Symbol    PLUS, MOINS, MULT, DIV, PAROUV, PARFER ;
 terminal Symbol    SUP, INF, EGAL, EGALEGAL, DIFF, ET, OU, NON;
-terminal String    /*TYPE, */CONSTANTEINT, CONSTANTEBOOL, CSTECHAINE, IDF;
+terminal String    TYPE, IDF, CONSTANTEINT, CONSTANTEBOOL, CSTECHAINE;
    
 /* Non terminals used in the grammar section.  */
 
@@ -123,8 +123,8 @@ LDECL   ::=     LDECL:ldecl DECLARATION:decl1
                  :}
         ;
 
-DECLARATION ::=		TYPE:t IDF:idf POINTVIRGULE
-			{: TDS.getInstance().ajouter(new Entree(idf), new Symbole(t)); :}
+DECLARATION ::=	TYPE:t IDF:idf POINTVIRGULE
+			{: TableSymbole.getInstance().ajouter(new Entree(idf), new Symbole(t)); :}
 			;
 
 
