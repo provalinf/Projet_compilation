@@ -97,7 +97,8 @@ PROG	::=		PROGRAMME IDF DEBUT LDECL LINSTR:lI FIN
         {: RESULT = lI; :}
         |
         PROGRAMME IDF DEBUT LINSTR:lI FIN
-        {: RESULT = lI; :}|
+        {: RESULT = lI; :}
+        |
         PROGRAMME IDF DEBUT LDECL FIN
         {: RESULT = new BlocDInstructions(0); :}
 ;
@@ -197,7 +198,10 @@ EXPR    ::=     EXPR:g  PLUS  EXPR:d
         |
                 PAROUV  EXPR:e  PARFER
                 {: RESULT = e ; :}
-                ;
+        |
+                IDF:i
+                {: RESULT = new Variable(i, ileft+1); :}
+        ;
 
 
 AFFECT   ::=   IDF:idf EGAL EXPR:e POINTVIRGULE

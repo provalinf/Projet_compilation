@@ -3,6 +3,8 @@ package tds;
 import exceptions.AnalyseSemantiqueException;
 
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 
 public class TableSymbole {
 
@@ -25,7 +27,15 @@ public class TableSymbole {
 	}
 
 	public Symbole identifier(Entree e) {
-		return table.get(e);
+		Iterator it = table.entrySet().iterator();
+		while (it.hasNext()) {
+			Map.Entry pair = (Map.Entry) it.next();
+			/*System.out.println(pair.getKey() + " = " + pair.getValue());*/
+			if (((Entree) pair.getKey()).getId().equals(e.getId())) {
+				return (Symbole) pair.getValue();
+			}
+		}
+		return null;
 	}
 
 	public void entreeBloc() {

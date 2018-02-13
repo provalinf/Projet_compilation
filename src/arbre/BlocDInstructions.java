@@ -22,7 +22,6 @@ public class BlocDInstructions extends ArbreAbstrait {
 
 	@Override
 	public void verifier() {
-
 		for (Instruction inst : bloc) {
 			inst.verifier();
 		}
@@ -32,6 +31,7 @@ public class BlocDInstructions extends ArbreAbstrait {
 	public String toMIPS() {
 		StringBuilder sb = new StringBuilder();
 
+		sb.append("move $s7, $sp\n");
 		//Allocation
 		sb.append("addi $sp, $sp, "+ TableSymbole.getInstance().getDep()+"\n");
 
