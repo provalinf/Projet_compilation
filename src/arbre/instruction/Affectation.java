@@ -1,8 +1,10 @@
-package tds;
+package arbre.instruction;
 
 import arbre.expression.Expression;
-import arbre.instruction.Instruction;
 import exceptions.AnalyseSemantiqueException;
+import tds.Entree;
+import tds.Symbole;
+import tds.TableSymbole;
 
 public class Affectation extends Instruction{
 
@@ -10,8 +12,8 @@ public class Affectation extends Instruction{
 	private Symbole symbole;
 	private String idf;
 
-	protected Affectation(int no, int numB, Expression e, String id) {
-		super(no, numB);
+	protected Affectation(int no, Expression e, String id) {
+		super(no);
 		expr = e;
 		idf = id;
 		try {

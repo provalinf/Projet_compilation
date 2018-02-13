@@ -8,9 +8,8 @@ package analyse;
 import java.util.*;
 import arbre.*;
 import arbre.expression.*;
-import tds.*;
+import arbre.instruction.Affectation;
 import exceptions.AnalyseSyntaxiqueException;
-import java_cup.runtime.*;
 import java_cup.runtime.XMLElement;
 
 /** CUP v0.11b 20160615 (GIT 4ac7450) generated parser.
