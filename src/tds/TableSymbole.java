@@ -5,7 +5,8 @@ import java.util.HashMap;
 public class TableSymbole {
 
 	private HashMap<Entree, Symbole> table;
-
+	private int noBloc = 0;
+	private int noImbric = 0;
 	private TableSymbole() {
 		table = new HashMap<>();
 	}
@@ -24,11 +25,19 @@ public class TableSymbole {
 	}
 
 	public void entreeBloc() {
-
+		noBloc++;
+		noImbric++;
 	}
 
 	public void sortieBloc() {
-
+		noBloc--;
 	}
 
+	public int getNoBloc() {
+		return noBloc;
+	}
+
+	public int getNoImbric() {
+		return noImbric;
+	}
 }

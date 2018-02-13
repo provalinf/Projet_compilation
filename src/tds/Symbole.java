@@ -8,7 +8,7 @@ public class Symbole {
     private String[] typeParamFonctions;
     private String retour;
 
-    public Symbole(String type, int dep, int NRegion, int NImbric, String[] typeParamFonctions, String retour) {
+    public Symbole(String type, int dep, int NRegion, int NImbric) {
         this.type = type;
         this.dep = dep;
         this.NRegion = NRegion;

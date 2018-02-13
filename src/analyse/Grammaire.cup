@@ -123,9 +123,9 @@ LDECL   ::=     LDECL:ldecl DECLARATION:decl1
                  :}
         ;
 
-/*DECLARATION ::=		TYPE:t IDF:idf POINTVIRGULE
+DECLARATION ::=		TYPE:t IDF:idf POINTVIRGULE
 			{: TDS.getInstance().ajouter(new Entree(idf), new Symbole(t)); :}
-			;*/
+			;
 
 
 INSTRUCTION::= AFFECT:aff
