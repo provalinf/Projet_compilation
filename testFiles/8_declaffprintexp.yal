@@ -1,0 +1,10 @@
+programme essai debut
+entier abc;
+abc = 42;
+ecrire abc;
+ecrire "\n";
+ecrire 1+1;
+ecrire "\n";
+ecrire abc;
+ecrire "\n";
+fin

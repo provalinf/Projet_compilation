@@ -335,6 +335,7 @@ class CUP$AnalyseurSyntaxique$actions {
 		Instruction I = (Instruction)((java_cup.runtime.Symbol) CUP$AnalyseurSyntaxique$stack.peek()).value;
 		  //System.out.println(I+" "+Ileft+" "+Iright);
 					BlocDInstructions lI = new BlocDInstructions(Ileft+1);
+					lI.ajouter(I);
 				    RESULT = lI; 
               CUP$AnalyseurSyntaxique$result = parser.getSymbolFactory().newSymbol("LINSTR",1, ((java_cup.runtime.Symbol)CUP$AnalyseurSyntaxique$stack.peek()), ((java_cup.runtime.Symbol)CUP$AnalyseurSyntaxique$stack.peek()), RESULT);
             }

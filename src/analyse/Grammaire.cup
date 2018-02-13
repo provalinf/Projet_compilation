@@ -106,6 +106,7 @@ LINSTR  ::=     LINSTR:lI INSTRUCTION:I
 		|		INSTRUCTION:I
 				{:  //System.out.println(I+" "+Ileft+" "+Iright);
 					BlocDInstructions lI = new BlocDInstructions(Ileft+1);
+					lI.ajouter(I);
 				    RESULT = lI; :}
 		;
 

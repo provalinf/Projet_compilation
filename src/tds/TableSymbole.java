@@ -1,38 +1,34 @@
 package tds;
 
-import exceptions.AnalyseSemantiqueException;
-
 import java.util.HashMap;
 
 public class TableSymbole {
 
-    private HashMap<Entree, Symbole> table;
+	private HashMap<Entree, Symbole> table;
 
-    private TableSymbole() {
-        table = new HashMap<>();
-    }
+	private TableSymbole() {
+		table = new HashMap<>();
+	}
 
 
-    public static TableSymbole getInstance()
-    {
-        return new TableSymbole();
-    }
+	public static TableSymbole getInstance() {
+		return new TableSymbole();
+	}
 
-    private void ajouter(Entree e, Symbole s) throws Exception {
-        table.put(e, s);
-    }
+	private void ajouter(Entree e, Symbole s) throws Exception {
+		table.put(e, s);
+	}
 
-    public Symbole identifier(Entree e) throws Exception {
-    	if(table.get(e) != null) return table.get(e);
-    	else throw new AnalyseSemantiqueException("identifier");
-    }
+	public Symbole identifier(Entree e) {
+		return table.get(e);
+	}
 
-    public void entreeBloc(){
+	public void entreeBloc() {
 
-    }
+	}
 
-    public void sortieBloc(){
+	public void sortieBloc() {
 
-    }
+	}
 
 }
