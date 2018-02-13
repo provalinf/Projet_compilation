@@ -2,6 +2,7 @@ package analyse ;
 
 import java.util.*;
 import arbre.* ;
+import arbre.instruction.* ;
 import arbre.expression.* ;
 import tds.*;
 import exceptions.AnalyseSyntaxiqueException;
@@ -67,13 +68,15 @@ parser code {:
    
 /* Terminals (tokens returned by the scanner).  */
 
-terminal Symbol    PLUS, MOINS, MULT, DIV, PAROUV, PARFER, PROGRAMME ;
-terminal Symbol    SUP, INF, EGALEGAL, DIFF, ET, OU, NON, EGAL, POINTVIRGULE;
-terminal String    CONSTANTEINT, CONSTANTEBOOL, DEBUT, FIN, IDF, ECR, CSTECHAINE;
+terminal Symbol PROGRAMME, DEBUT, FIN, POINTVIRGULE, ECR/*, LIRE*/;
+
+terminal Symbol    PLUS, MOINS, MULT, DIV, PAROUV, PARFER ;
+terminal Symbol    SUP, INF, EGAL, EGALEGAL, DIFF, ET, OU, NON;
+terminal String    CONSTANTEINT, CONSTANTEBOOL, CSTECHAINE, IDF;
    
 /* Non terminals used in the grammar section.  */
 
-non terminal BlocDInstructions LDECL, INSTR, LINSTR,  LINST, DECLARATION, DECL_VAR, DECL_FONCTION, INSTRUCTION, AFFECT, PROG, BOUCLE, CONDITION, LIRE, ECRIRE, RETOURNE;
+non terminal BlocDInstructions PROG, LINSTR, LDECL, DECLARATION, INSTRUCTION, AFFECT, ECRIRE/*, DECL_VAR, CONDITION, LIRE, DECL_FONCTION, BOUCLE, RETOURNE*/;
 non terminal Expression EXPR, CSTE ;
 
 precedence left OU ;
@@ -87,55 +90,42 @@ precedence left NON ;
 
 /* ----------------------------Grammar Section-------------------- */
  
-start with PROG ;
+start with PROG;
 
-/*PROG    ::=     EXPR:e
-                {: BlocDInstructions arbre = new BlocDInstructions(eleft+1) ;
-                   arbre.ajouter(e) ;
-                   RESULT = arbre ; :}
-                ;*/
-
-PROG	::=		PROGRAMME IDF DEBUT LDECL LINSTR:l FIN
-                {: BlocDInstructions arbre = new BlocDInstructions(lleft+1);
-                   arbre.ajouter(l);
-                   RESULT = arbre; :}
+PROG	::=		PROGRAMME IDF DEBUT LDECL LINSTR:lI FIN
+        {: RESULT = lI; :}
         |
-
-        PROGRAMME IDF DEBUT LINSTR:listI FIN
-        {: BlocDInstructions arbre = new BlocDInstructions(listIleft+1);
-           arbre.ajouter(listI);
-           RESULT = arbre; :}
+        PROGRAMME IDF DEBUT LINSTR:lI FIN
+        {: RESULT = lI; :}
 ;
 
-LINSTR  ::=     LINSTR:listD INSTRUCTION:listI
-				{:  listD.ajouter(listI);
-					RESULT = listD;   :}
-		|		INSTRUCTION:listI
-				{:  BlocDInstructions list = new BlocDInstructions(listIleft+1);
-				    RESULT = list; :}
+LINSTR  ::=     LINSTR:lI INSTRUCTION:I
+				{:  lI.ajouter(I);
+					RESULT = lI;   :}
+		|		INSTRUCTION:I
+				{:  //System.out.println(I+" "+Ileft+" "+Iright);
+					BlocDInstructions lI = new BlocDInstructions(Ileft+1);
+				    RESULT = lI; :}
 		;
 
 LDECL   ::=     LDECL:ldecl DECLARATION:decl1
                 {:
-                    ldecl.ajouter(decl1);
-                    RESULT = ldecl;
+                    /*ldecl.ajouter(decl1);
+                    RESULT = ldecl;*/
                  :}
         |
                 DECLARATION:decl2
                 {:
-                    BlocDInstructions dec = new BlocDInstructions(decl2left+1);
-                    RESULT = dec;
+                   /* BlocDInstructions dec = new BlocDInstructions(decl2left+1);
+                    RESULT = dec;*/
                  :}
         ;
 
-/*DECLARATION ::= ;*/
-
-/*DECL_VAR  ::= TYPE IDF:idf POINTVIRGULE*/
 
 INSTRUCTION::= AFFECT:aff
 				{: RESULT=aff; :}
 
-            | BOUCLE:bou
+            /*| BOUCLE:bou
                  {:
                    RESULT=bou;
                  :}
@@ -146,15 +136,15 @@ INSTRUCTION::= AFFECT:aff
             | LIRE:lire
                  {:
                    RESULT=lire;
-                 :}
+                 :}*/
             | ECRIRE:ecr
                  {:
                     RESULT=ecr;
                  :}
-            | RETOURNE:ret
+            /*| RETOURNE:ret
                  {:
                    RESULT=ret;
-                 :}
+                 :}*/
 ;
 
 
@@ -204,23 +194,23 @@ EXPR    ::=     EXPR:g  PLUS  EXPR:d
 
 AFFECT   ::=   IDF:idf EGAL EXPR:e POINTVIRGULE
 				{:
-                    RESULT = new Affectation(eleft+1, idf, e);
+                    RESULT = new Affectation(idf, e);
                 :}
                 ;
 
 ECRIRE::= ECR EXPR:e POINTVIRGULE
         {:
-          RESULT=new EcrireExpression(e,eleft+1);
+          RESULT=new EcrireExpression(e);
         :}
         |
         ECR CSTECHAINE:cste POINTVIRGULE
         {:
-          RESULT=new EcrireString(cste,eleft+1);
+          RESULT=new EcrireString(cste,csteleft+1);
         :}
                 ;
 
-CSTE    ::=     CONSTANTEINT:e 
-                {: RESULT = new ConstanteEntiere(e, eleft+1) ; :}
-        |       CONSTANTEBOOL:e 
-                {: RESULT = new ConstanteBool(e, eleft+1) ; :}
+CSTE    ::=     CONSTANTEINT:cste
+                {: RESULT = new ConstanteEntiere(cste, csteleft+1) ; :}
+        |       CONSTANTEBOOL:cste
+                {: RESULT = new ConstanteBool(cste, csteleft+1) ; :}
                 ;

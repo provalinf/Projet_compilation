@@ -6,8 +6,8 @@ public class EcrireExpression extends Ecrire{
     protected Expression exp;
     protected boolean b;
 
-    public EcrireExpression(Expression e ,int no) {
-        super(no);
+    public EcrireExpression(Expression e) {
+        super(e.getNoLigne());
         exp = e;
     }
 

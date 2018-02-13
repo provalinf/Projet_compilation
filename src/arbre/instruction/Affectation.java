@@ -12,10 +12,10 @@ public class Affectation extends Instruction{
 	private Symbole symbole;
 	private String idf;
 
-	protected Affectation(int no, Expression e, String id) {
-		super(no);
+	public Affectation(String idf, Expression e) {
+		super(e.getNoLigne());
 		expr = e;
-		idf = id;
+		this.idf = idf;
 		try {
 			symbole = TableSymbole.getInstance().identifier(new Entree(idf));
 		} catch (Exception e1) {

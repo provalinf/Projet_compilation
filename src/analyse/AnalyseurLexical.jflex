@@ -31,7 +31,7 @@ import exceptions.AnalyseLexicaleException;
 idf = [A-Za-z_][A-Za-z_0-9]*
 csteE = [0-9]+
 csteB = "vrai" | "faux"
-csteC = [A-Za-z_][A-Za-z_0-9]*
+csteC = \"[^\"]*+\"
 
 finDeLigne = \r|\n
 espace = {finDeLigne}  | [ \t\f]
