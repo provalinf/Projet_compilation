@@ -9,13 +9,14 @@ public class TableSymbole {
 	private HashMap<Entree, Symbole> table;
 	private int noRegion = 0;
 	private int noImbric = 0;
+	private static TableSymbole INSTANCE = new TableSymbole();
 
 	private TableSymbole() {
 		table = new HashMap<>();
 	}
 
 	public static TableSymbole getInstance() {
-		return new TableSymbole();
+		return INSTANCE;
 	}
 
 	public void ajouter(Entree e, Symbole s) {

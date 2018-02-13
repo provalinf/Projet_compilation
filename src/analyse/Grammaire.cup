@@ -72,7 +72,7 @@ terminal Symbol PROGRAMME, DEBUT, FIN, POINTVIRGULE, ECR/*, LIRE*/;
 
 terminal Symbol    PLUS, MOINS, MULT, DIV, PAROUV, PARFER ;
 terminal Symbol    SUP, INF, EGAL, EGALEGAL, DIFF, ET, OU, NON;
-terminal String    TYPE, IDF, CONSTANTEINT, CONSTANTEBOOL, CSTECHAINE;
+terminal String    TYPE, CONSTANTEINT, CONSTANTEBOOL, CSTECHAINE, IDF;
    
 /* Non terminals used in the grammar section.  */
 
@@ -97,7 +97,9 @@ PROG	::=		PROGRAMME IDF DEBUT LDECL LINSTR:lI FIN
         {: RESULT = lI; :}
         |
         PROGRAMME IDF DEBUT LINSTR:lI FIN
-        {: RESULT = lI; :}
+        {: RESULT = lI; :}|
+        PROGRAMME IDF DEBUT LDECL FIN
+        {: RESULT = new BlocDInstructions(0); :}
 ;
 
 LINSTR  ::=     LINSTR:lI INSTRUCTION:I
