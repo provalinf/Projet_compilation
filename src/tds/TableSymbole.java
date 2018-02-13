@@ -22,7 +22,14 @@ public class TableSymbole {
 	}
 
 	public void ajouter(Entree e, Symbole s) {
-		if (table.containsKey(e)) throw new AnalyseSemantiqueException("Erreur : " + e.getId() + " est déjà déclaré");
+		Iterator it = table.entrySet().iterator();
+		while (it.hasNext()) {
+			Map.Entry pair = (Map.Entry) it.next();
+			if (((Entree) pair.getKey()).getId().equals(e.getId())) {
+				throw new AnalyseSemantiqueException("Erreur : " + e.getId() + " est déjà déclaré");
+			}
+		}
+		//if (table.containsKey(e)) throw new AnalyseSemantiqueException("Erreur : " + e.getId() + " est déjà déclaré");	// Ne fonctionne pas...........
 		table.put(e, s);
 	}
 
@@ -30,12 +37,12 @@ public class TableSymbole {
 		Iterator it = table.entrySet().iterator();
 		while (it.hasNext()) {
 			Map.Entry pair = (Map.Entry) it.next();
-			/*System.out.println(pair.getKey() + " = " + pair.getValue());*/
 			if (((Entree) pair.getKey()).getId().equals(e.getId())) {
 				return (Symbole) pair.getValue();
 			}
 		}
 		return null;
+		//return table.get(e);	// Ne fonctionne pas non plus............
 	}
 
 	public void entreeBloc() {

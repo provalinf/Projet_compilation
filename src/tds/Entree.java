@@ -2,13 +2,18 @@ package tds;
 
 public class Entree {
 
-    private String id;
+	private String id;
 
-    public Entree(String e){
-        id = e;
-    }
+	public Entree(String e) {
+		id = e;
+	}
 
-    public String getId(){
-        return id;
-    }
+	public String getId() {
+		return id;
+	}
+
+	@Override
+	public String toString() {
+		return id;
+	}	// Pour ContainKey
 }
