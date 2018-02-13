@@ -23,15 +23,15 @@ public class CodesLexicaux {
   public static final int MULT = 9;
   public static final int EGALEGAL = 16;
   public static final int DIV = 10;
-  public static final int CONSTANTEBOOL = 23;
+  public static final int CONSTANTEBOOL = 22;
   public static final int ET = 18;
   public static final int error = 1;
   public static final int PAROUV = 11;
   public static final int DIFF = 17;
-  public static final int CONSTANTEINT = 22;
+  public static final int CONSTANTEINT = 21;
   public static final int DEBUT = 3;
   public static final int FIN = 4;
-  public static final int CSTECHAINE = 21;
+  public static final int CSTECHAINE = 23;
   public static final int PROGRAMME = 2;
   public static final String[] terminalNames = new String[] {
   "EOF",
@@ -55,9 +55,9 @@ public class CodesLexicaux {
   "ET",
   "OU",
   "NON",
-  "CSTECHAINE",
   "CONSTANTEINT",
   "CONSTANTEBOOL",
+  "CSTECHAINE",
   "IDF"
   };
 }

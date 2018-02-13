@@ -72,7 +72,7 @@ terminal Symbol PROGRAMME, DEBUT, FIN, POINTVIRGULE, ECR/*, LIRE*/;
 
 terminal Symbol    PLUS, MOINS, MULT, DIV, PAROUV, PARFER ;
 terminal Symbol    SUP, INF, EGAL, EGALEGAL, DIFF, ET, OU, NON;
-terminal String    CSTECHAINE, CONSTANTEINT, CONSTANTEBOOL, IDF;
+terminal String    /*TYPE, */CONSTANTEINT, CONSTANTEBOOL, CSTECHAINE, IDF;
    
 /* Non terminals used in the grammar section.  */
 
