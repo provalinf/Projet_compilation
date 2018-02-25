@@ -141,11 +141,11 @@ INSTRUCTION::= AFFECT:aff
             | CONDITION:con
                  {:
                    RESULT=con;
-                 :}
-            | LIRE:lire
+                 :} */
+            | LIRE IDF:i
                  {:
-                   RESULT=lire;
-                 :}*/
+                   RESULT=new Lire(i, ileft+1);
+                 :}
             | ECRIRE:ecr
                  {:
                     RESULT=ecr;

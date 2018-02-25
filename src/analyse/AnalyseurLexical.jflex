@@ -65,6 +65,7 @@ commentaire = [/][/].* | [#].*
 "fin"				{ return symbol(CodesLexicaux.FIN); }
 
 "ecrire"			{ return symbol(CodesLexicaux.ECR); }
+"lire"              { return symbol(CodesLexicaux.LIRE); }
 
 {type}					{ return symbol(CodesLexicaux.TYPE, yytext()) ; }
 {csteE}      	        { return symbol(CodesLexicaux.CONSTANTEINT, yytext()); }
