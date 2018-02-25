@@ -2,6 +2,7 @@ import analyse.AnalyseurLexical;
 import analyse.AnalyseurSyntaxique;
 import arbre.ArbreAbstrait;
 import exceptions.AnalyseException;
+import tds.TableSymbole;
 
 import java.io.BufferedWriter;
 import java.io.FileNotFoundException;
@@ -28,9 +29,28 @@ public class Yal {
 			arbre.verifier();
 			//System.out.println(arbre.toMIPS());
 
-			Path path = Paths.get(fichier.replaceAll(".yal","")+".mips");
+			Path path = Paths.get(fichier.replaceAll(".yal",".mips"));
 			BufferedWriter writer = Files.newBufferedWriter(path);
+
+
+
+			StringBuilder sb = new StringBuilder();
+			sb.append("move $s7, $sp\n");
+			//Allocation
+			sb.append("addi $sp, $sp, "+ TableSymbole.getInstance().getDep()+"\n");
+
+			// Déplacement
+			for (int i = 0; i > TableSymbole.getInstance().getDep(); i-=4) {
+				sb.append("sw $t8, "+i+"($s7)\n");
+			}
+
+			writer.write(sb.toString());
 			writer.write(arbre.toMIPS());
+			writer.write("\nend:\nmove $v1, $v0\nli $v0,10\nsyscall");
+			//sb.append("\nend:\nmove $v1, $v0\nli $v0,10\nsyscall");
+			//writer.write(sb.toString());
+
+
 			writer.flush();
 			writer.close();
 			System.out.println("COMPILATION OK");

@@ -1,0 +1,77 @@
+move $s7, $sp
+addi $sp, $sp, -4
+sw $t8, 0($s7)
+#Ranger 42 dans $v0
+li $v0, 42
+sw $v0, ($sp)
+addi $sp, $sp, -4
+sw $v0, 0($s7)
+# Ecrire une expression
+lw $v0,0($s7)
+move $a0, $v0
+li $v0, 1
+syscall
+#Ecrire une chaine :
+.data
+str_925858445 :	.asciiz "\n"
+.text
+li $v0, 4
+la $a0, str_925858445
+syscall
+##Addition 
+lw $v0,0($s7)
+#Ranger 2 dans $v0
+li $v0, 2
+sw $v0, ($sp)
+addi $sp, $sp, -4
+addi $sp, $sp 4
+lw $t8, ($sp)
+addi $sp, $sp 4
+lw $v0, ($sp)
+#Ajouter $t8 à $v0
+add $v0, $v0, $t8
+sw $v0, ($sp)
+addi $sp, $sp, -4
+sw $v0, 0($s7)
+# Ecrire une expression
+lw $v0,0($s7)
+move $a0, $v0
+li $v0, 1
+syscall
+#Ecrire une chaine :
+.data
+str_798154996 :	.asciiz "\n"
+.text
+li $v0, 4
+la $a0, str_798154996
+syscall
+# Ecrire une expression
+##Multiplication 
+lw $v0,0($s7)
+#Ranger 2 dans $v0
+li $v0, 2
+sw $v0, ($sp)
+addi $sp, $sp, -4
+addi $sp, $sp 4
+lw $t8, ($sp)
+addi $sp, $sp 4
+lw $v0, ($sp)
+#Multiplication $t8 à $v0
+mul $v0, $v0, $t8
+sw $v0, ($sp)
+addi $sp, $sp, -4
+move $a0, $v0
+li $v0, 1
+syscall
+#Ecrire une chaine :
+.data
+str_681842940 :	.asciiz "\n"
+.text
+li $v0, 4
+la $a0, str_681842940
+syscall
+
+end:
+move $v1, $v0
+li $v0,10
+syscall

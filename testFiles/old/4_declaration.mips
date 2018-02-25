@@ -1,0 +1,8 @@
+move $s7, $sp
+addi $sp, $sp, -4
+sw $t8, 0($s7)
+
+end:
+move $v1, $v0
+li $v0,10
+syscall

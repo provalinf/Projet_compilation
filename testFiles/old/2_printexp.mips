@@ -1,0 +1,28 @@
+move $s7, $sp
+addi $sp, $sp, 0
+# Ecrire une expression
+##Addition 
+#Ranger 2 dans $v0
+li $v0, 2
+sw $v0, ($sp)
+addi $sp, $sp, -4
+#Ranger 2 dans $v0
+li $v0, 2
+sw $v0, ($sp)
+addi $sp, $sp, -4
+addi $sp, $sp 4
+lw $t8, ($sp)
+addi $sp, $sp 4
+lw $v0, ($sp)
+#Ajouter $t8 à $v0
+add $v0, $v0, $t8
+sw $v0, ($sp)
+addi $sp, $sp, -4
+move $a0, $v0
+li $v0, 1
+syscall
+
+end:
+move $v1, $v0
+li $v0,10
+syscall

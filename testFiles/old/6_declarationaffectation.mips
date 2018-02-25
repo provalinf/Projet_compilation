@@ -1,0 +1,13 @@
+move $s7, $sp
+addi $sp, $sp, -4
+sw $t8, 0($s7)
+#Ranger 42 dans $v0
+li $v0, 42
+sw $v0, ($sp)
+addi $sp, $sp, -4
+sw $v0, 0($s7)
+
+end:
+move $v1, $v0
+li $v0,10
+syscall

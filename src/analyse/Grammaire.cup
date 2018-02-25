@@ -68,7 +68,7 @@ parser code {:
    
 /* Terminals (tokens returned by the scanner).  */
 
-terminal Symbol PROGRAMME, DEBUT, FIN, POINTVIRGULE, ECR/*, LIRE*/;
+terminal Symbol PROGRAMME, DEBUT, FIN, POINTVIRGULE, ECR, LIRE, TANTQUE, REPETER, FINTANTQUE, SI, ALORS, SINON, FINSI;
 
 terminal Symbol    PLUS, MOINS, MULT, DIV, PAROUV, PARFER ;
 terminal Symbol    SUP, INF, EGAL, EGALEGAL, DIFF, ET, OU, NON;
@@ -76,8 +76,8 @@ terminal String    TYPE, CONSTANTEINT, CONSTANTEBOOL, CSTECHAINE, IDF;
    
 /* Non terminals used in the grammar section.  */
 
-non terminal BlocDInstructions PROG, LINSTR, LDECL, DECLARATION/*, DECL_VAR, CONDITION, LIRE, DECL_FONCTION, BOUCLE, RETOURNE*/;
-non terminal Instruction INSTRUCTION, AFFECT, ECRIRE;
+non terminal BlocDInstructions PROG, LINSTR, LDECL, DECLARATION/*, DECL_VAR, DECL_FONCTION, RETOURNE*/;
+non terminal Instruction INSTRUCTION, AFFECT, ECRIRE, CONDITION, BOUCLE;
 non terminal Expression EXPR, CSTE ;
 
 precedence left OU ;
@@ -93,136 +93,125 @@ precedence left NON ;
  
 start with PROG;
 
-PROG	::=		PROGRAMME IDF DEBUT LDECL LINSTR:lI FIN
-        {: RESULT = lI; :}
-        |
-        PROGRAMME IDF DEBUT LINSTR:lI FIN
-        {: RESULT = lI; :}
-        |
-        PROGRAMME IDF DEBUT LDECL FIN
-        {: RESULT = new BlocDInstructions(0); :}
-;
-
-LINSTR  ::=     LINSTR:lI INSTRUCTION:I
-				{:  lI.ajouter(I);
-					RESULT = lI;   :}
-		|		INSTRUCTION:I
-				{:  //System.out.println(I+" "+Ileft+" "+Iright);
-					BlocDInstructions lI = new BlocDInstructions(Ileft+1);
-					lI.ajouter(I);
-				    RESULT = lI; :}
+PROG::= PROGRAMME IDF DEBUT LDECL LINSTR:lI FIN
+			{: RESULT = lI; :}
+		| PROGRAMME IDF DEBUT LINSTR:lI FIN
+			{: RESULT = lI; :}
+		| PROGRAMME IDF DEBUT LDECL FIN
+			{: RESULT = new BlocDInstructions(0); :}
 		;
 
-LDECL   ::=     LDECL:ldecl DECLARATION:decl1
-                {:
-                    /*ldecl.ajouter(decl1);
-                    RESULT = ldecl;*/
-                 :}
-        |
-                DECLARATION:decl2
-                {:
-                   /* BlocDInstructions dec = new BlocDInstructions(decl2left+1);
-                    RESULT = dec;*/
-                 :}
-        ;
+LINSTR::= LINSTR:lI INSTRUCTION:I
+		{:
+			lI.ajouter(I);
+			RESULT = lI;
+		:}
+		| INSTRUCTION:I
+		{:
+			//System.out.println(I+" "+Ileft+" "+Iright);
+			BlocDInstructions lI = new BlocDInstructions(Ileft+1);
+			lI.ajouter(I);
+			RESULT = lI;
+		:}
+		;
 
-DECLARATION ::=	TYPE:t IDF:idf POINTVIRGULE
+LDECL::= LDECL:ldecl DECLARATION:decl1
+		{:
+			/*ldecl.ajouter(decl1);
+			RESULT = ldecl;*/
+		:}
+		| DECLARATION:decl2
+		{:
+			/* BlocDInstructions dec = new BlocDInstructions(decl2left+1);
+			RESULT = dec;*/
+		:}
+		;
+
+DECLARATION::= TYPE:t IDF:idf POINTVIRGULE
 			{: TableSymbole.getInstance().ajouter(new Entree(idf), new Symbole(t)); :}
-			;
-
+		;
 
 INSTRUCTION::= AFFECT:aff
-				{: RESULT=aff; :}
+			{: RESULT=aff; :}
+		| BOUCLE:bou
+			{: RESULT=bou; :}
+		| CONDITION:con
+			{: RESULT=con; :}
+		| LIRE IDF:i POINTVIRGULE
+			{: RESULT=new Lire(i, ileft+1); :}
+		| ECRIRE:ecr
+			{: RESULT=ecr; :}
+		/*| RETOURNE:ret
+			{: RESULT=ret; :}*/
+		;
 
-            /*| BOUCLE:bou
-                 {:
-                   RESULT=bou;
-                 :}
-            | CONDITION:con
-                 {:
-                   RESULT=con;
-                 :} */
-            | LIRE IDF:i
-                 {:
-                   RESULT=new Lire(i, ileft+1);
-                 :}
-            | ECRIRE:ecr
-                 {:
-                    RESULT=ecr;
-                 :}
-            /*| RETOURNE:ret
-                 {:
-                   RESULT=ret;
-                 :}*/
-;
+EXPR::= EXPR:g PLUS EXPR:d
+			{: RESULT = new Plus(g, d); :}
+		| EXPR:g MOINS EXPR:d
+			{: RESULT = new Moins(g, d); :}
+		| EXPR:g MULT EXPR:d
+			{: RESULT = new Mult(g, d); :}
+		| EXPR:g DIV EXPR:d
+			{: RESULT = new Div(g, d); :}
+		| EXPR:g INF EXPR:d
+			{: RESULT = new Inferieur(g, d); :}
+		| EXPR:g SUP EXPR:d
+			{: RESULT = new Superieur(g, d); :}
+		| EXPR:g EGALEGAL EXPR:d
+			{: RESULT = new Egal(g, d); :}
+		| EXPR:g DIFF EXPR:d
+			{: RESULT = new Different(g, d); :}
+		| MOINS EXPR:e
+			{: RESULT = new MoinsUnaire(e); :}
+		| EXPR:g ET EXPR:d
+			{: RESULT = new EtLogique(g, d); :}
+		| EXPR:g OU EXPR:d
+			{: RESULT = new OuLogique(g, d); :}
+		| NON EXPR:e
+			{: RESULT = new NonLogique(e); :}
+		| CSTE:c
+			{: RESULT = c; :}
+		| PAROUV EXPR:e PARFER
+			{: RESULT = e; :}
+		| IDF:i
+			{: RESULT = new Variable(i, ileft+1); :}
+		;
 
-
-EXPR    ::=     EXPR:g  PLUS  EXPR:d
-                {: RESULT = new Plus(g, d) ; :}
-        | 
-                EXPR:g  MOINS  EXPR:d
-                {: RESULT = new Moins(g, d); :}
-        |                
-                EXPR:g  MULT  EXPR:d
-                {: RESULT = new Mult(g, d); :}
-        |                
-                EXPR:g  DIV  EXPR:d
-                {: RESULT = new Div(g, d); :}
-        |       
-                EXPR:g  INF  EXPR:d
-                {: RESULT = new Inferieur(g, d); :}
-        |       
-                EXPR:g  SUP  EXPR:d
-                {: RESULT = new Superieur(g, d); :}
-        |              
-                EXPR:g  EGALEGAL  EXPR:d
-                {: RESULT = new Egal(g, d); :}
-        |       
-                EXPR:g  DIFF  EXPR:d
-                {: RESULT = new Different(g, d); :}
-        |                      
-                MOINS  EXPR:e  
-                {: RESULT = new MoinsUnaire(e); :}
-        |      
-                EXPR:g  ET  EXPR:d
-                {: RESULT = new EtLogique(g, d); :}
-        |      
-                EXPR:g  OU  EXPR:d
-                {: RESULT = new OuLogique(g, d); :}
-        |      
-                NON EXPR:e
-                {: RESULT = new NonLogique(e); :}
-        |
-                CSTE:c
-                {: RESULT = c ; :}
-        |
-                PAROUV  EXPR:e  PARFER
-                {: RESULT = e ; :}
-        |
-                IDF:i
-                {: RESULT = new Variable(i, ileft+1); :}
-        ;
-
-
-AFFECT   ::=   IDF:idf EGAL EXPR:e POINTVIRGULE
-				{:
-                    RESULT = new Affectation(idf, e);
-                :}
-                ;
+AFFECT::= IDF:idf EGAL EXPR:e POINTVIRGULE
+		{:
+			RESULT = new Affectation(idf, e);
+		:}
+		;
 
 ECRIRE::= ECR EXPR:e POINTVIRGULE
-        {:
-          RESULT=new EcrireExpression(e);
-        :}
-        |
-        ECR CSTECHAINE:cste POINTVIRGULE
-        {:
-          RESULT=new EcrireString(cste,csteleft+1);
-        :}
-                ;
+		{:
+			RESULT=new EcrireExpression(e);
+		:}
+		|
+		ECR CSTECHAINE:cste POINTVIRGULE
+		{:
+			RESULT=new EcrireString(cste,csteleft+1);
+		:}
+		;
 
-CSTE    ::=     CONSTANTEINT:cste
-                {: RESULT = new ConstanteEntiere(cste, csteleft+1) ; :}
-        |       CONSTANTEBOOL:cste
-                {: RESULT = new ConstanteBool(cste, csteleft+1) ; :}
-                ;
+BOUCLE::= TANTQUE EXPR:e REPETER LINSTR:lI FINTANTQUE
+		{:
+			RESULT=new Boucle(eleft+1, e, lI);
+		:}
+		;
+
+CONDITION::= SI EXPR:e ALORS LINSTR:lI FINSI
+		{:
+			RESULT=new Condition(e, lI, null, eleft+1);
+		:}
+		| SI EXPR:e ALORS LINSTR:lI1 SINON LINSTR:lI2 FINSI
+		{:
+			RESULT=new Condition(e, lI1, lI2, eleft+1);
+		:}
+		;
+
+CSTE::= CONSTANTEINT:cste
+			{: RESULT = new ConstanteEntiere(cste, csteleft+1); :}
+		| CONSTANTEBOOL:cste
+			{: RESULT = new ConstanteBool(cste, csteleft+1); :}
+		;

@@ -1,0 +1,14 @@
+move $s7, $sp
+addi $sp, $sp, 0
+#Ecrire une chaine :
+.data
+str_1304836502 :	.asciiz "coucou\n"
+.text
+li $v0, 4
+la $a0, str_1304836502
+syscall
+
+end:
+move $v1, $v0
+li $v0,10
+syscall
