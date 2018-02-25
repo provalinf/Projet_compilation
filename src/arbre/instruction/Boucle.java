@@ -31,9 +31,12 @@ public class Boucle extends Instruction {
         StringBuilder sb = new StringBuilder();
         sb.append("tantQue_" + hashCode() + " :\n");
         sb.append(e.toMIPS());
-        sb.append("beqz $v0, finTantQue_"+hashCode()+"\n");
-        sb.append(blocDInstructions.toMIPS());
-        sb.append("j tantQue_"+hashCode()+"\n");
+        sb.append("beqz $v0, finTantQue_" + hashCode() + "\n");
+        //sb.append(blocDInstructions.toMIPS());
+        for (int i = 0; i < blocDInstructions.getBloc().size(); i++) {
+            sb.append(blocDInstructions.getBloc().get(i).toMIPS());
+        }
+        sb.append("j tantQue_" + hashCode() + "\n");
         sb.append("finTantQue_" + hashCode() + " :\n");
         return sb.toString();
     }

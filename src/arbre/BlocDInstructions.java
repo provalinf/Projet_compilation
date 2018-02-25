@@ -51,6 +51,10 @@ public class BlocDInstructions extends ArbreAbstrait {
 		bloc.add(a);
 	}
 
+	public ArrayList<Instruction> getBloc() {
+		return bloc;
+	}
+
 	@Override
 	public String toString() {
 		return bloc.toString();
