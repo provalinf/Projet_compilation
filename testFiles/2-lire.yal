@@ -1,0 +1,6 @@
+programme Lire debut
+	entier a;
+	a=15;
+	lire a;
+	ecrire a;
+fin
