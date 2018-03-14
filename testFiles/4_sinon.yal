@@ -1,9 +1,0 @@
-programme Sisinon debut
-    entier a;
-    lire a;
-    si a == 1 alors
-    	ecrire "ok\n";
-    sinon
-    	ecrire "pas ok\n";
-    finsi
-fin

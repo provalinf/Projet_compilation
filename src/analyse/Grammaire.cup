@@ -4,6 +4,7 @@ import java.util.*;
 import arbre.* ;
 import arbre.instruction.* ;
 import arbre.expression.* ;
+import arbre.comparaison.* ;
 import tds.*;
 import exceptions.AnalyseSyntaxiqueException;
 
@@ -204,9 +205,25 @@ CONDITION::= SI EXPR:e ALORS LINSTR:lI FINSI
 		{:
 			RESULT=new Condition(e, lI, null, eleft+1);
 		:}
+		| SI EXPR:e ALORS FINSI
+		{:
+			RESULT=new Condition(e, null, null, eleft+1);
+		:}
 		| SI EXPR:e ALORS LINSTR:lI1 SINON LINSTR:lI2 FINSI
 		{:
 			RESULT=new Condition(e, lI1, lI2, eleft+1);
+		:}
+		| SI EXPR:e ALORS LINSTR:lI SINON FINSI
+		{:
+			RESULT=new Condition(e, lI, null, eleft+1);
+		:}
+		| SI EXPR:e ALORS SINON LINSTR:lI FINSI
+		{:
+			RESULT=new Condition(e, null, lI, eleft+1);
+		:}
+		| SI EXPR:e ALORS SINON FINSI
+		{:
+			RESULT=new Condition(e, null, null, eleft+1);
 		:}
 		;
 

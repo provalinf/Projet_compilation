@@ -1,4 +1,7 @@
-package arbre.expression;
+package arbre.comparaison;
+
+import arbre.expression.Binaire;
+import arbre.expression.Expression;
 
 /**
  * 3 déc. 2015

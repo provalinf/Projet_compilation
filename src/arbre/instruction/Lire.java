@@ -21,7 +21,7 @@ public class Lire extends Instruction {
     @Override
     public String toMIPS() {
         StringBuilder sb = new StringBuilder();
-        sb.append("li $v0, 5\n");	// Valeur au hasard
+        sb.append("li $v0, 5\n");	// Pour attendre une entrée clavier !
         sb.append("syscall\n");
         sb.append("sw $v0, "+symbole.getDep()+"($s7)\n");
         return sb.toString();

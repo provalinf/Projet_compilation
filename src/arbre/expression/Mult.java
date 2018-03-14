@@ -36,9 +36,9 @@ public class Mult extends BinaireArithmetique {
         res.append("##Multiplication \n");
         res.append(gauche.toMIPS());
         res.append(droite.toMIPS());
-        res.append("addi $sp, $sp 4\n");
+        res.append("addi $sp, $sp, 4\n");
         res.append("lw $t8, ($sp)\n");
-        res.append("addi $sp, $sp 4\n");
+        res.append("addi $sp, $sp, 4\n");
         res.append("lw $v0, ($sp)\n");
         res.append("#Multiplication $t8 à $v0\n");
         res.append("mul $v0, $v0, $t8\n");

@@ -43,9 +43,10 @@ public class Condition extends Instruction {
 			sb.append("beqz $v0, fin_" + hashCode() + "\n");
 
 
-
-		sb.append("alors_" + hashCode() + " :\n");
-		sb.append(alors.toMIPS());
+		if (alors != null) {
+			sb.append("alors_" + hashCode() + " :\n");
+			sb.append(alors.toMIPS());
+		}
 		sb.append("j fin_" + hashCode() + "\n");
 		if (sinon != null) {
 			sb.append("sinon_" + hashCode() + " :\n");

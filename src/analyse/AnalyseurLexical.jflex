@@ -33,6 +33,8 @@ csteE = [0-9]+
 csteB = "vrai" | "faux"
 csteC = \"[^\"]+\"
 type = "entier"|"booleen"|"boolean"
+finsi = "fsi"|"finsi"
+ftantque = "fintantque"|ftantque
 
 finDeLigne = \r|\n
 espace = {finDeLigne}  | [ \t\f]
@@ -62,12 +64,12 @@ commentaire = [/][/].* | [#].*
 
 "tantque"			{ return symbol(CodesLexicaux.TANTQUE); }
 "repeter"			{ return symbol(CodesLexicaux.REPETER); }
-"fintantque"		{ return symbol(CodesLexicaux.FINTANTQUE); }
+{ftantque}			{ return symbol(CodesLexicaux.FINTANTQUE); }
 
 "si"				{ return symbol(CodesLexicaux.SI); }
 "alors"				{ return symbol(CodesLexicaux.ALORS); }
 "sinon"				{ return symbol(CodesLexicaux.SINON); }
-"finsi"				{ return symbol(CodesLexicaux.FINSI); }
+{finsi}				{ return symbol(CodesLexicaux.FINSI); }
 
 "programme"			{ return symbol(CodesLexicaux.PROGRAMME); }
 "debut"				{ return symbol(CodesLexicaux.DEBUT); }

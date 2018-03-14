@@ -1,9 +1,15 @@
 programme PlusOuMoins debut
-entier a;
-a=2;
-//ecrire a;
-tantque a < 5 repeter
-	a = a+1;
-	ecrire a;
+//init var
+entier test;
+entier juste;
+entier score;
+test = 5;
+ecrire "Entrez un sel :\n"; // <- petition pour ajouter rand dans yal
+juste = 1;
+//juste = juste*666/120+42;
+//Boucle de jeu
+tantque test != juste repeter
+	ecrire "\nEntrez votre prix :\n";
+	juste = juste +1;
 fintantque
 fin

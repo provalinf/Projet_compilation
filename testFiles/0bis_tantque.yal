@@ -1,0 +1,35 @@
+programme PlusOuMoins debut
+entier test;
+test = 2;
+si test > 1 alors
+ecrire "sup a 1\n";
+fsi
+si test == 2 alors
+ecrire "eg 2\n";
+fsi
+si test < 3 alors
+ecrire "inf a 3\n";
+fsi
+si test > 1 alors
+ecrire "sup a 1\n";
+fsi
+
+si test < 1 alors
+ecrire "err";
+fsi
+si test == 2 alors
+ecrire "eg 2\n";
+fsi
+si test == 4 alors
+ecrire "err";
+fsi
+si test < 3 alors
+ecrire "inf a 3\n";
+fsi
+si test > 5 alors
+ecrire "err";
+fsi
+si test > 1 alors
+ecrire "sup a 1\n";
+fsi
+fin
