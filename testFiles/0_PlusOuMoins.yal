@@ -2,8 +2,10 @@ programme PlusOuMoins debut
 entier a;
 entier b;
 a = 4;
-b = 2;
-tantque a != b repeter
+b = 4;
+	si a != b alors
+		ecrire "a != b";
+	fsi
 	si a == b alors
 		ecrire "a == b";
 	fsi
@@ -17,5 +19,4 @@ tantque a != b repeter
 	ecrire "<- a, b ->";
 	ecrire b;
 	a = a +1;
-fintantque
 fin
