@@ -20,7 +20,7 @@ public class EcrireExpression extends Ecrire {
 	@Override
 	public String toMIPS() {
 		StringBuilder sb = new StringBuilder();
-		sb.append("# Ecrire une expression\n");
+		sb.append("\n# Ecrire une expression\n");
 		sb.append(exp.toMIPS());
 		if (b) {
 			sb.append(".data\n");

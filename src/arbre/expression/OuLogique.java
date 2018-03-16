@@ -33,7 +33,7 @@ public class OuLogique extends BinaireLogique {
     @Override
     public String toMIPS() {
         StringBuilder res = new StringBuilder();
-        res.append("##OuLogique \n");
+        res.append("\n## OuLogique \n");
         res.append(gauche.toMIPS());
         res.append(droite.toMIPS());
         res.append("addi $sp, $sp, 4\n");

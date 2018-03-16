@@ -32,7 +32,7 @@ public class MoinsUnaire extends Unaire {
     @Override
     public String toMIPS() {
         StringBuilder res = new StringBuilder();
-        res.append("##MoinsUnaire \n");
+        res.append("\n## MoinsUnaire \n");
         res.append(expression.toMIPS());
         res.append("addi $sp, $sp, 4\n");
         res.append("lw $v0, ($sp)\n");

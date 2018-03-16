@@ -34,7 +34,7 @@ public class Egal extends Comparaison {
 	@Override
 	public String toMIPS() {
 		StringBuilder res = new StringBuilder();
-		res.append("##EgalEgal \n");
+		res.append("\n# EgalEgal \n");
 		res.append(gauche.toMIPS());
 		res.append("sw $v0, ($sp)\n");
 		res.append("addi $sp, $sp, -4\n");

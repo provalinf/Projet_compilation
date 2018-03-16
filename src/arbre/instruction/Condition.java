@@ -33,6 +33,7 @@ public class Condition extends Instruction {
 	@Override
 	public String toMIPS() {
 		StringBuilder sb = new StringBuilder();
+		sb.append("\n# Condition\n");
 		sb.append("si_" + hashCode() + " :\n");
 		sb.append(si.toMIPS());
 

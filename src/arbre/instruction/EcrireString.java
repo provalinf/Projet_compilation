@@ -18,7 +18,7 @@ public class EcrireString extends Ecrire {
 	public String toMIPS() {
 		StringBuilder sb = new StringBuilder();
 
-		sb.append("#Ecrire une chaine :\n");
+		sb.append("\n# Ecrire une chaine de caractère\n");
 		sb.append(".data\n");
 		sb.append("str_" + hashCode() + " :\t");
 		sb.append(".asciiz " + str + "\n");

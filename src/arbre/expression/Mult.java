@@ -33,7 +33,7 @@ public class Mult extends BinaireArithmetique {
     @Override
     public String toMIPS() {
         StringBuilder res = new StringBuilder();
-        res.append("##Multiplication \n");
+        res.append("\n## Multiplication \n");
         res.append(gauche.toMIPS());
         res.append(droite.toMIPS());
         res.append("addi $sp, $sp, 4\n");

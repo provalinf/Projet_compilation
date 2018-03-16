@@ -48,7 +48,7 @@ public class Div extends BinaireArithmetique {
 	@Override
 	public String toMIPS() {
 		StringBuilder sb = new StringBuilder();
-		sb.append("# Division\n");
+		sb.append("\n## Division\n");
 		sb.append(gauche.toMIPS());
 		sb.append(droite.toMIPS());
 		sb.append("addi $sp, $sp, 4\n");

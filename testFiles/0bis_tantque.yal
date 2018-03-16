@@ -32,4 +32,5 @@ fsi
 si test > 1 alors
 ecrire "sup a 1\n";
 fsi
+ecrire test;
 fin
