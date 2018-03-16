@@ -232,3 +232,9 @@ CSTE::= CONSTANTEINT:cste
 		| CONSTANTEBOOL:cste
 			{: RESULT = new ConstanteBool(cste, csteleft+1); :}
 		;
+
+FONC::= TYPE:type NAMEFONC:nameFonc PAROUV PARFER
+            {:
+             RESULT = new FonctionSansParam(type, nameFonc);
+            :}
+            ;

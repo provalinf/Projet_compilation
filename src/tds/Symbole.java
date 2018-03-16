@@ -1,6 +1,6 @@
 package tds;
 
-public class Symbole {
+public abstract class Symbole {
 	private String type;
 	private int dep;
 	private int NRegion;
