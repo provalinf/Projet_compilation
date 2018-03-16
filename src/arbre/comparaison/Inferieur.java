@@ -36,13 +36,11 @@ public class Inferieur extends Comparaison {
 		StringBuilder res = new StringBuilder();
 		res.append("\n# Inférieur \n");
 		res.append(gauche.toMIPS());
-		res.append("sw $v0, ($sp)\n");
+		res.append("sw $v0, 0($sp)\n");
 		res.append("addi $sp, $sp, -4\n");
 		res.append(droite.toMIPS());
 		res.append("addi $sp, $sp, 4\n");
-		res.append("lw $t8, ($sp)\n");
-		res.append("addi $sp, $sp, 4\n");
-		res.append("lw $v0, ($sp)\n");
+		res.append("lw $t8, 0($sp)\n");
 		res.append("#Compare $v0 à $t8\n");
 		res.append("slt $v0, $v0, $t8\n");
 		//res.append("sw $v0, ($sp)\n");
