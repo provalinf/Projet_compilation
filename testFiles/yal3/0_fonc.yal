@@ -1,0 +1,25 @@
+programme fonc debut
+entier addition() {
+	retourne 2+2;
+}
+
+ecrire addition();
+
+entier test;
+test = 2 + addition();
+ecrire test;
+
+boolean estVrai() {
+	si (2+2 = 4) alors
+		retourne vrai;
+	fsi
+
+	retourne false;
+}
+
+si estVrai() alors
+	ecrire "OK";
+sinon
+	ecrire "KO";
+fsi
+fin

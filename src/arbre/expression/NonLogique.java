@@ -32,7 +32,7 @@ public class NonLogique extends Unaire {
     @Override
     public String toMIPS() {
         StringBuilder res = new StringBuilder();
-        res.append("##NonLogique\n");
+        res.append("\n## NonLogique\n");
         res.append(expression.toMIPS());
         res.append("addi $sp, $sp, 4\n");
         res.append("lw $v0, ($sp)\n");

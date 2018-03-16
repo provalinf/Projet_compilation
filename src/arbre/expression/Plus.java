@@ -33,7 +33,7 @@ public class Plus extends BinaireArithmetique {
     @Override
     public String toMIPS() {
         StringBuilder res = new StringBuilder();
-        res.append("##Addition \n");
+        res.append("\n## Addition\n");
         res.append(gauche.toMIPS());
         res.append(droite.toMIPS());
         res.append("addi $sp, $sp, 4\n");

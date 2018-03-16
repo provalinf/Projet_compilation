@@ -32,6 +32,7 @@ public class Affectation extends Instruction {
 	public String toMIPS() {
 		StringBuilder sb = new StringBuilder();
 		sb.append(expr.toMIPS());
+		sb.append("\n# Affectation\n");
 		sb.append("sw $v0, " + symbole.getDep() + "($s7)\n");
 		return sb.toString();
 	}

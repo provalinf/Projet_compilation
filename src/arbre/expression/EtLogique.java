@@ -33,7 +33,7 @@ public class EtLogique extends BinaireLogique {
     @Override
     public String toMIPS() {
         StringBuilder res = new StringBuilder();
-        res.append("##EtLogique \n");
+        res.append("\n## EtLogique \n");
         res.append(gauche.toMIPS());
         res.append(droite.toMIPS());
         res.append("addi $sp, $sp, 4\n");

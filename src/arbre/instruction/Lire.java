@@ -21,6 +21,7 @@ public class Lire extends Instruction {
     @Override
     public String toMIPS() {
         StringBuilder sb = new StringBuilder();
+		sb.append("\n# Lire un entrée clavier\n");
         sb.append("li $v0, 5\n");	// Pour attendre une entrée clavier !
         sb.append("syscall\n");
         sb.append("sw $v0, "+symbole.getDep()+"($s7)\n");

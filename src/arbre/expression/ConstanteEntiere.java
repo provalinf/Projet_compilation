@@ -25,7 +25,7 @@ public class ConstanteEntiere extends Constante {
     @Override
     public String toMIPS() {
         StringBuilder res = new StringBuilder();
-        res.append("#Ranger "+cste+" dans $v0\n");
+        res.append("\n# Ranger "+cste+" dans $v0\n");
         res.append("li $v0, "+cste+"\n");
         res.append("sw $v0, ($sp)\n");
         res.append("addi $sp, $sp, -4\n");

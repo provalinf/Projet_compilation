@@ -33,7 +33,7 @@ public class Moins extends BinaireArithmetique {
 	@Override
 	public String toMIPS() {
 		StringBuilder sb = new StringBuilder();
-		sb.append("## Soustraction\n");
+		sb.append("\n## Soustraction\n");
 		sb.append(gauche.toMIPS());
 		sb.append(droite.toMIPS());
 		sb.append("addi $sp, $sp, 4\n");

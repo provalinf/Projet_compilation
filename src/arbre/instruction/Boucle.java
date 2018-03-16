@@ -26,6 +26,7 @@ public class Boucle extends Instruction {
 	@Override
 	public String toMIPS() {
 		StringBuilder sb = new StringBuilder();
+		sb.append("\n# Boucle\n");
 		sb.append("tantQue_" + hashCode() + " :\n");
 		sb.append(e.toMIPS());
 		sb.append("beqz $v0, finTantQue_" + hashCode() + "\n");
