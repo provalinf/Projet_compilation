@@ -129,7 +129,7 @@ LDECL::= LDECL:ldecl DECLARATION:decl1
 		;
 
 DECLARATION::= TYPE:t IDF:idf POINTVIRGULE
-			{: TableSymbole.getInstance().ajouter(new Entree(idf), new Symbole(t)); :}
+			{: TableSymbole.getInstance().ajouter(new Entree(idf), new SymboleSimple(t)); :}
 		;
 
 INSTRUCTION::= AFFECT:aff
@@ -233,8 +233,9 @@ CSTE::= CONSTANTEINT:cste
 			{: RESULT = new ConstanteBool(cste, csteleft+1); :}
 		;
 
+/*
 FONC::= TYPE:type NAMEFONC:nameFonc PAROUV PARFER
             {:
              RESULT = new FonctionSansParam(type, nameFonc);
             :}
-            ;
+            ;*/

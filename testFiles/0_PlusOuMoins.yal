@@ -3,22 +3,19 @@ entier a;
 entier b;
 a = 4;
 b = 2;
-si a == b+b alors
-	ecrire "c'est egal";
-sinon
-	ecrire "c'est diff";
-fsi
-a = 7;
-si a < b+b alors
-	ecrire "c'est inf";
-sinon
-	ecrire "c'est sup";
-fsi
-
-si a > b+b alors
-	ecrire "c'est sup";
-sinon
-	ecrire "c'est inf";
-fsi
-
+tantque a != b repeter
+	si a == b alors
+		ecrire "a == b";
+	fsi
+	si a > b alors
+		ecrire "a > b\n";
+	fsi
+	si a < b alors
+			ecrire "a < b\n";
+	fsi
+	ecrire a;
+	ecrire "<- a, b ->";
+	ecrire b;
+	a = a +1;
+fintantque
 fin
