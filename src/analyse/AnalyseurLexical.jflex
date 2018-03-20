@@ -59,8 +59,8 @@ commentaire = [/][/].* | [#].*
 
 "("                	{ return symbol(CodesLexicaux.PAROUV); }
 ")"                	{ return symbol(CodesLexicaux.PARFER); }
-"{"                	{ return symbol(CodesLexicaux.ACCOUV); }
-"}"                	{ return symbol(CodesLexicaux.ACCFER); }
+/*"{"                	{ return symbol(CodesLexicaux.ACCOUV); }
+"}"                	{ return symbol(CodesLexicaux.ACCFER); }*/
 
 ";"					{ return symbol(CodesLexicaux.POINTVIRGULE); }
 
@@ -72,6 +72,8 @@ commentaire = [/][/].* | [#].*
 "alors"				{ return symbol(CodesLexicaux.ALORS); }
 "sinon"				{ return symbol(CodesLexicaux.SINON); }
 {finsi}				{ return symbol(CodesLexicaux.FINSI); }
+
+"fonction" 			{ return symbol(CodesLexicaux.FONCTION); }
 
 "programme"			{ return symbol(CodesLexicaux.PROGRAMME); }
 "debut"				{ return symbol(CodesLexicaux.DEBUT); }

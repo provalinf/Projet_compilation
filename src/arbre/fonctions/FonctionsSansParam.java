@@ -10,14 +10,12 @@ import tds.TableSymbole;
 
 public class FonctionsSansParam extends Instruction {
 
-	private String type;
 	private String nom;
 	private BlocDInstructions bloc;
 	private SymboleFonction sf;
 
-	public FonctionsSansParam(String type, String nom, BlocDInstructions bloc) {
+	public FonctionsSansParam(String nom, BlocDInstructions bloc) {
 		super(bloc.getNoLigne());
-		this.type = type;
 		this.nom = nom;
 		this.bloc = bloc;
 	}

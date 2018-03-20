@@ -70,9 +70,9 @@ parser code {:
    
 /* Terminals (tokens returned by the scanner).  */
 
-terminal Symbol PROGRAMME, DEBUT, FIN, POINTVIRGULE, ECR, LIRE, TANTQUE, REPETER, FINTANTQUE, SI, ALORS, SINON, FINSI;
+terminal Symbol PROGRAMME, DEBUT, FIN, POINTVIRGULE, ECR, LIRE, TANTQUE, REPETER, FINTANTQUE, SI, ALORS, SINON, FINSI, FONCTION;
 
-terminal Symbol    PLUS, MOINS, MULT, DIV, PAROUV, PARFER, ACCOUV, ACCFER;
+terminal Symbol    PLUS, MOINS, MULT, DIV, PAROUV, PARFER/*, ACCOUV, ACCFER*/;
 terminal Symbol    SUP, INF, EGAL, EGALEGAL, DIFF, ET, OU, NON;
 terminal String    TYPE, CONSTANTEINT, CONSTANTEBOOL, CSTECHAINE, IDF;
    
@@ -244,9 +244,9 @@ FONC::= /*TYPE:t IDF:nameFonc PAROUV PARFER ACCOUV LDECL LINSTR:lI ACCFER	// Pou
                            RESULT = new FonctionsSansParam(t, nameFonc, lI);
                           :}
 
-		|*/ TYPE:t IDF:nameFonc PAROUV PARFER ACCOUV LINSTR:lI ACCFER
+		|*/ FONCTION IDF:nameFonc PAROUV PARFER DEBUT LINSTR:lI FIN
             {:
-             TableSymbole.getInstance().ajouter(new EntreeFonction(nameFonc, 0), new SymboleFonction(t));
-             RESULT = new FonctionsSansParam(t, nameFonc, lI);
+             TableSymbole.getInstance().ajouter(new EntreeFonction(nameFonc, 0), new SymboleFonction(null));
+             RESULT = new FonctionsSansParam(nameFonc, lI);
             :}
             ;
