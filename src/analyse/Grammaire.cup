@@ -78,7 +78,7 @@ terminal String    TYPE, CONSTANTEINT, CONSTANTEBOOL, CSTECHAINE, IDF, NAMEFONC;
 /* Non terminals used in the grammar section.  */
 
 non terminal BlocDInstructions PROG, LINSTR, LDECL, DECLARATION/*, DECL_VAR, DECL_FONCTION, RETOURNE*/;
-non terminal Instruction INSTRUCTION, AFFECT, ECRIRE, CONDITION, BOUCLE;
+non terminal Instruction INSTRUCTION, AFFECT, ECRIRE, CONDITION, BOUCLE, FONC;
 non terminal Expression EXPR, CSTE ;
 
 precedence left OU ;
@@ -142,6 +142,8 @@ INSTRUCTION::= AFFECT:aff
 			{: RESULT=new Lire(i, ileft+1); :}
 		| ECRIRE:ecr
 			{: RESULT=ecr; :}
+		| FONC:fonc
+			{: RESULT=fonc; :}
 		/*| RETOURNE:ret
 			{: RESULT=ret; :}*/
 		;

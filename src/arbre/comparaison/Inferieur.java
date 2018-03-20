@@ -36,8 +36,8 @@ public class Inferieur extends Comparaison {
 		StringBuilder res = new StringBuilder();
 		res.append("\n# Inférieur \n");
 		res.append(gauche.toMIPS());
-		res.append("sw $v0, ($sp)\n");
-		res.append("addi $sp, $sp, -4\n");
+		/*res.append("sw $v0, ($sp)\n");
+		res.append("addi $sp, $sp, -4\n");*/
 		res.append(droite.toMIPS());
 		res.append("addi $sp, $sp, 4\n");
 		res.append("lw $t8, ($sp)\n");

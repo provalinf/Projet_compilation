@@ -2,19 +2,21 @@ programme PlusOuMoins debut
 entier a;
 entier b;
 a = 4;
-b = 4;
-	si a != b alors
-		ecrire "a != b";
-	fsi
-	si a == b alors
-		ecrire "a == b";
-	fsi
-	si a > b alors
-		ecrire "a > b\n";
+b = 6;
+
+
+	si a < b alors
+			ecrire "a < b 1\n";
 	fsi
 	si a < b alors
-			ecrire "a < b\n";
+		ecrire "a < b 2\n";
 	fsi
+	si a == b alors
+			ecrire "a == b\n";
+	fsi
+	//si a != b alors
+	//		ecrire "a != b\n";
+	//fsi
 	ecrire a;
 	ecrire "<- a, b ->";
 	ecrire b;
