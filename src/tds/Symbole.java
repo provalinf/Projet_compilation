@@ -32,4 +32,6 @@ public abstract class Symbole {
 	public int getNImbric() {
 		return NImbric;
 	}
+
+	public abstract boolean isFonction();
 }

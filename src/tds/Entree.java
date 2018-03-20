@@ -1,11 +1,13 @@
 package tds;
 
-public class Entree {
-
+/**
+ * Created by Valentin.
+ */
+public abstract class Entree {
 	private String id;
 
-	public Entree(String e) {
-		id = e;
+	public Entree(String id) {
+		this.id = id;
 	}
 
 	public String getId() {

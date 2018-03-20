@@ -1,0 +1,17 @@
+programme fonc debut
+entier a;
+
+a=2;
+
+
+
+entier addition() {
+entier b;
+b = 2;
+}
+
+
+//addition();
+
+
+fin

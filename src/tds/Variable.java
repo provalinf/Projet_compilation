@@ -5,16 +5,16 @@ import exceptions.AnalyseSemantiqueException;
 
 public class Variable extends Expression {
 	private String nom;
-	private Entree e;
+	private EntreeVariable e;
 
 	public Variable(String nom, int no) {
 		super(no);
 		this.nom = nom;
-		e = new Entree(nom);
+		e = new EntreeVariable(nom);
 		type = getSymbole(e).getType();
 	}
 
-	private Symbole getSymbole(Entree e) {
+	private Symbole getSymbole(EntreeVariable e) {
 		return TableSymbole.getInstance().identifier(e);
 	}
 

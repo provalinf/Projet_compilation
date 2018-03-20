@@ -3,6 +3,7 @@ package analyse ;
 import java.util.*;
 import arbre.* ;
 import arbre.instruction.* ;
+import arbre.fonctions.* ;
 import arbre.expression.* ;
 import arbre.comparaison.* ;
 import tds.*;
@@ -73,7 +74,7 @@ terminal Symbol PROGRAMME, DEBUT, FIN, POINTVIRGULE, ECR, LIRE, TANTQUE, REPETER
 
 terminal Symbol    PLUS, MOINS, MULT, DIV, PAROUV, PARFER, ACCOUV, ACCFER;
 terminal Symbol    SUP, INF, EGAL, EGALEGAL, DIFF, ET, OU, NON;
-terminal String    TYPE, CONSTANTEINT, CONSTANTEBOOL, CSTECHAINE, IDF, NAMEFONC;
+terminal String    TYPE, CONSTANTEINT, CONSTANTEBOOL, CSTECHAINE, IDF;
    
 /* Non terminals used in the grammar section.  */
 
@@ -129,7 +130,9 @@ LDECL::= LDECL:ldecl DECLARATION:decl1
 		;
 
 DECLARATION::= TYPE:t IDF:idf POINTVIRGULE
-			{: TableSymbole.getInstance().ajouter(new Entree(idf), new SymboleSimple(t)); :}
+			{: TableSymbole.getInstance().ajouter(new EntreeVariable(idf), new SymboleSimple(t)); :}
+			/*| FONC:fonc
+			{: RESULT=fonc; :}*/
 		;
 
 INSTRUCTION::= AFFECT:aff
@@ -142,6 +145,8 @@ INSTRUCTION::= AFFECT:aff
 			{: RESULT=new Lire(i, ileft+1); :}
 		| ECRIRE:ecr
 			{: RESULT=ecr; :}
+		| IDF:i PAROUV PARFER POINTVIRGULE
+			{: RESULT=new AppelFonction(i, ileft); :}
 		| FONC:fonc
 			{: RESULT=fonc; :}
 		/*| RETOURNE:ret
@@ -235,8 +240,15 @@ CSTE::= CONSTANTEINT:cste
 			{: RESULT = new ConstanteBool(cste, csteleft+1); :}
 		;
 
-FONC::= TYPE:type NAMEFONC:nameFonc PAROUV PARFER ACCOUV LINSTR:lI ACCFER
+FONC::= TYPE:t IDF:nameFonc PAROUV PARFER ACCOUV LDECL LINSTR:lI ACCFER
+                          {:
+                           TableSymbole.getInstance().ajouter(new EntreeFonction(nameFonc, 0), new SymboleFonction(t));
+                           RESULT = new FonctionsSansParam(t, nameFonc, lI);
+                          :}
+
+		| TYPE:t IDF:nameFonc PAROUV PARFER ACCOUV LINSTR:lI ACCFER
             {:
-             RESULT = new FonctionSansParam(type, nameFonc, lI);
+             TableSymbole.getInstance().ajouter(new EntreeFonction(nameFonc, 0), new SymboleFonction(t));
+             RESULT = new FonctionsSansParam(t, nameFonc, lI);
             :}
             ;

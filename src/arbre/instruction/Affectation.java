@@ -2,7 +2,7 @@ package arbre.instruction;
 
 import arbre.expression.Expression;
 import exceptions.AnalyseSemantiqueException;
-import tds.Entree;
+import tds.EntreeVariable;
 import tds.Symbole;
 import tds.TableSymbole;
 
@@ -20,7 +20,7 @@ public class Affectation extends Instruction {
 
 	public void verifier() {
 		expr.verifier();
-		symbole = TableSymbole.getInstance().identifier(new Entree(idf));
+		symbole = TableSymbole.getInstance().identifier(new EntreeVariable(idf));
 		if (symbole == null)
 			throw new AnalyseSemantiqueException("Ligne " + getNoLigne() + " : Identifiant \"" + idf + "\" non déclaré");
 		if (!expr.getType().equals(symbole.getType())) {

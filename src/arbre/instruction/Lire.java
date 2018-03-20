@@ -1,6 +1,6 @@
 package arbre.instruction;
 
-import tds.Entree;
+import tds.EntreeVariable;
 import tds.Symbole;
 import tds.TableSymbole;
 
@@ -15,7 +15,7 @@ public class Lire extends Instruction {
 
     @Override
     public void verifier() {
-        symbole = TableSymbole.getInstance().identifier(new Entree(idf));
+        symbole = TableSymbole.getInstance().identifier(new EntreeVariable(idf));
     }
 
     @Override

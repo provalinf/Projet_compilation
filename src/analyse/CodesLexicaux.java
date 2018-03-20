@@ -28,7 +28,6 @@ public class CodesLexicaux {
   public static final int DEBUT = 3;
   public static final int EOF = 0;
   public static final int error = 1;
-  public static final int NAMEFONC = 36;
   public static final int MOINS = 16;
   public static final int ET = 28;
   public static final int IDF = 35;
@@ -81,8 +80,7 @@ public class CodesLexicaux {
   "CONSTANTEINT",
   "CONSTANTEBOOL",
   "CSTECHAINE",
-  "IDF",
-  "NAMEFONC"
+  "IDF"
   };
 }
 
