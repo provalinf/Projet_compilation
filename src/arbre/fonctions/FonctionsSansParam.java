@@ -1,5 +1,7 @@
 package arbre.fonctions;
 
+import arbre.BlocDInstructions;
+import arbre.instruction.Instruction;
 import exceptions.AnalyseSemantiqueException;
 import tds.Entree;
 import tds.TableSymbole;
@@ -9,7 +11,7 @@ public class FonctionsSansParam {
     private String type;
     private String nom;
 
-    public FonctionsSansParam(String type, String nom) {
+    public FonctionsSansParam(String type, String nom, BlocDInstructions bloc) {
         this.type = type;
         this.nom = nom;
     }

@@ -71,7 +71,7 @@ parser code {:
 
 terminal Symbol PROGRAMME, DEBUT, FIN, POINTVIRGULE, ECR, LIRE, TANTQUE, REPETER, FINTANTQUE, SI, ALORS, SINON, FINSI;
 
-terminal Symbol    PLUS, MOINS, MULT, DIV, PAROUV, PARFER ;
+terminal Symbol    PLUS, MOINS, MULT, DIV, PAROUV, PARFER, ACCOUV, ACCFER;
 terminal Symbol    SUP, INF, EGAL, EGALEGAL, DIFF, ET, OU, NON;
 terminal String    TYPE, CONSTANTEINT, CONSTANTEBOOL, CSTECHAINE, IDF;
    
@@ -233,9 +233,8 @@ CSTE::= CONSTANTEINT:cste
 			{: RESULT = new ConstanteBool(cste, csteleft+1); :}
 		;
 
-/*
-FONC::= TYPE:type NAMEFONC:nameFonc PAROUV PARFER
+FONC::= TYPE:type NAMEFONC:nameFonc PAROUV PARFER ACCOUV LINSTR:lI ACCFER
             {:
-             RESULT = new FonctionSansParam(type, nameFonc);
+             RESULT = new FonctionSansParam(type, nameFonc, lI);
             :}
-            ;*/
+            ;
