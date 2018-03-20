@@ -74,6 +74,7 @@ commentaire = [/][/].* | [#].*
 {finsi}				{ return symbol(CodesLexicaux.FINSI); }
 
 "fonction" 			{ return symbol(CodesLexicaux.FONCTION); }
+"retourne" 			{ return symbol(CodesLexicaux.RETOURNE); }
 
 "programme"			{ return symbol(CodesLexicaux.PROGRAMME); }
 "debut"				{ return symbol(CodesLexicaux.DEBUT); }

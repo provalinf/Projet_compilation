@@ -14,13 +14,13 @@ public class RetourneFonction extends Instruction {
 
     @Override
     public void verifier() {
-
+		e.verifier();
     }
 
     @Override
     public String toMIPS() {
         StringBuilder sb = new StringBuilder();
-        sb.append("# Retourne "+e.toMIPS()+"\n");
+        sb.append("# Retourne "+"\n");
         sb.append(e.toMIPS()+"\n");
 
         sb.append("\n");

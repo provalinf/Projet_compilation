@@ -3,10 +3,11 @@ entier a;
 
 a=2;
 
-//addition();
+addition();
 
 fonction addition() debut
 ecrire 2;
+
 fin
 
 

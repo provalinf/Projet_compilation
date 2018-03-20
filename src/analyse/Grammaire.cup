@@ -70,7 +70,7 @@ parser code {:
    
 /* Terminals (tokens returned by the scanner).  */
 
-terminal Symbol PROGRAMME, DEBUT, FIN, POINTVIRGULE, ECR, LIRE, TANTQUE, REPETER, FINTANTQUE, SI, ALORS, SINON, FINSI, FONCTION;
+terminal Symbol PROGRAMME, DEBUT, FIN, POINTVIRGULE, ECR, LIRE, TANTQUE, REPETER, FINTANTQUE, SI, ALORS, SINON, FINSI, FONCTION, RETOURNE;
 
 terminal Symbol    PLUS, MOINS, MULT, DIV, PAROUV, PARFER/*, ACCOUV, ACCFER*/;
 terminal Symbol    SUP, INF, EGAL, EGALEGAL, DIFF, ET, OU, NON;
@@ -147,8 +147,10 @@ INSTRUCTION::= AFFECT:aff
 			{: RESULT=new AppelFonction(i, ileft); :}
 		| FONC:fonc
 			{: RESULT=fonc; :}
-		/*| RETOURNE:ret
-			{: RESULT=ret; :}*/
+		/*| RETOURNE CSTECHAINE:c POINTVIRGULE
+			{: RESULT=new RetourneFonction(new EcrireString(c, cleft)); :}*/
+		| RETOURNE EXPR:e POINTVIRGULE
+			{: RESULT=new RetourneFonction(e); :}
 		;
 
 EXPR::= EXPR:g PLUS EXPR:d
