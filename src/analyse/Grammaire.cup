@@ -131,9 +131,7 @@ LDECL::= LDECL:ldecl DECLARATION:decl1
 
 DECLARATION::= TYPE:t IDF:idf POINTVIRGULE
 			{: TableSymbole.getInstance().ajouter(new EntreeVariable(idf), new SymboleSimple(t)); :}
-			/*| FONC:fonc
-			{: RESULT=fonc; :}*/
-		;
+			;
 
 INSTRUCTION::= AFFECT:aff
 			{: RESULT=aff; :}
@@ -240,13 +238,13 @@ CSTE::= CONSTANTEINT:cste
 			{: RESULT = new ConstanteBool(cste, csteleft+1); :}
 		;
 
-FONC::= TYPE:t IDF:nameFonc PAROUV PARFER ACCOUV LDECL LINSTR:lI ACCFER
+FONC::= /*TYPE:t IDF:nameFonc PAROUV PARFER ACCOUV LDECL LINSTR:lI ACCFER	// Pour déclaration variables
                           {:
                            TableSymbole.getInstance().ajouter(new EntreeFonction(nameFonc, 0), new SymboleFonction(t));
                            RESULT = new FonctionsSansParam(t, nameFonc, lI);
                           :}
 
-		| TYPE:t IDF:nameFonc PAROUV PARFER ACCOUV LINSTR:lI ACCFER
+		|*/ TYPE:t IDF:nameFonc PAROUV PARFER ACCOUV LINSTR:lI ACCFER
             {:
              TableSymbole.getInstance().ajouter(new EntreeFonction(nameFonc, 0), new SymboleFonction(t));
              RESULT = new FonctionsSansParam(t, nameFonc, lI);

@@ -33,7 +33,7 @@ public class AppelFonction extends Instruction {
 		StringBuilder sb = new StringBuilder();
 		sb.append("#Appel fonction\n");
 		sb.append("addi $sp, $sp, -4\n");
-		sb.append("jal " + sf.hashCode());
+		sb.append("jal fonc_" + sf.hashCode());
 
 		sb.append("\n");
 

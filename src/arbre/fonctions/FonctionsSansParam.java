@@ -38,7 +38,7 @@ public class FonctionsSansParam extends Instruction {
 	public String toMIPS() {
 		StringBuilder sb = new StringBuilder();
 		sb.append("# Fonction " + nom + "\n");
-		sb.append(sf.hashCode() + ":\n");
+		sb.append("fonc_"+sf.hashCode() + ":\n");
 
 		sb.append("\n");
 
