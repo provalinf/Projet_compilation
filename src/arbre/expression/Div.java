@@ -50,15 +50,20 @@ public class Div extends BinaireArithmetique {
 		StringBuilder sb = new StringBuilder();
 		sb.append("\n## Division\n");
 		sb.append(gauche.toMIPS());
-		sb.append(droite.toMIPS());
-		sb.append("addi $sp, $sp, 4\n");
-		sb.append("lw $t8, ($sp)\n");
-		sb.append("addi $sp, $sp, 4\n");
-		sb.append("lw $v0, ($sp)\n");
-		sb.append("# Divise t8 à v0\n");
-		sb.append("div $v0, $v0, $t8\n");
+
 		sb.append("sw $v0, ($sp)\n");
 		sb.append("addi $sp, $sp, -4\n");
+
+		sb.append(droite.toMIPS());
+
+		sb.append("addi $sp, $sp, 4\n");
+		sb.append("lw $t8, ($sp)\n");
+
+		sb.append("# Divise t8 à v0\n");
+		sb.append("div $t8, $v0\n");
+
+		sb.append("mflo $v0\n");
+
 		return sb.toString();
 	}
 }

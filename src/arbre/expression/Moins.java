@@ -35,15 +35,18 @@ public class Moins extends BinaireArithmetique {
 		StringBuilder sb = new StringBuilder();
 		sb.append("\n## Soustraction\n");
 		sb.append(gauche.toMIPS());
-		sb.append(droite.toMIPS());
-		sb.append("addi $sp, $sp, 4\n");
-		sb.append("lw $t8, ($sp)\n");
-		sb.append("addi $sp, $sp, 4\n");
-		sb.append("lw $v0, ($sp)\n");
-		sb.append("# Soustrait v0 à t8\n");
-		sb.append("sub $v0, $v0, $t8\n");
+
 		sb.append("sw $v0, ($sp)\n");
 		sb.append("addi $sp, $sp, -4\n");
+
+		sb.append(droite.toMIPS());
+
+		sb.append("addi $sp, $sp, 4\n");
+		sb.append("lw $t8, ($sp)\n");
+
+		sb.append("# Soustrait v0 à t8\n");
+		sb.append("sub $v0, $v0, $t8\n");
+
 		return sb.toString();
 	}
 }

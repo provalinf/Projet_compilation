@@ -35,14 +35,18 @@ public class EtLogique extends BinaireLogique {
         StringBuilder res = new StringBuilder();
         res.append("\n## EtLogique \n");
         res.append(gauche.toMIPS());
-        res.append(droite.toMIPS());
-        res.append("addi $sp, $sp, 4\n");
-        res.append("lw $t8, ($sp)\n");
-        res.append("addi $sp, $sp, 4\n");
-        res.append("lw $v0, ($sp)\n");
-        res.append("#Compare $t8 à $v0\n");
+
         res.append("sw $v0, ($sp)\n");
         res.append("addi $sp, $sp, -4\n");
+
+        res.append(droite.toMIPS());
+
+        res.append("addi $sp, $sp, 4\n");
+        res.append("lw $t8, ($sp)\n");
+
+        res.append("#Compare $t8 à $v0\n");
+        res.append("and $v0, $t8, $v0\n");
+
         return res.toString();
     }
 }

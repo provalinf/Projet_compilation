@@ -33,8 +33,6 @@ public class ConstanteBool extends Constante {
             res.append("\n# Ranger 0(faux) dans $v0\n");
             res.append("li $v0, 0\n");
         }
-        res.append("sw $v0, ($sp)\n");
-        res.append("addi $sp, $sp, -4\n");
         return res.toString();
     }
 }
