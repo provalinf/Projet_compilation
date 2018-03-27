@@ -78,7 +78,7 @@ terminal String    TYPE, CONSTANTEINT, CONSTANTEBOOL, CSTECHAINE, IDF;
    
 /* Non terminals used in the grammar section.  */
 
-non terminal BlocDInstructions PROG, LINSTR, LDECL, DECLARATION/*, DECL_VAR, DECL_FONCTION, RETOURNE*/;
+non terminal BlocDInstructions PROG, LINSTR, LDECL, DECLARATION, PARAM/*, DECL_VAR, DECL_FONCTION, RETOURNE*/;
 non terminal Instruction INSTRUCTION, AFFECT, ECRIRE, CONDITION, BOUCLE, FONC;
 non terminal Expression EXPR, CSTE ;
 
@@ -240,13 +240,13 @@ CSTE::= CONSTANTEINT:cste
 			{: RESULT = new ConstanteBool(cste, csteleft+1); :}
 		;
 
-FONC::= /*TYPE:t IDF:nameFonc PAROUV PARFER ACCOUV LDECL LINSTR:lI ACCFER	// Pour déclaration variables
-                          {:
-                           TableSymbole.getInstance().ajouter(new EntreeFonction(nameFonc, 0), new SymboleFonction(t));
-                           RESULT = new FonctionsSansParam(t, nameFonc, lI);
-                          :}
+FONC::= FONCTION IDF:nameFonc PAROUV PARAM:param PARFER DEBUT LINSTR:lI FIN	// Pour déclaration variables
+        {:
+           TableSymbole.getInstance().ajouter(new EntreeFonction(nameFonc, 0), new SymboleFonction(null));
+           RESULT = new FonctionsAvecParam Param(nameFonc, lI, param);
+        :}
 
-		|*/ FONCTION IDF:nameFonc PAROUV PARFER DEBUT LINSTR:lI FIN
+		| FONCTION IDF:nameFonc PAROUV PARFER DEBUT LINSTR:lI FIN
             {:
              TableSymbole.getInstance().ajouter(new EntreeFonction(nameFonc, 0), new SymboleFonction(null));
              RESULT = new FonctionsSansParam(nameFonc, lI);
