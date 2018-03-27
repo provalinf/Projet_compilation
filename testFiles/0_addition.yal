@@ -1,13 +1,12 @@
 programme fonc debut
 entier a;
 
-fonction addition() debut
-ecrire "toto";
-retourne 5;
+fonction addition(entier b; entier c) debut
+ecrire b;
+ecrire c;
 fin
 
 
-a = addition();
-ecrire a;
+addition(5;8);
 
 fin

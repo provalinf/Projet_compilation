@@ -78,9 +78,11 @@ terminal String    TYPE, CONSTANTEINT, CONSTANTEBOOL, CSTECHAINE, IDF;
    
 /* Non terminals used in the grammar section.  */
 
-non terminal BlocDInstructions PROG, LINSTR, LDECL, DECLARATION, PARAM/*, DECL_VAR, DECL_FONCTION, RETOURNE*/;
+non terminal BlocDInstructions PROG, LINSTR, LDECL, DECLARATION/*, DECL_VAR, DECL_FONCTION, RETOURNE*/;
 non terminal Instruction INSTRUCTION, AFFECT, ECRIRE, CONDITION, BOUCLE, FONC;
 non terminal Expression EXPR, CSTE ;
+non terminal Integer LPARAM;
+non terminal ArrayList<Expression> PARAMS;
 
 precedence left OU ;
 precedence left ET ;
@@ -128,6 +130,16 @@ LDECL::= LDECL:ldecl DECLARATION:decl1
 			RESULT = dec;*/
 		:}
 		;
+
+LPARAM::= LPARAM:c POINTVIRGULE TYPE:t IDF:idf
+		{:
+		RESULT =c+1;
+		:}
+		| TYPE:t IDF:idf
+		{:
+			TableSymbole.getInstance().ajouter(new EntreeParam(idf), new SymboleSimple(t));
+		RESULT = 1;
+		:};
 
 DECLARATION::= TYPE:t IDF:idf POINTVIRGULE
 			{: TableSymbole.getInstance().ajouter(new EntreeVariable(idf), new SymboleSimple(t)); :}
@@ -179,8 +191,9 @@ EXPR::= EXPR:g PLUS EXPR:d
 			{: RESULT = new NonLogique(e); :}
 
 		| IDF:i PAROUV PARFER
-			{: System.out.println("ahhhhhhh");	 RESULT=new AppelFonction(i, ileft); :}
-
+			{:	 RESULT=new AppelFonction(i, ileft); :}
+		| IDF:i PAROUV PARAMS:p PARFER
+			{:	 RESULT=new AppelFonction(i, ileft, p); :}
 		| CSTE:c
 			{: RESULT = c; :}
 		| PAROUV EXPR:e PARFER
@@ -189,6 +202,17 @@ EXPR::= EXPR:g PLUS EXPR:d
 			{: RESULT = new Variable(i, ileft+1); :}
 
 		;
+
+PARAMS::=PARAMS:a POINTVIRGULE EXPR:e
+            {: a.add(e);
+               RESULT = a;
+            :}
+			| EXPR:e
+			{: ArrayList<Expression> listExpr = new ArrayList<Expression>();
+			   listExpr.add(e);
+			   RESULT = listExpr;
+			:}
+			;
 
 AFFECT::= IDF:idf EGAL EXPR:e POINTVIRGULE
 		{:
@@ -246,27 +270,29 @@ CSTE::= CONSTANTEINT:cste
 		;
 
 FONC::= /*TYPE:t IDF:nameFonc PAROUV PARFER ACCOUV LDECL LINSTR:lI ACCFER	// Pour déclaration variables
-                          {:
-                           TableSymbole.getInstance().ajouter(new EntreeFonction(nameFonc, 0), new SymboleFonction(t));
-                           RESULT = new FonctionsSansParam(t, nameFonc, lI);
-                          :}
+       {:
+        TableSymbole.getInstance().ajouter(new EntreeFonction(nameFonc, 0), new SymboleFonction(t));
+        RESULT = new FonctionsSansParam(t, nameFonc, lI);
+       :}
 
-		|*/FONCTION IDF:nameFonc PAROUV PARAM:param PARFER DEBUT LINSTR:lI FIN
-                   {:
-                      TableSymbole.getInstance().ajouter(new EntreeFonction(nameFonc, 0), new SymboleFonction(null));
-                      RESULT = new FonctionsAvecParam(nameFonc, lI, param);
-                   :}
+		|*/
 
-           		| FONCTION IDF:nameFonc PAROUV PARFER DEBUT LINSTR:lI RETOURNE EXPR:e POINTVIRGULE FIN
-            {:
-             TableSymbole.getInstance().ajouter(new EntreeFonction(nameFonc, 0), new SymboleFonction(null));
-             RESULT = new FonctionsSansParam(nameFonc, lI, new RetourneFonction(nameFonc, e));
+		FONCTION IDF:nameFonc PAROUV LPARAM:c PARFER DEBUT LINSTR:lI FIN
+         {:
+            TableSymbole.getInstance().ajouter(new EntreeFonction(nameFonc, 0), new SymboleFonction(null));
+            RESULT = new FonctionsAvecParam(nameFonc, lI, c);
+         :}
 
-            :}
-            | FONCTION IDF:nameFonc PAROUV PARFER DEBUT LINSTR:lI FIN
-            {:
-             TableSymbole.getInstance().ajouter(new EntreeFonction(nameFonc, 0), new SymboleFonction(null));
-             RESULT = new FonctionsSansParam(nameFonc, lI, null);
+ 		| FONCTION IDF:nameFonc PAROUV PARFER DEBUT LINSTR:lI RETOURNE EXPR:e POINTVIRGULE FIN
+  {:
+   TableSymbole.getInstance().ajouter(new EntreeFonction(nameFonc, 0), new SymboleFonction(null));
+   RESULT = new FonctionsSansParam(nameFonc, lI, new RetourneFonction(nameFonc, e));
 
-            :}
-            ;
+  :}
+  | FONCTION IDF:nameFonc PAROUV PARFER DEBUT LINSTR:lI FIN
+  {:
+   TableSymbole.getInstance().ajouter(new EntreeFonction(nameFonc, 0), new SymboleFonction(null));
+   RESULT = new FonctionsSansParam(nameFonc, lI, null);
+
+  :}
+  ;

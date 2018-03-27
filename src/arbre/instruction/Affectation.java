@@ -20,7 +20,6 @@ public class Affectation extends Instruction {
 
 	public void verifier() {
 		expr.verifier();
-		System.out.println(expr.toString());
 		symbole = TableSymbole.getInstance().identifier(new EntreeVariable(idf));
 		if (symbole == null)
 			throw new AnalyseSemantiqueException("Ligne " + getNoLigne() + " : Identifiant \"" + idf + "\" non déclaré");

@@ -8,13 +8,21 @@ import tds.Symbole;
 import tds.SymboleFonction;
 import tds.TableSymbole;
 
+import java.util.ArrayList;
+
 public class AppelFonction extends Expression {
 	private String idf;
 	private SymboleFonction sf;
+	private ArrayList<Expression> params;
 
 	public AppelFonction(String idf, int no) {
 		super(no);
 		this.idf = idf;
+	}
+
+	public AppelFonction(String idf, int no, ArrayList<Expression> params) {
+		this(idf, no);
+		this.params = params;
 	}
 
 	@Override
@@ -34,6 +42,12 @@ public class AppelFonction extends Expression {
 	public String toMIPS() {
 		StringBuilder sb = new StringBuilder();
 		sb.append("#Appel fonction\n");
+		for (Expression e : this.params){
+			sb.append(e.toMIPS());
+			sb.append("sw $v0, ($sp)\n");
+			sb.append("add $sp, $sp, -4\n");
+		}
+
 		sb.append("addi $sp, $sp, -4\n");
 		sb.append("jal fonc_" + sf.hashCode());
 
@@ -45,10 +59,5 @@ public class AppelFonction extends Expression {
 
 
 		return sb.toString();
-	}
-
-	@Override
-	public String toString() {
-		return "AppelFonction{connnnard}";
 	}
 }

@@ -12,19 +12,18 @@ public class FonctionsAvecParam extends Instruction {
 
     private String nom;
     private BlocDInstructions bloc;
-    private BlocDInstructions param;
+    private int nbParam;
     private SymboleFonction sf;
 
-    public FonctionsAvecParam(String nom, BlocDInstructions bloc, BlocDInstructions param) {
+    public FonctionsAvecParam(String nom, BlocDInstructions bloc, int nbParam) {
         super(bloc.getNoLigne());
         this.nom = nom;
-        this.param = param;
+        this.nbParam = nbParam;
         this.bloc = bloc;
     }
 
     public void verifier() {
-        param.verifier();
-        Symbole sf = TableSymbole.getInstance().identifier(new EntreeFonction(nom, param.getsizeBloc()));
+        Symbole sf = TableSymbole.getInstance().identifier(new EntreeFonction(nom, nbParam));
         TableSymbole.getInstance().entreeBloc();
         bloc.verifier();
         TableSymbole.getInstance().sortieBloc();
