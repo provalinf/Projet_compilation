@@ -88,6 +88,7 @@ commentaire = [/][/].* | [#].*
 {csteB}      	        { return symbol(CodesLexicaux.CONSTANTEBOOL, yytext()); }
 {csteC}      	        { return symbol(CodesLexicaux.CSTECHAINE, yytext()); }
 {idf}					{ return symbol(CodesLexicaux.IDF, yytext()) ; }
+{param}					{ return symbol(CodesLexicaux.PARAM, yytext()) ; }
 
 {espace}                { }
 
