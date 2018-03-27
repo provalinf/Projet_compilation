@@ -2,42 +2,44 @@ package arbre.fonctions;
 
 import arbre.expression.Expression;
 import arbre.instruction.Instruction;
+import exceptions.AnalyseSemantiqueException;
+import tds.EntreeFonction;
+import tds.Symbole;
+import tds.SymboleFonction;
 import tds.TableSymbole;
 
 public class RetourneFonction extends Instruction {
-    Expression e;
+	private String nom;
+	private Expression e;
+	private SymboleFonction sf;
 
-    public RetourneFonction(Expression e){
-        super(e.getNoLigne());
-        this.e = e;
-    }
+	public RetourneFonction(String nom, Expression e) {
+		super(e.getNoLigne());
+		this.e = e;
+		this.nom = nom;
+	}
 
-    @Override
-    public void verifier() {
+	@Override
+	public void verifier() {
 		e.verifier();
-    }
+		Symbole sf = TableSymbole.getInstance().identifier(new EntreeFonction(nom, 0));
+		if (sf == null) {
+			throw new AnalyseSemantiqueException("Ligne " + getNoLigne() + " : Fonction \"" + nom + "\" n'existe pas'");
+		} else if (!sf.isFonction()) {
+			throw new AnalyseSemantiqueException("Ligne " + getNoLigne() + " : \"" + nom + "\" n'est pas une fonction'");
+		}
+		this.sf = (SymboleFonction) sf;
+	}
 
-    @Override
-    public String toMIPS() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("# Retourne "+"\n");
-        sb.append(e.toMIPS()+"\n");
+	@Override
+	public String toMIPS() {
+		StringBuilder sb = new StringBuilder();
+		sb.append("# Retourne " + "\n");
+		sb.append(e.toMIPS() + "\n");
 
-        sb.append("\n");
-
-        sb.append("# Revenir à la pile\n");
-        sb.append("add $sp, $sp, " + TableSymbole.getInstance().getNoRegion() + "\n");
-
-        sb.append("add $s7, $sp, 0\n");
-
-        sb.append("# Adresse de retour\n");
-        sb.append("lw $ra, 0($sp)\n");
-        sb.append("add $sp, $sp, 4\n");
-
-        sb.append("# Stockage retour\n");
-        sb.append("lw $sp, 0($v0)\n ");
-
-        sb.append("jr $ra\n");
-        return sb.toString();
-    }
+		sb.append("\n");
+		sb.append("sw $v0, 16($s7)\n");
+		sb.append("j finfonc_" + sf.hashCode() + "\n");
+		return sb.toString();
+	}
 }

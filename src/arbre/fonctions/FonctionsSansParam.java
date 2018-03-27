@@ -13,14 +13,17 @@ public class FonctionsSansParam extends Instruction {
 	private String nom;
 	private BlocDInstructions bloc;
 	private SymboleFonction sf;
+	private Instruction i;
 
-	public FonctionsSansParam(String nom, BlocDInstructions bloc) {
+	public FonctionsSansParam(String nom, BlocDInstructions bloc, Instruction i) {
 		super(bloc.getNoLigne());
 		this.nom = nom;
 		this.bloc = bloc;
+		this.i = i;
 	}
 
 	public void verifier() {
+
 		Symbole sf = TableSymbole.getInstance().identifier(new EntreeFonction(nom, 0));
 		TableSymbole.getInstance().entreeBloc();
 		bloc.verifier();
@@ -30,13 +33,15 @@ public class FonctionsSansParam extends Instruction {
 		}
 
 		this.sf = (SymboleFonction) sf;
+		if (i != null) i.verifier();
 	}
-
 
 	public String toMIPS() {
 		StringBuilder sb = new StringBuilder();
 		sb.append("# Fonction " + nom + "\n");
-		sb.append("fonc_"+sf.hashCode() + ":\n");
+		sb.append("j pilefonc_" + sf.hashCode() + "\n");
+
+		sb.append("fonc_" + sf.hashCode() + ":\n");
 
 		sb.append("\n");
 
@@ -69,8 +74,16 @@ public class FonctionsSansParam extends Instruction {
 
 		sb.append("# Instructions fonction\n");
 		sb.append(bloc.toMIPS());
+		if (i != null) i.toMIPS();
 
+		sb.append("finfonc_" + sf.hashCode() + ":\n");
 
+		sb.append("lw $ra, 12($s7)\n");
+		sb.append("addi $sp, $s7, 12\n");
+		sb.append("lw $s7, 8($s7)\n");
+		sb.append("jr $ra\n");
+
+		sb.append("pilefonc_" + sf.hashCode() + ":\n");
 
 
 		return sb.toString();

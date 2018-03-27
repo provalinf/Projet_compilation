@@ -1,0 +1,13 @@
+programme fonc debut
+entier a;
+
+fonction addition() debut
+ecrire "toto";
+retourne 5;
+fin
+
+
+a = addition();
+ecrire a;
+
+fin

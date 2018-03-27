@@ -44,8 +44,8 @@ public class Moins extends BinaireArithmetique {
 		sb.append("addi $sp, $sp, 4\n");
 		sb.append("lw $t8, ($sp)\n");
 
-		sb.append("# Soustrait v0 à t8\n");
-		sb.append("sub $v0, $v0, $t8\n");
+		sb.append("# Soustrait t8 à v0\n");
+		sb.append("sub $v0, $t8, $v0\n");
 
 		return sb.toString();
 	}

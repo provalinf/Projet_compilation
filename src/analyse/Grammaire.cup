@@ -143,14 +143,14 @@ INSTRUCTION::= AFFECT:aff
 			{: RESULT=new Lire(i, ileft+1); :}
 		| ECRIRE:ecr
 			{: RESULT=ecr; :}
-		| IDF:i PAROUV PARFER POINTVIRGULE
+		| /*IDF:i PAROUV PARFER POINTVIRGULE
 			{: RESULT=new AppelFonction(i, ileft); :}
-		| FONC:fonc
+		|*/ FONC:fonc
 			{: RESULT=fonc; :}
 		/*| RETOURNE CSTECHAINE:c POINTVIRGULE
-			{: RESULT=new RetourneFonction(new EcrireString(c, cleft)); :}*/
+			{: RESULT=new RetourneFonction(new EcrireString(c, cleft)); :}
 		| RETOURNE EXPR:e POINTVIRGULE
-			{: RESULT=new RetourneFonction(e); :}
+			{: RESULT=new RetourneFonction(e); :}*/
 		;
 
 EXPR::= EXPR:g PLUS EXPR:d
@@ -177,12 +177,17 @@ EXPR::= EXPR:g PLUS EXPR:d
 			{: RESULT = new OuLogique(g, d); :}
 		| NON EXPR:e
 			{: RESULT = new NonLogique(e); :}
+
+		| IDF:i PAROUV PARFER
+			{: System.out.println("ahhhhhhh");	 RESULT=new AppelFonction(i, ileft); :}
+
 		| CSTE:c
 			{: RESULT = c; :}
 		| PAROUV EXPR:e PARFER
 			{: RESULT = e; :}
 		| IDF:i
 			{: RESULT = new Variable(i, ileft+1); :}
+
 		;
 
 AFFECT::= IDF:idf EGAL EXPR:e POINTVIRGULE
@@ -246,9 +251,16 @@ FONC::= /*TYPE:t IDF:nameFonc PAROUV PARFER ACCOUV LDECL LINSTR:lI ACCFER	// Pou
                            RESULT = new FonctionsSansParam(t, nameFonc, lI);
                           :}
 
-		|*/ FONCTION IDF:nameFonc PAROUV PARFER DEBUT LINSTR:lI FIN
+		|*/ FONCTION IDF:nameFonc PAROUV PARFER DEBUT LINSTR:lI RETOURNE EXPR:e POINTVIRGULE FIN
             {:
              TableSymbole.getInstance().ajouter(new EntreeFonction(nameFonc, 0), new SymboleFonction(null));
-             RESULT = new FonctionsSansParam(nameFonc, lI);
+             RESULT = new FonctionsSansParam(nameFonc, lI, new RetourneFonction(nameFonc, e));
+
+            :}
+            | FONCTION IDF:nameFonc PAROUV PARFER DEBUT LINSTR:lI FIN
+            {:
+             TableSymbole.getInstance().ajouter(new EntreeFonction(nameFonc, 0), new SymboleFonction(null));
+             RESULT = new FonctionsSansParam(nameFonc, lI, null);
+
             :}
             ;
