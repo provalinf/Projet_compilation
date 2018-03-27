@@ -243,7 +243,7 @@ CSTE::= CONSTANTEINT:cste
 FONC::= FONCTION IDF:nameFonc PAROUV PARAM:param PARFER DEBUT LINSTR:lI FIN	// Pour déclaration variables
         {:
            TableSymbole.getInstance().ajouter(new EntreeFonction(nameFonc, 0), new SymboleFonction(null));
-           RESULT = new FonctionsAvecParam Param(nameFonc, lI, param);
+           RESULT = new FonctionsAvecParam(nameFonc, lI, param);
         :}
 
 		| FONCTION IDF:nameFonc PAROUV PARFER DEBUT LINSTR:lI FIN
