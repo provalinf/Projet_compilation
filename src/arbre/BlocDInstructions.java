@@ -13,23 +13,23 @@ import java.util.ArrayList;
 
 public class BlocDInstructions extends ArbreAbstrait {
 
-	protected ArrayList<Instruction> bloc;
+    protected ArrayList<Instruction> bloc;
 
-	public BlocDInstructions(int n) {
-		super(n);
-		bloc = new ArrayList<Instruction>();
-	}
+    public BlocDInstructions(int n) {
+        super(n);
+        bloc = new ArrayList<Instruction>();
+    }
 
-	@Override
-	public void verifier() {
-		for (Instruction inst : bloc) {
-			inst.verifier();
-		}
-	}
+    @Override
+    public void verifier() {
+        for (Instruction inst : bloc) {
+            inst.verifier();
+        }
+    }
 
-	@Override
-	public String toMIPS() {
-		StringBuilder sb = new StringBuilder();
+    @Override
+    public String toMIPS() {
+        StringBuilder sb = new StringBuilder();
 		/*sb.append("move $s7, $sp\n");
 		//Allocation
 		sb.append("addi $sp, $sp, "+ TableSymbole.getInstance().getDep()+"\n");
@@ -39,25 +39,29 @@ public class BlocDInstructions extends ArbreAbstrait {
 			sb.append("sw $t8, "+i+"($s7)\n");
 		}*/
 
-		for (Instruction instr : bloc) {
-			sb.append(instr.toMIPS());
-		}
+        for (Instruction instr : bloc) {
+            sb.append(instr.toMIPS());
+        }
 
-		//sb.append("\nend:\nmove $v1, $v0\nli $v0,10\nsyscall");
-		return sb.toString();
-	}
+        //sb.append("\nend:\nmove $v1, $v0\nli $v0,10\nsyscall");
+        return sb.toString();
+    }
 
-	public void ajouter(Instruction a) {
-		bloc.add(a);
-	}
+    public void ajouter(Instruction a) {
+        bloc.add(a);
+    }
 
-	public ArrayList<Instruction> getBloc() {
-		return bloc;
-	}
+    public int getsizeBloc() {
+        return bloc.size();
+    }
 
-	@Override
-	public String toString() {
-		return bloc.toString();
-	}
+    public ArrayList<Instruction> getBloc() {
+        return bloc;
+    }
+
+    @Override
+    public String toString() {
+        return bloc.toString();
+    }
 
 }
