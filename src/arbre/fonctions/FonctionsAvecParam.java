@@ -23,7 +23,8 @@ public class FonctionsAvecParam extends Instruction {
     }
 
     public void verifier() {
-        Symbole sf = TableSymbole.getInstance().identifier(new EntreeFonction(nom, 0));
+        param.verifier();
+        Symbole sf = TableSymbole.getInstance().identifier(new EntreeFonction(nom, param.getsizeBloc()));
         TableSymbole.getInstance().entreeBloc();
         bloc.verifier();
         TableSymbole.getInstance().sortieBloc();

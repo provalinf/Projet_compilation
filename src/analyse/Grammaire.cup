@@ -240,7 +240,7 @@ CSTE::= CONSTANTEINT:cste
 			{: RESULT = new ConstanteBool(cste, csteleft+1); :}
 		;
 
-FONC::= FONCTION IDF:nameFonc PAROUV PARAM:param PARFER DEBUT LINSTR:lI FIN	// Pour déclaration variables
+FONC::= FONCTION IDF:nameFonc PAROUV PARAM:param PARFER DEBUT LINSTR:lI FIN
         {:
            TableSymbole.getInstance().ajouter(new EntreeFonction(nameFonc, 0), new SymboleFonction(null));
            RESULT = new FonctionsAvecParam(nameFonc, lI, param);
