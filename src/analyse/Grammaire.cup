@@ -81,8 +81,8 @@ terminal String    TYPE, CONSTANTEINT, CONSTANTEBOOL, CSTECHAINE, IDF;
 non terminal BlocDInstructions PROG, LINSTR, LDECL, DECLARATION/*, DECL_VAR, DECL_FONCTION, RETOURNE*/;
 non terminal Instruction INSTRUCTION, AFFECT, ECRIRE, CONDITION, BOUCLE, FONC;
 non terminal Expression EXPR, CSTE ;
-non terminal Integer LPARAM;
-non terminal ArrayList<Expression> PARAMS;
+non terminal Integer LPARAM/*, LPARAMS*/;
+non terminal HashMap<String, String> LPARAMS;
 
 precedence left OU ;
 precedence left ET ;
@@ -131,18 +131,22 @@ LDECL::= LDECL:ldecl DECLARATION:decl1
 		:}
 		;
 
-LPARAM::= LPARAM:c POINTVIRGULE TYPE:t IDF:idf
+LPARAM::= LPARAM:c POINTVIRGULE EXPR:e
 		{:
-		RESULT =c+1;
+			RESULT =c+1;
 		:}
-		| TYPE:t IDF:idf
+		| EXPR:e
 		{:
-			TableSymbole.getInstance().ajouter(new EntreeParam(idf), new SymboleSimple(t));
-		RESULT = 1;
+			//TableSymbole.getInstance().ajouter(new EntreeParam(idf), new SymboleSimple(t));
+			RESULT = 1;
 		:};
 
 DECLARATION::= TYPE:t IDF:idf POINTVIRGULE
 			{: TableSymbole.getInstance().ajouter(new EntreeVariable(idf), new SymboleSimple(t)); :}
+			| FONC:fonc
+			{:
+System.out.println("FONCTION");
+			 :}
 			;
 
 INSTRUCTION::= AFFECT:aff
@@ -155,14 +159,19 @@ INSTRUCTION::= AFFECT:aff
 			{: RESULT=new Lire(i, ileft+1); :}
 		| ECRIRE:ecr
 			{: RESULT=ecr; :}
-		| /*IDF:i PAROUV PARFER POINTVIRGULE
+		| IDF:i PAROUV PARFER POINTVIRGULE
 			{: RESULT=new AppelFonction(i, ileft); :}
-		|*/ FONC:fonc
-			{: RESULT=fonc; :}
+		| IDF:i PAROUV LPARAM:lp PARFER POINTVIRGULE
+			{: System.out.println("LP");
+			RESULT=new AppelFonction(i, ileft); :}
+		/*| FONC:fonc
+			{: RESULT=fonc; :}*/
 		/*| RETOURNE CSTECHAINE:c POINTVIRGULE
 			{: RESULT=new RetourneFonction(new EcrireString(c, cleft)); :}
 		| RETOURNE EXPR:e POINTVIRGULE
 			{: RESULT=new RetourneFonction(e); :}*/
+		/*| IDF:i PAROUV PARFER POINTVIRGULE
+			{: System.out.println("test"); :}*/
 		;
 
 EXPR::= EXPR:g PLUS EXPR:d
@@ -189,30 +198,16 @@ EXPR::= EXPR:g PLUS EXPR:d
 			{: RESULT = new OuLogique(g, d); :}
 		| NON EXPR:e
 			{: RESULT = new NonLogique(e); :}
-
-		| IDF:i PAROUV PARFER
-			{:	 RESULT=new AppelFonction(i, ileft); :}
-		| IDF:i PAROUV PARAMS:p PARFER
-			{:	 RESULT=new AppelFonction(i, ileft, p); :}
 		| CSTE:c
 			{: RESULT = c; :}
 		| PAROUV EXPR:e PARFER
 			{: RESULT = e; :}
+		/*| IDF:i PAROUV PARAMS:p PARFER
+			{: RESULT=new AppelFonction(i, ileft, p); :}*/
 		| IDF:i
 			{: RESULT = new Variable(i, ileft+1); :}
-
 		;
 
-PARAMS::=PARAMS:a POINTVIRGULE EXPR:e
-            {: a.add(e);
-               RESULT = a;
-            :}
-			| EXPR:e
-			{: ArrayList<Expression> listExpr = new ArrayList<Expression>();
-			   listExpr.add(e);
-			   RESULT = listExpr;
-			:}
-			;
 
 AFFECT::= IDF:idf EGAL EXPR:e POINTVIRGULE
 		{:
@@ -269,30 +264,47 @@ CSTE::= CONSTANTEINT:cste
 			{: RESULT = new ConstanteBool(cste, csteleft+1); :}
 		;
 
-FONC::= /*TYPE:t IDF:nameFonc PAROUV PARFER ACCOUV LDECL LINSTR:lI ACCFER	// Pour déclaration variables
-       {:
-        TableSymbole.getInstance().ajouter(new EntreeFonction(nameFonc, 0), new SymboleFonction(t));
-        RESULT = new FonctionsSansParam(t, nameFonc, lI);
-       :}
-
-		|*/
-
-		FONCTION IDF:nameFonc PAROUV LPARAM:c PARFER DEBUT LINSTR:lI FIN
-         {:
-            TableSymbole.getInstance().ajouter(new EntreeFonction(nameFonc, 0), new SymboleFonction(null));
-            RESULT = new FonctionsAvecParam(nameFonc, lI, c);
-         :}
-
+FONC::= FONCTION IDF:nameFonc PAROUV LPARAMS:lp PARFER DEBUT LINSTR:lI RETOURNE EXPR:e POINTVIRGULE FIN
+		{:
+			System.out.println("nbParams "+lp.size());
+			System.out.println("Fonction avec paramètre et retour");
+			TableSymbole.getInstance().entreeBloc();
+			TableSymbole.getInstance().ajouter(new EntreeFonction(nameFonc, lp.size()), new SymboleFonction("entier"));
+			RESULT = new FonctionsAvecParam(nameFonc, lI, lp);
+			System.out.println("ttttest");
+			TableSymbole.getInstance().sortieBloc();
+		:}
  		| FONCTION IDF:nameFonc PAROUV PARFER DEBUT LINSTR:lI RETOURNE EXPR:e POINTVIRGULE FIN
-  {:
-   TableSymbole.getInstance().ajouter(new EntreeFonction(nameFonc, 0), new SymboleFonction(null));
-   RESULT = new FonctionsSansParam(nameFonc, lI, new RetourneFonction(nameFonc, e));
+		{:
+			System.out.println("Fonction sans paramètre et retour");
+			TableSymbole.getInstance().ajouter(new EntreeFonction(nameFonc, 0), new SymboleFonction(null));
+			RESULT = new FonctionsSansParam(nameFonc, lI, new RetourneFonction(nameFonc, e));
+		:}
+		/*| FONCTION IDF:nameFonc PAROUV PARFER DEBUT LINSTR:lI FIN
+		{:
+			System.out.println("Fonction sans paramètre");
+			TableSymbole.getInstance().ajouter(new EntreeFonction(nameFonc, 0), new SymboleFonction(null));
+			RESULT = new FonctionsSansParam(nameFonc, lI, null);
+		:}*/
+		;
 
-  :}
-  | FONCTION IDF:nameFonc PAROUV PARFER DEBUT LINSTR:lI FIN
-  {:
-   TableSymbole.getInstance().ajouter(new EntreeFonction(nameFonc, 0), new SymboleFonction(null));
-   RESULT = new FonctionsSansParam(nameFonc, lI, null);
-
-  :}
-  ;
+LPARAMS::= LPARAMS:lp POINTVIRGULE TYPE:t IDF:i
+		{:
+			System.out.println("recup lp "+lp.size());
+			System.out.println(t+" "+i);
+			if (lp.containsKey(i)) System.out.println("Erreur variable déjà existante");
+			lp.put(i, t);
+			for (Map.Entry<String, String> entry : lp.entrySet()) {
+				System.out.println(entry.getKey() + "=" + entry.getValue());
+			}
+			System.out.println("param "+lp.size());
+			RESULT = lp;
+		:}
+		| TYPE:t IDF:i
+		{:
+			HashMap<String, String> params = new HashMap<>();
+			params.put(i, t);
+			System.out.println("param 1\n");
+			//TableSymbole.getInstance().ajouter(new EntreeParam(idf), new SymboleSimple(t));
+			RESULT = params;
+		:};

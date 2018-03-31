@@ -8,22 +8,24 @@ import tds.Symbole;
 import tds.SymboleFonction;
 import tds.TableSymbole;
 
+import java.util.HashMap;
+
 public class FonctionsAvecParam extends Instruction {
 
     private String nom;
     private BlocDInstructions bloc;
-    private int nbParam;
+    private HashMap<String,String> params;
     private SymboleFonction sf;
 
-    public FonctionsAvecParam(String nom, BlocDInstructions bloc, int nbParam) {
+    public FonctionsAvecParam(String nom, BlocDInstructions bloc, HashMap<String,String> params) {
         super(bloc.getNoLigne());
         this.nom = nom;
-        this.nbParam = nbParam;
+        this.params = params;
         this.bloc = bloc;
     }
 
     public void verifier() {
-        Symbole sf = TableSymbole.getInstance().identifier(new EntreeFonction(nom, nbParam));
+        Symbole sf = TableSymbole.getInstance().identifier(new EntreeFonction(nom, params.size()));
         TableSymbole.getInstance().entreeBloc();
         bloc.verifier();
         TableSymbole.getInstance().sortieBloc();

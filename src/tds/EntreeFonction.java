@@ -11,4 +11,14 @@ public class EntreeFonction extends Entree {
 		super(id);
 		this.nbParam = nbParam;
 	}
+
+	public int getNbParam() {
+		return nbParam;
+	}
+
+	@Override
+	public boolean isFunction() {
+		return true;
+	}
+
 }

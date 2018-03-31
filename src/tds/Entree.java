@@ -14,6 +14,10 @@ public abstract class Entree {
 		return id;
 	}
 
+	public boolean isFunction() {
+		return false;
+	}
+
 	@Override
 	public String toString() {
 		return id;

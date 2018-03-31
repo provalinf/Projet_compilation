@@ -10,7 +10,7 @@ import tds.TableSymbole;
 
 import java.util.ArrayList;
 
-public class AppelFonction extends Expression {
+public class AppelFonction extends Instruction {
 	private String idf;
 	private SymboleFonction sf;
 	private ArrayList<Expression> params;
@@ -27,7 +27,6 @@ public class AppelFonction extends Expression {
 
 	@Override
 	public void verifier() {
-		type = "entier";
 		Symbole sf = TableSymbole.getInstance().identifier(new EntreeFonction(idf, 0));
 		if (sf == null) {
 			throw new AnalyseSemantiqueException("Ligne " + getNoLigne() + " : Fonction \"" + idf + "\" n'existe pas'");

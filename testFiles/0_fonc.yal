@@ -1,17 +1,15 @@
 programme fonc debut
 entier a;
+entier b;
 
-a=2;
-
-addition();
-
-fonction addition() debut
+fonction addition(entier c;entier d) debut
 ecrire 2;
-
+retourne 2;
 fin
 
 
-
+a=2;
+//addition(a; a; b);
 
 
 fin
