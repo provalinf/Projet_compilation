@@ -78,8 +78,8 @@ terminal String    TYPE, CONSTANTEINT, CONSTANTEBOOL, CSTECHAINE, IDF;
    
 /* Non terminals used in the grammar section.  */
 
-non terminal BlocDInstructions PROG, LINSTR, LDECL, DECLARATION/*, DECL_VAR, DECL_FONCTION, RETOURNE*/;
-non terminal Instruction INSTRUCTION, AFFECT, ECRIRE, CONDITION, BOUCLE, FONC;
+non terminal BlocDInstructions PROG, LINSTR, LDECL/*, DECL_VAR, DECL_FONCTION, RETOURNE*/;
+non terminal Instruction INSTRUCTION, AFFECT, ECRIRE, CONDITION, DECLARATION, BOUCLE, FONC;
 non terminal Expression EXPR, CSTE ;
 non terminal Integer LPARAM/*, LPARAMS*/;
 non terminal HashMap<String, String> LPARAMS;
