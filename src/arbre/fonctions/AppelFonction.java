@@ -10,7 +10,7 @@ import tds.TableSymbole;
 
 import java.util.ArrayList;
 
-public class AppelFonction extends Instruction {
+public class AppelFonction extends Expression {
 	private String idf;
 	private SymboleFonction sf;
 	private ArrayList<Expression> params;
@@ -22,7 +22,9 @@ public class AppelFonction extends Instruction {
 
 	public AppelFonction(String idf, int no, ArrayList<Expression> params) {
 		this(idf, no);
+		System.out.println("blblblblblbl"+params);
 		this.params = params;
+		type = "entier";
 	}
 
 	@Override
@@ -53,10 +55,10 @@ public class AppelFonction extends Instruction {
 		sb.append("\n");
 
 		sb.append("# Dépile retour \n");
-		sb.append("add $sp, $sp, 4\n");
+		sb.append("addi $sp, $sp, 4\n");
 		sb.append("lw $v0, 0($sp)\n");
 
-
+		sb.append("add $sp, $sp, " + params.size() * 4 + "\n");
 		return sb.toString();
 	}
 }

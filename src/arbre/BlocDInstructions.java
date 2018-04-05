@@ -14,14 +14,22 @@ import java.util.ArrayList;
 public class BlocDInstructions extends ArbreAbstrait {
 
     protected ArrayList<Instruction> bloc;
+    protected BlocDInstructions ldecl;
 
-    public BlocDInstructions(int n) {
+    public BlocDInstructions(int n, BlocDInstructions ld) {
         super(n);
         bloc = new ArrayList<Instruction>();
+        ldecl = ld;
     }
 
     @Override
     public void verifier() {
+        System.out.println("ldecl :"+ldecl);
+        if(ldecl != null){
+            for (Instruction inst : ldecl.getBloc()) {
+                inst.verifier();
+            }
+        }
         for (Instruction inst : bloc) {
             inst.verifier();
         }
@@ -39,12 +47,22 @@ public class BlocDInstructions extends ArbreAbstrait {
 			sb.append("sw $t8, "+i+"($s7)\n");
 		}*/
 
+        if(ldecl != null){
+            for (Instruction inst : ldecl.getBloc()) {
+                sb.append(inst.toMIPS());
+            }
+        }
+
         for (Instruction instr : bloc) {
             sb.append(instr.toMIPS());
         }
 
         //sb.append("\nend:\nmove $v1, $v0\nli $v0,10\nsyscall");
         return sb.toString();
+    }
+
+    public void addLDecl(BlocDInstructions b){
+        ldecl = b;
     }
 
     public void ajouter(Instruction a) {

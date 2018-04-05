@@ -1,0 +1,77 @@
+move $s7, $sp
+addi $sp, $sp, -16
+sw $t8, 0($s7)
+sw $t8, -4($s7)
+sw $t8, -8($s7)
+sw $t8, -12($s7)
+# Fonction addition
+fonc_1304836502:
+
+# Sauvegarder adresse de retour
+sw $ra, ($sp)
+addi $sp, $sp, -4
+
+# Sauvegarder base locale dans la pile
+sw $s7, ($sp)
+addi $sp, $sp, -4
+
+# Ajout num de bloc
+li $v0, 0
+sw $v0, ($sp)
+addi $sp, $sp, -4
+
+# Déplacement base
+move $s7, $sp
+
+# Instructions fonction
+
+# Ecrire une expression
+lw $v0,-4($s7)
+move $a0, $v0
+li $v0, 1
+syscall
+
+# Ecrire une expression
+lw $v0,-8($s7)
+move $a0, $v0
+li $v0, 1
+syscall
+
+# Ecrire une chaine de caractère
+.data
+str_225534817 :	.asciiz "10"
+.text
+li $v0, 4
+la $a0, str_225534817
+syscall
+finfonc_1304836502:
+lw $ra, 12($s7)
+addi $sp, $s7, 12
+lw $s7, 8($s7)
+jr $ra
+pilefonc_1304836502:
+#Appel fonction
+
+# Ranger 4 dans $v0
+li $v0, 4
+sw $v0, ($sp)
+add $sp, $sp, -4
+
+# Ranger 8 dans $v0
+li $v0, 8
+sw $v0, ($sp)
+add $sp, $sp, -4
+addi $sp, $sp, -4
+jal fonc_1304836502
+# Dépile retour 
+addi $sp, $sp, 4
+lw $v0, 0($sp)
+add $sp, $sp, 8
+
+# Affectation
+sw $v0, 0($s7)
+
+end:
+move $v1, $v0
+li $v0,10
+syscall

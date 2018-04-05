@@ -4,9 +4,10 @@ entier a;
 fonction addition(entier b; entier c) debut
 ecrire b;
 ecrire c;
+ecrire "10";
+retourne 5;
 fin
 
-
-addition(5;8);
+a = addition(4;8);
 
 fin

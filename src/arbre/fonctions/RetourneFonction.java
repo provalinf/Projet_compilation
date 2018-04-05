@@ -22,6 +22,7 @@ public class RetourneFonction extends Instruction {
 	@Override
 	public void verifier() {
 		e.verifier();
+		System.out.println("VERIFIE MOI");
 		Symbole sf = TableSymbole.getInstance().identifier(new EntreeFonction(nom, 0));
 		if (sf == null) {
 			throw new AnalyseSemantiqueException("Ligne " + getNoLigne() + " : Fonction \"" + nom + "\" n'existe pas'");

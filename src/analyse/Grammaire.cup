@@ -80,9 +80,9 @@ terminal String    TYPE, CONSTANTEINT, CONSTANTEBOOL, CSTECHAINE, IDF;
 
 non terminal BlocDInstructions PROG, LINSTR, LDECL/*, DECL_VAR, DECL_FONCTION, RETOURNE*/;
 non terminal Instruction INSTRUCTION, AFFECT, ECRIRE, CONDITION, DECLARATION, BOUCLE, FONC;
-non terminal Expression EXPR, CSTE ;
-non terminal Integer LPARAM/*, LPARAMS*/;
-non terminal HashMap<String, String> LPARAMS;
+non terminal Expression EXPR, CSTE;
+non terminal ArrayList<Expression> LPARAM;
+non terminal Integer LPARAMS;
 
 precedence left OU ;
 precedence left ET ;
@@ -100,14 +100,17 @@ start with PROG;
 PROG::= PROGRAMME IDF DEBUT LDECL:ld LINSTR:lI FIN
 			{:
 				// Retourner le ld pour verif et toMIPS les fonctions
+				System.out.println("LDECLLLLL :"+ld);
+				lI.addLDecl(ld);
 				RESULT = lI;
 			:}
 		| PROGRAMME IDF DEBUT LINSTR:lI FIN
 			{: RESULT = lI; :}
 		| PROGRAMME IDF DEBUT LDECL:ld FIN
 			{:
+			    System.out.println("LDECLLLLL :"+ld);
 				// Retourner le ld pour verif et toMIPS les fonctions
-				RESULT = new BlocDInstructions(0);
+				RESULT = new BlocDInstructions(0, ld);
 			:}
 		;
 
@@ -119,7 +122,7 @@ LINSTR::= LINSTR:lI INSTRUCTION:I
 		| INSTRUCTION:I
 		{:
 			//System.out.println(I+" "+Ileft+" "+Iright);
-			BlocDInstructions lI = new BlocDInstructions(Ileft+1);
+			BlocDInstructions lI = new BlocDInstructions(Ileft+1, null);
 			lI.ajouter(I);
 			RESULT = lI;
 		:}
@@ -128,11 +131,12 @@ LINSTR::= LINSTR:lI INSTRUCTION:I
 LDECL::= LDECL:ldecl DECLARATION:decl1
 		{:
 			if (decl1 != null) ldecl.ajouter(decl1);
+			System.out.println("LDEC :"+ldecl);
 			RESULT = ldecl;
 		:}
 		| DECLARATION:decl2
 		{:
-			BlocDInstructions dec = new BlocDInstructions(decl2left+1);
+			BlocDInstructions dec = new BlocDInstructions(decl2left+1, null);
 			if (decl2 != null) dec.ajouter(decl2);
 			RESULT = dec;
 		:}
@@ -140,12 +144,15 @@ LDECL::= LDECL:ldecl DECLARATION:decl1
 
 LPARAM::= LPARAM:c POINTVIRGULE EXPR:e
 		{:
-			RESULT =c+1;
+		    c.add(e);
+			RESULT = c;
 		:}
 		| EXPR:e
 		{:
+		    ArrayList<Expression> expressions = new ArrayList<Expression>();
+		    expressions.add(e);
 			//TableSymbole.getInstance().ajouter(new EntreeParam(idf), new SymboleSimple(t));
-			RESULT = 1;
+			RESULT = expressions;
 		:};
 
 DECLARATION::= TYPE:t IDF:idf POINTVIRGULE
@@ -167,11 +174,6 @@ INSTRUCTION::= AFFECT:aff
 			{: RESULT=new Lire(i, ileft+1); :}
 		| ECRIRE:ecr
 			{: RESULT=ecr; :}
-		| IDF:i PAROUV PARFER POINTVIRGULE
-			{: RESULT=new AppelFonction(i, ileft); :}
-		| IDF:i PAROUV LPARAM:lp PARFER POINTVIRGULE
-			{: System.out.println("LP");
-			RESULT=new AppelFonction(i, ileft); :}
 		/*| FONC:fonc
 			{: RESULT=fonc; :}*/
 		/*| RETOURNE CSTECHAINE:c POINTVIRGULE
@@ -210,8 +212,11 @@ EXPR::= EXPR:g PLUS EXPR:d
 			{: RESULT = c; :}
 		| PAROUV EXPR:e PARFER
 			{: RESULT = e; :}
-		/*| IDF:i PAROUV PARAMS:p PARFER
-			{: RESULT=new AppelFonction(i, ileft, p); :}*/
+		| IDF:i PAROUV PARFER
+        	{: RESULT=new AppelFonction(i, ileft); :}
+        | IDF:i PAROUV LPARAM:lp PARFER
+        	{: System.out.println("LP");
+        	RESULT=new AppelFonction(i, ileft, lp); :}
 		| IDF:i
 			{: RESULT = new Variable(i, ileft+1); :}
 		;
@@ -274,12 +279,12 @@ CSTE::= CONSTANTEINT:cste
 
 FONC::= FONCTION IDF:nameFonc PAROUV LPARAMS:lp PARFER DEBUT LINSTR:lI RETOURNE EXPR:e POINTVIRGULE FIN
 		{:
-			System.out.println("nbParams "+lp.size());
 			System.out.println("Fonction avec paramètre et retour");
+			System.out.println("nbParams: "+lp);
 			TableSymbole.getInstance().entreeBloc();
 			System.out.println("numBloc "+TableSymbole.getInstance().getNoRegion());
-			TableSymbole.getInstance().ajouter(new EntreeFonction(nameFonc, lp.size()), new SymboleFonction("entier"));
-			RESULT = new FonctionsAvecParam(nameFonc, lI, lp);
+			TableSymbole.getInstance().ajouter(new EntreeFonction(nameFonc, lp), new SymboleFonction("entier"));
+			RESULT = new FonctionsAvecParam(nameFonc, lI, lp, new RetourneFonction(nameFonc, e));
 			System.out.println("ttttest");
 			TableSymbole.getInstance().sortieBloc();
 			System.out.println("numBloc "+TableSymbole.getInstance().getNoRegion());
@@ -300,21 +305,15 @@ FONC::= FONCTION IDF:nameFonc PAROUV LPARAMS:lp PARFER DEBUT LINSTR:lI RETOURNE 
 
 LPARAMS::= LPARAMS:lp POINTVIRGULE TYPE:t IDF:i
 		{:
-			System.out.println("recup lp "+lp.size());
-			System.out.println(t+" "+i);
-			if (lp.containsKey(i)) System.out.println("Erreur variable déjà existante");
-			lp.put(i, t);
-			for (Map.Entry<String, String> entry : lp.entrySet()) {
-				System.out.println(entry.getKey() + "=" + entry.getValue());
-			}
-			System.out.println("param "+lp.size());
-			RESULT = lp;
+			EntreeParam entree = new EntreeParam(i);
+            SymboleSimple symbole = new SymboleSimple(t);
+            TableSymbole.getInstance().ajouter(entree, symbole);
+			RESULT = lp+1;
 		:}
 		| TYPE:t IDF:i
 		{:
-			HashMap<String, String> params = new HashMap<>();
-			params.put(i, t);
-			System.out.println("param 1\n");
-			//TableSymbole.getInstance().ajouter(new EntreeParam(idf), new SymboleSimple(t));
-			RESULT = params;
+            EntreeParam entree = new EntreeParam(i);
+            SymboleSimple symbole = new SymboleSimple(t);
+            TableSymbole.getInstance().ajouter(entree, symbole);
+            RESULT = 1;
 		:};

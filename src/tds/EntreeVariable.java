@@ -6,6 +6,4 @@ public class EntreeVariable extends Entree {
 		super(e);
 	}
 
-
-
 }

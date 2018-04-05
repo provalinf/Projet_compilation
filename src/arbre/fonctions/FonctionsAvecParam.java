@@ -3,30 +3,29 @@ package arbre.fonctions;
 import arbre.BlocDInstructions;
 import arbre.instruction.Instruction;
 import exceptions.AnalyseSemantiqueException;
-import tds.EntreeFonction;
-import tds.Symbole;
-import tds.SymboleFonction;
-import tds.TableSymbole;
+import tds.*;
 
 import java.util.HashMap;
+import java.util.Map;
 
 public class FonctionsAvecParam extends Instruction {
 
     private String nom;
     private BlocDInstructions bloc;
-    private HashMap<String,String> params;
+    private int nbParams;
     private SymboleFonction sf;
+    private Instruction i;
 
-    public FonctionsAvecParam(String nom, BlocDInstructions bloc, HashMap<String,String> params) {
+    public FonctionsAvecParam(String nom, BlocDInstructions bloc, int nbParams, Instruction i) {
         super(bloc.getNoLigne());
         this.nom = nom;
-        this.params = params;
         this.bloc = bloc;
+        this.i = i;
     }
 
     public void verifier() {
 		System.out.println("numBloc2 "+TableSymbole.getInstance().getNoRegion());
-        Symbole sf = TableSymbole.getInstance().identifier(new EntreeFonction(nom, params.size()));
+        Symbole sf = TableSymbole.getInstance().identifier(new EntreeFonction(nom, nbParams));
         TableSymbole.getInstance().entreeBloc();
 		System.out.println("numBloc2 "+TableSymbole.getInstance().getNoRegion());
         bloc.verifier();
@@ -36,6 +35,7 @@ public class FonctionsAvecParam extends Instruction {
         }
 
         this.sf = (SymboleFonction) sf;
+        if (i != null) i.verifier();
     }
 
 
@@ -72,9 +72,20 @@ public class FonctionsAvecParam extends Instruction {
 
         // Réservation variable locale (yal 4)
         // Pas fait
-
+        
         sb.append("# Instructions fonction\n");
         sb.append(bloc.toMIPS());
+        if (i != null) i.toMIPS();
+
+        sb.append("finfonc_" + sf.hashCode() + ":\n");
+
+        sb.append("lw $ra, 12($s7)\n");
+        sb.append("addi $sp, $s7, 12\n");
+        sb.append("lw $s7, 8($s7)\n");
+        sb.append("jr $ra\n");
+
+        sb.append("pilefonc_" + sf.hashCode() + ":\n");
+
 
 
         return sb.toString();
