@@ -1088,10 +1088,12 @@ System.out.println("FONCTION");
 			System.out.println("nbParams "+lp.size());
 			System.out.println("Fonction avec paramètre et retour");
 			TableSymbole.getInstance().entreeBloc();
+			System.out.println("numBloc "+TableSymbole.getInstance().getNoRegion());
 			TableSymbole.getInstance().ajouter(new EntreeFonction(nameFonc, lp.size()), new SymboleFonction("entier"));
 			RESULT = new FonctionsAvecParam(nameFonc, lI, lp);
 			System.out.println("ttttest");
 			TableSymbole.getInstance().sortieBloc();
+			System.out.println("numBloc "+TableSymbole.getInstance().getNoRegion());
 		
               CUP$AnalyseurSyntaxique$result = parser.getSymbolFactory().newSymbol("FONC",9, ((java_cup.runtime.Symbol)CUP$AnalyseurSyntaxique$stack.elementAt(CUP$AnalyseurSyntaxique$top-10)), ((java_cup.runtime.Symbol)CUP$AnalyseurSyntaxique$stack.peek()), RESULT);
             }

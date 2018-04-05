@@ -97,12 +97,18 @@ precedence left NON ;
  
 start with PROG;
 
-PROG::= PROGRAMME IDF DEBUT LDECL LINSTR:lI FIN
-			{: RESULT = lI; :}
+PROG::= PROGRAMME IDF DEBUT LDECL:ld LINSTR:lI FIN
+			{:
+				// Retourner le ld pour verif et toMIPS les fonctions
+				RESULT = lI;
+			:}
 		| PROGRAMME IDF DEBUT LINSTR:lI FIN
 			{: RESULT = lI; :}
-		| PROGRAMME IDF DEBUT LDECL FIN
-			{: RESULT = new BlocDInstructions(0); :}
+		| PROGRAMME IDF DEBUT LDECL:ld FIN
+			{:
+				// Retourner le ld pour verif et toMIPS les fonctions
+				RESULT = new BlocDInstructions(0);
+			:}
 		;
 
 LINSTR::= LINSTR:lI INSTRUCTION:I
@@ -121,13 +127,14 @@ LINSTR::= LINSTR:lI INSTRUCTION:I
 
 LDECL::= LDECL:ldecl DECLARATION:decl1
 		{:
-			/*ldecl.ajouter(decl1);
-			RESULT = ldecl;*/
+			if (decl1 != null) ldecl.ajouter(decl1);
+			RESULT = ldecl;
 		:}
 		| DECLARATION:decl2
 		{:
-			/* BlocDInstructions dec = new BlocDInstructions(decl2left+1);
-			RESULT = dec;*/
+			BlocDInstructions dec = new BlocDInstructions(decl2left+1);
+			if (decl2 != null) dec.ajouter(decl2);
+			RESULT = dec;
 		:}
 		;
 
@@ -145,7 +152,8 @@ DECLARATION::= TYPE:t IDF:idf POINTVIRGULE
 			{: TableSymbole.getInstance().ajouter(new EntreeVariable(idf), new SymboleSimple(t)); :}
 			| FONC:fonc
 			{:
-System.out.println("FONCTION");
+				System.out.println("FONCTION");
+				RESULT = fonc;
 			 :}
 			;
 
@@ -269,10 +277,12 @@ FONC::= FONCTION IDF:nameFonc PAROUV LPARAMS:lp PARFER DEBUT LINSTR:lI RETOURNE 
 			System.out.println("nbParams "+lp.size());
 			System.out.println("Fonction avec paramètre et retour");
 			TableSymbole.getInstance().entreeBloc();
+			System.out.println("numBloc "+TableSymbole.getInstance().getNoRegion());
 			TableSymbole.getInstance().ajouter(new EntreeFonction(nameFonc, lp.size()), new SymboleFonction("entier"));
 			RESULT = new FonctionsAvecParam(nameFonc, lI, lp);
 			System.out.println("ttttest");
 			TableSymbole.getInstance().sortieBloc();
+			System.out.println("numBloc "+TableSymbole.getInstance().getNoRegion());
 		:}
  		| FONCTION IDF:nameFonc PAROUV PARFER DEBUT LINSTR:lI RETOURNE EXPR:e POINTVIRGULE FIN
 		{:
