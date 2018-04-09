@@ -162,9 +162,9 @@ DECLARATION::= TYPE:t IDF:idf POINTVIRGULE
 				System.out.println("FONCTION");
 				RESULT = fonc;
 			:}
-			| TYPE:t CROOV CONSTANTEINT:ci CROOF IDF:idf POINTVIRGULE
+			| TYPE:t CROOV EXPR:e CROOF IDF:idf POINTVIRGULE
 			{:
-				TableSymbole.getInstance().ajouter(new EntreeTableau(idf), new SymboleTableau(t, ci));
+				TableSymbole.getInstance().ajouter(new EntreeTableau(idf), new SymboleTableau(t, e));
 			:}
 			;
 
@@ -218,6 +218,8 @@ EXPR::= EXPR:g PLUS EXPR:d
 			{: RESULT = c; :}
 		| PAROUV EXPR:e PARFER
 			{: RESULT = e; :}
+		| IDF:i CROOV EXPR:e CROOF
+			{: RESULT = new TabRead(ileft, i, e); :}
 		| IDF:i PAROUV PARFER
 			{: RESULT=new AppelFonction(i, ileft); :}
 		| IDF:i PAROUV LPARAM:lp PARFER
