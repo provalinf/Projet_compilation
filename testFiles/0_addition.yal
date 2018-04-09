@@ -8,6 +8,6 @@ ecrire "10";
 retourne 5;
 fin
 
-a = addition(4;8);
+a = addition(4,8);
 
 fin

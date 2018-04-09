@@ -24,10 +24,10 @@ public class FonctionsAvecParam extends Instruction {
     }
 
     public void verifier() {
-		System.out.println("numBloc2 "+TableSymbole.getInstance().getNoRegion());
+		//System.out.println("numBloc2 "+TableSymbole.getInstance().getNoRegion());
         Symbole sf = TableSymbole.getInstance().identifier(new EntreeFonction(nom, nbParams));
         TableSymbole.getInstance().entreeBloc();
-		System.out.println("numBloc2 "+TableSymbole.getInstance().getNoRegion());
+		//System.out.println("numBloc2 "+TableSymbole.getInstance().getNoRegion());
         bloc.verifier();
         TableSymbole.getInstance().sortieBloc();
         if (sf == null) {

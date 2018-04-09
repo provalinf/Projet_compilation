@@ -37,11 +37,24 @@ public class AffectationTab extends Instruction {
 	public String toMIPS() {
 		StringBuilder sb = new StringBuilder();
 		sb.append(expr1.toMIPS());
-		System.out.println("HELP ME !!");
-		sb.append("\n# Affectation tab\n");
+
+		sb.append("li $t8, -4\n");
+		sb.append("mult $v0, $t8\n");
+		sb.append("mflo $v0\n");
+
+		sb.append("sw $v0, 0($sp)\n");
+		sb.append("add $sp, $sp, -4\n");
 		/*sb.append("sw $v0, " + symbole.getDep() + "($s7)\n");*/
+		//((SymboleTableau)symbole).getEmplacement()
 
 		sb.append(expr2.toMIPS());
+		sb.append("add $sp, $sp, 4\n");
+		sb.append("lw $t8, 0($sp)\n");
+		sb.append("add $s7, $s7, "+TableSymbole.getInstance().getDep()+"\n");
+		sb.append("add $s7, $s7, $t8\n");
+		sb.append("sw $v0, ($s7)\n");
+		sb.append("add $s7, $s7, "+TableSymbole.getInstance().getDep()+"\n");
+		sb.append("sub $s7, $s7, $t8\n");
 		System.out.println("HELP ME PLEASE !!");
 		return sb.toString();
 	}

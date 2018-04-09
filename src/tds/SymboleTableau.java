@@ -11,9 +11,11 @@ import javax.script.ScriptException;
  */
 public class SymboleTableau extends Symbole {
 	private int taille;
+	private int posDep;
 
 	public SymboleTableau(String type, Expression e) {
 		super(type);
+		posDep = TableSymbole.getInstance().getDep();
 		defineSize(e);
 	}
 
@@ -29,7 +31,12 @@ public class SymboleTableau extends Symbole {
 
 	public SymboleTableau(String type, Expression e, int dep, int NRegion, int NImbric) {
 		super(type, dep, NRegion, NImbric);
+		posDep = TableSymbole.getInstance().getDep();
 		defineSize(e);
+	}
+
+	public int getEmplacement(int key) {
+		return posDep + key * -4;
 	}
 
 	public int getTabSize() {

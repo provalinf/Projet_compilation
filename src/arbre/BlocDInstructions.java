@@ -24,7 +24,7 @@ public class BlocDInstructions extends ArbreAbstrait {
 
     @Override
     public void verifier() {
-        System.out.println("ldecl :"+ldecl);
+        //System.out.println("ldecl :"+ldecl);
         if(ldecl != null){
             for (Instruction inst : ldecl.getBloc()) {
                 inst.verifier();

@@ -11,7 +11,7 @@ public class Variable extends Expression {
 		super(no);
 		this.nom = nom;
 		e = new EntreeVariable(nom);
-		System.out.println(e);
+		//System.out.println(e);
 		type = getSymbole(e).getType();
 	}
 

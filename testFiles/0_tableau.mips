@@ -1,0 +1,70 @@
+move $s7, $sp
+sw $v0, 0($s7)
+sw $v0, -4($s7)
+sw $v0, -8($s7)
+sw $v0, -12($s7)
+sw $v0, -16($s7)
+sw $v0, -20($s7)
+sw $v0, -24($s7)
+sw $v0, -28($s7)
+sw $v0, -32($s7)
+sw $v0, -36($s7)
+sw $v0, -40($s7)
+sw $v0, -44($s7)
+sw $v0, -48($s7)
+sw $v0, -52($s7)
+sw $v0, -56($s7)
+sw $v0, -60($s7)
+sw $v0, -64($s7)
+sw $v0, -68($s7)
+sw $v0, -72($s7)
+addi $sp, $sp, -76
+
+# Ranger 5 dans $v0
+li $v0, 5
+
+# Affectation
+sw $v0, 0($s7)
+
+# Ranger 2 dans $v0
+li $v0, 2
+li $t8, -4
+mult $v0, $t8
+mflo $v0
+sw $v0, 0($sp)
+add $sp, $sp, -4
+lw $v0,0($s7)
+add $sp, $sp, 4
+lw $t8, 0($sp)
+add $s7, $s7, -76
+add $s7, $s7, $t8
+sw $v0, ($s7)
+add $s7, $s7, -76
+sub $s7, $s7, $t8
+null
+# Affectation
+sw $v0, -72($s7)
+
+# Ecrire une expression
+nullmove $a0, $v0
+li $v0, 1
+syscall
+
+# Ecrire une chaine de caractère
+.data
+str_664457955 :	.asciiz "\n"
+.text
+li $v0, 4
+la $a0, str_664457955
+syscall
+
+# Ecrire une expression
+lw $v0,-72($s7)
+move $a0, $v0
+li $v0, 1
+syscall
+
+end:
+move $v1, $v0
+li $v0,10
+syscall

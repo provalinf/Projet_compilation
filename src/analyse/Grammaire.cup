@@ -100,7 +100,7 @@ start with PROG;
 PROG::= PROGRAMME IDF DEBUT LDECL:ld LINSTR:lI FIN
 			{:
 				// Retourner le ld pour verif et toMIPS les fonctions
-				System.out.println("LDECLLLLL :"+ld);
+				//System.out.println("LDECLLLLL :"+ld);
 				lI.addLDecl(ld);
 				RESULT = lI;
 			:}
@@ -108,7 +108,7 @@ PROG::= PROGRAMME IDF DEBUT LDECL:ld LINSTR:lI FIN
 			{: RESULT = lI; :}
 		| PROGRAMME IDF DEBUT LDECL:ld FIN
 			{:
-			    System.out.println("LDECLLLLL :"+ld);
+			    //System.out.println("LDECLLLLL :"+ld);
 				// Retourner le ld pour verif et toMIPS les fonctions
 				RESULT = new BlocDInstructions(0, ld);
 			:}
@@ -131,7 +131,7 @@ LINSTR::= LINSTR:lI INSTRUCTION:I
 LDECL::= LDECL:ldecl DECLARATION:decl1
 		{:
 			if (decl1 != null) ldecl.ajouter(decl1);
-			System.out.println("LDEC :"+ldecl);
+			//System.out.println("LDEC :"+ldecl);
 			RESULT = ldecl;
 		:}
 		| DECLARATION:decl2
@@ -142,7 +142,7 @@ LDECL::= LDECL:ldecl DECLARATION:decl1
 		:}
 		;
 
-LPARAM::= LPARAM:c POINTVIRGULE EXPR:e
+LPARAM::= LPARAM:c VIRGULE EXPR:e
 		{:
 		    c.add(e);
 			RESULT = c;
@@ -159,7 +159,7 @@ DECLARATION::= TYPE:t IDF:idf POINTVIRGULE
 			{: TableSymbole.getInstance().ajouter(new EntreeVariable(idf), new SymboleSimple(t)); :}
 			| FONC:fonc
 			{:
-				System.out.println("FONCTION");
+				//System.out.println("FONCTION");
 				RESULT = fonc;
 			:}
 			| TYPE:t CROOV EXPR:e CROOF IDF:idf POINTVIRGULE
@@ -187,7 +187,7 @@ INSTRUCTION::= AFFECT:aff
 		| RETOURNE EXPR:e POINTVIRGULE
 			{: RESULT=new RetourneFonction(e); :}*/
 		/*| IDF:i PAROUV PARFER POINTVIRGULE
-			{: System.out.println("test"); :}*/
+			{: //System.out.println("test"); :}*/
 		;
 
 EXPR::= EXPR:g PLUS EXPR:d
@@ -223,7 +223,7 @@ EXPR::= EXPR:g PLUS EXPR:d
 		| IDF:i PAROUV PARFER
 			{: RESULT=new AppelFonction(i, ileft); :}
 		| IDF:i PAROUV LPARAM:lp PARFER
-			{: System.out.println("LP");
+			{: //System.out.println("LP");
 			RESULT=new AppelFonction(i, ileft, lp); :}
 		| IDF:i
 			{: RESULT = new Variable(i, ileft+1); :}
@@ -289,25 +289,25 @@ CSTE::= CONSTANTEINT:cste
 
 FONC::= FONCTION IDF:nameFonc PAROUV LPARAMS:lp PARFER DEBUT LINSTR:lI RETOURNE EXPR:e POINTVIRGULE FIN
 		{:
-			System.out.println("Fonction avec paramètre et retour");
-			System.out.println("nbParams: "+lp);
+			//System.out.println("Fonction avec paramètre et retour");
+			//System.out.println("nbParams: "+lp);
 			TableSymbole.getInstance().entreeBloc();
-			System.out.println("numBloc "+TableSymbole.getInstance().getNoRegion());
+			//System.out.println("numBloc "+TableSymbole.getInstance().getNoRegion());
 			TableSymbole.getInstance().ajouter(new EntreeFonction(nameFonc, lp), new SymboleFonction("entier"));
 			RESULT = new FonctionsAvecParam(nameFonc, lI, lp, new RetourneFonction(nameFonc, e));
-			System.out.println("ttttest");
+			//System.out.println("ttttest");
 			TableSymbole.getInstance().sortieBloc();
-			System.out.println("numBloc "+TableSymbole.getInstance().getNoRegion());
+			//System.out.println("numBloc "+TableSymbole.getInstance().getNoRegion());
 		:}
  		| FONCTION IDF:nameFonc PAROUV PARFER DEBUT LINSTR:lI RETOURNE EXPR:e POINTVIRGULE FIN
 		{:
-			System.out.println("Fonction sans paramètre et retour");
+			//System.out.println("Fonction sans paramètre et retour");
 			TableSymbole.getInstance().ajouter(new EntreeFonction(nameFonc, 0), new SymboleFonction(null));
 			RESULT = new FonctionsSansParam(nameFonc, lI, new RetourneFonction(nameFonc, e));
 		:}
 		/*| FONCTION IDF:nameFonc PAROUV PARFER DEBUT LINSTR:lI FIN
 		{:
-			System.out.println("Fonction sans paramètre");
+			//System.out.println("Fonction sans paramètre");
 			TableSymbole.getInstance().ajouter(new EntreeFonction(nameFonc, 0), new SymboleFonction(null));
 			RESULT = new FonctionsSansParam(nameFonc, lI, null);
 		:}*/

@@ -22,7 +22,7 @@ public class AppelFonction extends Expression {
 
 	public AppelFonction(String idf, int no, ArrayList<Expression> params) {
 		this(idf, no);
-		System.out.println("blblblblblbl"+params);
+		//System.out.println("blblblblblbl"+params);
 		this.params = params;
 		type = "entier";
 	}

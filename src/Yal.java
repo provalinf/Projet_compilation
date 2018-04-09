@@ -37,12 +37,12 @@ public class Yal {
 			StringBuilder sb = new StringBuilder();
 			sb.append("move $s7, $sp\n");
 			//Allocation
-			sb.append("addi $sp, $sp, "+ TableSymbole.getInstance().getDep()+"\n");
 
 			// Déplacement
 			for (int i = 0; i > TableSymbole.getInstance().getDep(); i-=4) {
-				sb.append("sw $t8, "+i+"($s7)\n");
+				sb.append("sw $v0, "+i+"($s7)\n");
 			}
+			sb.append("addi $sp, $sp, "+ TableSymbole.getInstance().getDep()+"\n");
 
 			writer.write(sb.toString());
 			writer.write(arbre.toMIPS());

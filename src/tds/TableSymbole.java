@@ -2,9 +2,8 @@ package tds;
 
 import exceptions.AnalyseSemantiqueException;
 
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class TableSymbole {
 
@@ -57,7 +56,7 @@ public class TableSymbole {
 	public int getDep() {
 		int nbTab = (int) table.entrySet().stream().filter(map -> map.getValue().isTableau()).count();
 		int allTabSize = table.entrySet().stream().filter(map -> map.getValue().isTableau()).map(map -> ((SymboleTableau) map.getValue()).getTabSize()).mapToInt(Integer::intValue).sum();
-		System.out.println("nb tableau : " + nbTab + ", somme taille : " + allTabSize);
+		//System.out.println("nb tableau : " + nbTab + ", somme taille : " + allTabSize);
 		return (table.size() - nbTab + allTabSize) * -4;
 	}
 
