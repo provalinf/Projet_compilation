@@ -79,7 +79,7 @@ terminal String    TYPE, CONSTANTEINT, CONSTANTEBOOL, CSTECHAINE, IDF;
 /* Non terminals used in the grammar section.  */
 
 non terminal BlocDInstructions PROG, LINSTR, LDECL/*, DECL_VAR, DECL_FONCTION, RETOURNE*/;
-non terminal Instruction INSTRUCTION, AFFECT, ECRIRE, CONDITION, DECLARATION, BOUCLE, FONC;
+non terminal Instruction INSTRUCTION, AFFECT, AFFECTTAB, ECRIRE, CONDITION, DECLARATION, BOUCLE, FONC;
 non terminal Expression EXPR, CSTE;
 non terminal ArrayList<Expression> LPARAM;
 non terminal Integer LPARAMS;
@@ -161,11 +161,16 @@ DECLARATION::= TYPE:t IDF:idf POINTVIRGULE
 			{:
 				System.out.println("FONCTION");
 				RESULT = fonc;
-			 :}
+			:}
+			| TYPE:t CROOV EXPR:e CROOF IDF:idf POINTVIRGULE
+			{:
+				TableSymbole.getInstance().ajouter(new EntreeTableau(idf)
 			;
 
 INSTRUCTION::= AFFECT:aff
 			{: RESULT=aff; :}
+		| AFFECTTAB:aff
+			{: RESULT=aff :}
 		| BOUCLE:bou
 			{: RESULT=bou; :}
 		| CONDITION:con
@@ -213,20 +218,22 @@ EXPR::= EXPR:g PLUS EXPR:d
 		| PAROUV EXPR:e PARFER
 			{: RESULT = e; :}
 		| IDF:i PAROUV PARFER
-        	{: RESULT=new AppelFonction(i, ileft); :}
-        | IDF:i PAROUV LPARAM:lp PARFER
-        	{: System.out.println("LP");
-        	RESULT=new AppelFonction(i, ileft, lp); :}
+			{: RESULT=new AppelFonction(i, ileft); :}
+		| IDF:i PAROUV LPARAM:lp PARFER
+			{: System.out.println("LP");
+			RESULT=new AppelFonction(i, ileft, lp); :}
 		| IDF:i
 			{: RESULT = new Variable(i, ileft+1); :}
 		;
-
 
 AFFECT::= IDF:idf EGAL EXPR:e POINTVIRGULE
 		{:
 			RESULT = new Affectation(idf, e);
 		:}
 		;
+
+AFFECTTAB::= IDF:i CROOV EXPR:e1 CROOF EGAL EXPR:e2
+			{: RESULT = new AffectationTab(i, e1, e2); :}
 
 ECRIRE::= ECR EXPR:e POINTVIRGULE
 		{:

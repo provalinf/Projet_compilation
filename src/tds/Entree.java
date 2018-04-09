@@ -18,6 +18,10 @@ public abstract class Entree {
 		return false;
 	}
 
+	public boolean isTab() {
+		return false;
+	}
+
 	@Override
 	public String toString() {
 		return id;

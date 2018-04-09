@@ -59,9 +59,12 @@ commentaire = [/][/].* | [#].*
 
 "("                	{ return symbol(CodesLexicaux.PAROUV); }
 ")"                	{ return symbol(CodesLexicaux.PARFER); }
+"["                	{ return symbol(CodesLexicaux.CROOV); }
+"]"                	{ return symbol(CodesLexicaux.CROOF); }
 /*"{"                	{ return symbol(CodesLexicaux.ACCOUV); }
 "}"                	{ return symbol(CodesLexicaux.ACCFER); }*/
 
+","					{ return symbol(CodesLexicaux.VIRGULE); }
 ";"					{ return symbol(CodesLexicaux.POINTVIRGULE); }
 
 "tantque"			{ return symbol(CodesLexicaux.TANTQUE); }
