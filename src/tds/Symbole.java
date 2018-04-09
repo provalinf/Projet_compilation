@@ -34,4 +34,6 @@ public abstract class Symbole {
 	}
 
 	public abstract boolean isFonction();
+
+	public abstract boolean isTableau();
 }

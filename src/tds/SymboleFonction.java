@@ -13,4 +13,9 @@ public class SymboleFonction extends Symbole {
 	public boolean isFonction() {
 		return true;
 	}
+
+	@Override
+	public boolean isTableau() {
+		return false;
+	}
 }

@@ -12,4 +12,9 @@ public class SymboleSimple extends Symbole {
 	public boolean isFonction() {
 		return false;
 	}
+
+	@Override
+	public boolean isTableau() {
+		return false;
+	}
 }

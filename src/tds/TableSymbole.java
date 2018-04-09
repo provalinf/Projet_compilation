@@ -55,7 +55,10 @@ public class TableSymbole {
 	}
 
 	public int getDep() {
-		return table.size() * -4;
+		int nbTab = (int) table.entrySet().stream().filter(map -> map.getValue().isTableau()).count();
+		int allTabSize = table.entrySet().stream().filter(map -> map.getValue().isTableau()).map(map -> ((SymboleTableau) map.getValue()).getTabSize()).mapToInt(Integer::intValue).sum();
+		System.out.println("nb tableau : " + nbTab + ", somme taille : " + allTabSize);
+		return (table.size() - nbTab + allTabSize) * -4;
 	}
 
 	public int getNoRegion() {

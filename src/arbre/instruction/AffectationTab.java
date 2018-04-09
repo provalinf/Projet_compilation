@@ -2,10 +2,7 @@ package arbre.instruction;
 
 import arbre.expression.Expression;
 import exceptions.AnalyseSemantiqueException;
-import tds.EntreeTableau;
-import tds.EntreeVariable;
-import tds.Symbole;
-import tds.TableSymbole;
+import tds.*;
 
 public class AffectationTab extends Instruction {
 
@@ -26,13 +23,14 @@ public class AffectationTab extends Instruction {
 		symbole = TableSymbole.getInstance().identifier(new EntreeTableau(idf));
 		if (symbole == null)
 			throw new AnalyseSemantiqueException("Ligne " + getNoLigne() + " : Identifiant \"" + idf + "\" non déclaré");
-		if (!expr1.getType().equals(symbole.getType())) {
-			throw new AnalyseSemantiqueException("Ligne " + getNoLigne() + " : Type identifiant invalide");
-		} else if (!expr1.getType().equals(expr2.getType())) {
-			throw new AnalyseSemantiqueException("Ligne " + getNoLigne() + " : Type identifiant non identiques");
+		else if (!symbole.isTableau()) {
+			throw new AnalyseSemantiqueException("Ligne " + getNoLigne() + " :\"" + idf + "\" n'est pas un tableau");
 		}
-
-
+		if (!expr1.getType().equals("entier")) {
+			throw new AnalyseSemantiqueException("Ligne " + getNoLigne() + " : Position requise invalide");
+		} else if (!symbole.getType().equals(expr2.getType())) {
+			throw new AnalyseSemantiqueException("Ligne " + getNoLigne() + " : Types incompatibles");
+		}
 	}
 
 	@Override

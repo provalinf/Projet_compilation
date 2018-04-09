@@ -70,7 +70,7 @@ parser code {:
    
 /* Terminals (tokens returned by the scanner).  */
 
-terminal Symbol PROGRAMME, DEBUT, FIN, POINTVIRGULE, ECR, LIRE, TANTQUE, REPETER, FINTANTQUE, SI, ALORS, SINON, FINSI, FONCTION, RETOURNE;
+terminal Symbol PROGRAMME, DEBUT, FIN, POINTVIRGULE, VIRGULE, CROOV, CROOF, ECR, LIRE, TANTQUE, REPETER, FINTANTQUE, SI, ALORS, SINON, FINSI, FONCTION, RETOURNE;
 
 terminal Symbol    PLUS, MOINS, MULT, DIV, PAROUV, PARFER/*, ACCOUV, ACCFER*/;
 terminal Symbol    SUP, INF, EGAL, EGALEGAL, DIFF, ET, OU, NON;
@@ -162,15 +162,16 @@ DECLARATION::= TYPE:t IDF:idf POINTVIRGULE
 				System.out.println("FONCTION");
 				RESULT = fonc;
 			:}
-			| TYPE:t CROOV EXPR:e CROOF IDF:idf POINTVIRGULE
+			| TYPE:t CROOV CONSTANTEINT:ci CROOF IDF:idf POINTVIRGULE
 			{:
-				TableSymbole.getInstance().ajouter(new EntreeTableau(idf)
+				TableSymbole.getInstance().ajouter(new EntreeTableau(idf), new SymboleTableau(t, ci));
+			:}
 			;
 
 INSTRUCTION::= AFFECT:aff
 			{: RESULT=aff; :}
 		| AFFECTTAB:aff
-			{: RESULT=aff :}
+			{: RESULT=aff; :}
 		| BOUCLE:bou
 			{: RESULT=bou; :}
 		| CONDITION:con
@@ -232,8 +233,8 @@ AFFECT::= IDF:idf EGAL EXPR:e POINTVIRGULE
 		:}
 		;
 
-AFFECTTAB::= IDF:i CROOV EXPR:e1 CROOF EGAL EXPR:e2
-			{: RESULT = new AffectationTab(i, e1, e2); :}
+AFFECTTAB::= IDF:i CROOV EXPR:e1 CROOF EGAL EXPR:e2 POINTVIRGULE
+			{: RESULT = new AffectationTab(i, e1, e2); :};
 
 ECRIRE::= ECR EXPR:e POINTVIRGULE
 		{:
